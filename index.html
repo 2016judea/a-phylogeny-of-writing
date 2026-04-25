@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Idea Topology — Aidan</title>
+  <meta name="description" content="A phylogeny of writing, 2023–2026 — themes, essays, and the threads between them." />
+  <meta property="og:title" content="Idea Topology — Aidan" />
+  <meta property="og:description" content="A phylogeny of writing, 2023–2026" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ========================================
+       THEME — flat, editorial, warm-paper feel
+       ======================================== */
+    :root {
+      --bg-primary: #f7f3ec;
+      --bg-secondary: #f1ece2;
+      --text-primary: #1c1814;
+      --text-secondary: #5a544a;
+      --text-tertiary: #8b8478;
+      --border-tertiary: rgba(60, 50, 40, 0.12);
+      --border-secondary: rgba(60, 50, 40, 0.22);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #1a1714;
+        --bg-secondary: #221e1a;
+        --text-primary: #e8e2d4;
+        --text-secondary: #b8b0a0;
+        --text-tertiary: #807a6d;
+        --border-tertiary: rgba(230, 220, 200, 0.12);
+        --border-secondary: rgba(230, 220, 200, 0.22);
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'EB Garamond', Georgia, serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .page {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 48px 32px 64px;
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 32px 20px 48px; }
+    }
+
+    .site-header {
+      margin-bottom: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: -0.01em;
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+
+    .nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover { color: var(--text-primary); }
+
+    .topology-header {
+      padding: 0 4px 12px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .header-left { display: flex; flex-direction: column; gap: 2px; }
+
+    .header-eyebrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .header-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .header-stats {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .stat-num { color: var(--text-primary); font-weight: 500; }
+
+    .legend {
+      display: flex;
+      gap: 14px;
+      padding: 0 4px 14px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .legend-item.dim { opacity: 0.35; }
+
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      width: 100%;
+      height: min(78vh, 760px);
+      min-height: 540px;
+    }
+
+    @media (max-width: 640px) {
+      .canvas-wrap { height: 68vh; min-height: 460px; }
+      .header-title { font-size: 22px; }
+    }
+
+    .recenter-btn {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--bg-primary);
+      border: 0.5px solid var(--border-secondary);
+      border-radius: 999px;
+      padding: 6px 14px 6px 12px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 0.3s, transform 0.3s, color 0.2s, border-color 0.2s;
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .recenter-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .recenter-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    .recenter-arrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      font-style: normal;
+    }
+
+    canvas { display: block; width: 100%; height: 100%; }
+
+    .tooltip {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.18s;
+      background: var(--bg-primary);
+      border: 0.5px solid var(--border-secondary);
+      border-radius: 8px;
+      padding: 11px 14px;
+      max-width: 240px;
+      font-family: 'EB Garamond', Georgia, serif;
+      z-index: 10;
+    }
+
+    .tooltip.visible { opacity: 1; }
+
+    .tooltip-title {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.25;
+      margin-bottom: 5px;
+      font-style: italic;
+    }
+
+    .tooltip-meta {
+      font-size: 11px;
+      font-family: 'Geist Mono', monospace;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+
+    .tooltip-source {
+      display: inline-block;
+      padding: 1px 6px;
+      margin-right: 6px;
+      border-radius: 3px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-bar {
+      padding: 12px 4px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+      border-top: 0.5px solid var(--border-tertiary);
+      margin-top: 8px;
+    }
+
+    .footer-tip {
+      font-style: italic;
+      font-family: 'EB Garamond', serif;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .colophon {
+      margin-top: 80px;
+      padding-top: 32px;
+      border-top: 0.5px solid var(--border-tertiary);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 580px;
+    }
+
+    .colophon p { margin-bottom: 14px; }
+
+    .colophon a {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-decoration-thickness: 0.5px;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--border-secondary);
+      transition: text-decoration-color 0.2s;
+    }
+
+    .colophon a:hover { text-decoration-color: var(--text-primary); }
+
+    .colophon-meta {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <span class="brand">aidan</span>
+      <nav class="nav">
+        <a href="https://aidan.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+        <a href="#colophon">about</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="topology-header">
+        <div class="header-left">
+          <span class="header-eyebrow">idea topology</span>
+          <span class="header-title">a phylogeny of writing, 2023–2026</span>
+        </div>
+        <div class="header-stats" id="stats"></div>
+      </div>
+
+      <div class="legend" id="legend"></div>
+
+      <div class="canvas-wrap">
+        <canvas id="c"></canvas>
+        <button class="recenter-btn" id="recenter-btn" aria-label="Return to overview">
+          <span class="recenter-arrow">←</span> back to aidan
+        </button>
+        <div class="tooltip" id="tip">
+          <div class="tooltip-title" id="tip-title"></div>
+          <div class="tooltip-meta" id="tip-meta"></div>
+        </div>
+      </div>
+
+      <div class="footer-bar">
+        <span>hover · drift · let the canopy breathe</span>
+        <span class="footer-tip">click a theme to isolate</span>
+      </div>
+
+      <section id="colophon" class="colophon">
+        <p>
+          What you're looking at is a map of every essay, journal entry, poem, and note
+          I've kept since 2023 — clustered by theme, threaded by association.
+          The branches are the dominant currents in my thinking; the leaves are
+          individual pieces; the dashed connections are where one idea bleeds into another.
+        </p>
+        <p>
+          The dominant themes are <em>reaching</em> (ambition, scale, ad astra),
+          <em>mind &amp; machine</em> (AI, intelligence, cognition),
+          <em>inner weather</em> (solitude, self-knowledge),
+          <em>inheritance &amp; time</em> (legacy, generational structures),
+          <em>place &amp; encounter</em> (landscape, travel, observation), and
+          <em>the examined day</em> (philosophy, society, criticism).
+        </p>
+        <p>
+          The full essays live on <a href="https://aidan.substack.com/" target="_blank" rel="noopener">my Substack</a>.
+        </p>
+        <div class="colophon-meta">
+          built with html canvas · no tracking · view source if you're curious
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // ============================================================
+    // THEMES — clustered from the Notion writing_library corpus
+    // ============================================================
+    const THEMES = [
+      { id: 'reaching', label: 'reaching / ad astra',  color: '#A87B5C', light: '#D2B097', accent: '#7C5536' },
+      { id: 'mind',     label: 'mind & machine',       color: '#5B7A9E', light: '#9DB6CE', accent: '#3F5773' },
+      { id: 'inner',    label: 'inner weather',        color: '#6B8B6B', light: '#A8C0A4', accent: '#4A6649' },
+      { id: 'time',     label: 'inheritance & time',   color: '#9C6A8A', light: '#C49AB1', accent: '#6E4A60' },
+      { id: 'place',    label: 'place & encounter',    color: '#B8924E', light: '#D9B884', accent: '#856830' },
+      { id: 'examined', label: 'the examined day',     color: '#7E6FA0', light: '#B2A5C8', accent: '#574B73' },
+    ];
+
+    // ============================================================
+    // CORPUS — pruned to the strongest signal: poetry, Substack essays,
+    // landmark journals. Loose notes mostly removed to let the canopy breathe.
+    // ============================================================
+    const CORPUS = [
+      // reaching — all poetry + landmark essays
+      { id: 'r1',  title: 'Ad Astra',                       theme: 'reaching', source: 'poetry',   date: '2023-10-01', weight: 3 },
+      { id: 'r2',  title: 'Tumbling Astronauts',            theme: 'reaching', source: 'poetry',   date: '2023-09-06', weight: 3 },
+      { id: 'r3',  title: 'Ambition',                       theme: 'reaching', source: 'poetry',   date: '2024-05-08', weight: 3 },
+      { id: 'r4',  title: 'Hang High the Roof Beams',       theme: 'reaching', source: 'poetry',   date: '2023-08-19', weight: 3 },
+      { id: 'r5',  title: 'The Merchant Ship',              theme: 'reaching', source: 'poetry',   date: '2023-11-08', weight: 3 },
+      { id: 'r6',  title: 'Move Cross Country',             theme: 'reaching', source: 'poetry',   date: '2023-08-19', weight: 3 },
+      { id: 'r7',  title: "Substack — Startups & Scale",    theme: 'reaching', source: 'substack', date: '2024-08-01', weight: 4 },
+      { id: 'r8',  title: "November '24 — Follow Talent",   theme: 'reaching', source: 'substack', date: '2024-11-01', weight: 4 },
+
+      // mind — essays only, drop the loose notes
+      { id: 'm1',  title: "October '23 — AI Ancestor",      theme: 'mind', source: 'substack', date: '2023-10-01', weight: 4 },
+      { id: 'm2',  title: "May '24 — AGI & The Apple",      theme: 'mind', source: 'substack', date: '2024-05-01', weight: 4 },
+      { id: 'm3',  title: "August '23 — AI & The Brain",    theme: 'mind', source: 'substack', date: '2023-08-01', weight: 4 },
+      { id: 'm4',  title: "October '24 — Few Understand",   theme: 'mind', source: 'substack', date: '2024-10-01', weight: 4 },
+      { id: 'm5',  title: 'The AI Bubble',                  theme: 'mind', source: 'substack', date: '2025-02-01', weight: 4 },
+      { id: 'm8',  title: "January '25 — Beyond Bounds",    theme: 'mind', source: 'substack', date: '2025-01-15', weight: 4 },
+
+      // inner — essays + poetry + key journals
+      { id: 'i1',  title: "March '24 — Days Alone",         theme: 'inner', source: 'substack', date: '2024-03-01', weight: 4 },
+      { id: 'i4',  title: 'Life Philosophy',                theme: 'inner', source: 'notes',    date: '2024-11-02', weight: 2 },
+      { id: 'i7',  title: "September '25",                  theme: 'inner', source: 'substack', date: '2025-09-01', weight: 4 },
+      { id: 'i9',  title: 'After Dark',                     theme: 'inner', source: 'poetry',   date: '2023-10-05', weight: 3 },
+      { id: 'i10', title: "October '24 — Stuck in the Present", theme: 'inner', source: 'substack', date: '2024-10-15', weight: 4 },
+      { id: 'i11', title: 'Coors Banquet & rainbow trout',  theme: 'inner', source: 'poetry',   date: '2024-04-12', weight: 3 },
+
+      // time — essays + poetry, drop Hegel notes
+      { id: 't1',  title: "March '24 — Legacy Thinking",    theme: 'time', source: 'substack', date: '2024-03-15', weight: 4 },
+      { id: 't2',  title: "December '24 — Black Holes",     theme: 'time', source: 'substack', date: '2024-12-01', weight: 4 },
+      { id: 't3',  title: "December '23 — Why We Wait",     theme: 'time', source: 'substack', date: '2023-12-01', weight: 4 },
+      { id: 't4',  title: "August '24 — Outdated 1950s",    theme: 'time', source: 'substack', date: '2024-08-15', weight: 4 },
+      { id: 't6',  title: 'MAR 26 — Spirit',                theme: 'time', source: 'substack', date: '2026-03-01', weight: 4 },
+      { id: 't8',  title: "September '23 — Stars Falling",  theme: 'time', source: 'substack', date: '2023-09-01', weight: 4 },
+      { id: 't9',  title: 'Maple Leaves',                   theme: 'time', source: 'poetry',   date: '2024-05-08', weight: 3 },
+
+      // place — essays + poetry
+      { id: 'p2',  title: "January '25 — Desert Town",      theme: 'place', source: 'substack', date: '2025-01-01', weight: 4 },
+      { id: 'p3',  title: "August '23 — 800 Years",         theme: 'place', source: 'substack', date: '2023-08-15', weight: 4 },
+      { id: 'p4',  title: 'Italia',                         theme: 'place', source: 'substack', date: '2024-09-15', weight: 4 },
+      { id: 'p6',  title: 'One Mountain, Four Angels',      theme: 'place', source: 'poetry',   date: '2023-10-01', weight: 3 },
+      { id: 'p7',  title: 'Parallel Rails',                 theme: 'place', source: 'poetry',   date: '2023-09-16', weight: 3 },
+      { id: 'p8',  title: 'Portal',                         theme: 'place', source: 'poetry',   date: '2024-03-09', weight: 3 },
+      { id: 'p9',  title: 'The Fair',                       theme: 'place', source: 'poetry',   date: '2023-10-01', weight: 3 },
+      { id: 'p11', title: "January '24 — Amsterdam",        theme: 'place', source: 'substack', date: '2024-01-15', weight: 4 },
+
+      // examined — essays only
+      { id: 'e3',  title: "June '23 — Metaphysics",         theme: 'examined', source: 'substack', date: '2023-06-01', weight: 4 },
+      { id: 'e4',  title: "April '24 — Social Media",       theme: 'examined', source: 'substack', date: '2024-04-01', weight: 4 },
+      { id: 'e5',  title: "March '23 — Rawls' Veil",        theme: 'examined', source: 'substack', date: '2023-03-01', weight: 4 },
+      { id: 'e7',  title: "September '23 — Bonds",          theme: 'examined', source: 'substack', date: '2023-09-15', weight: 4 },
+      { id: 'e8',  title: "April '25 — Amazon Logistics",   theme: 'examined', source: 'substack', date: '2025-04-01', weight: 4 },
+      { id: 'e9',  title: "February '23 — Spy Balloons",    theme: 'examined', source: 'substack', date: '2023-02-15', weight: 4 },
+    ];
+
+    // ============================================================
+    // CROSS-THEME LINKS — convergent ideas across clusters
+    // (filtered to only include surviving nodes)
+    // ============================================================
+    const CROSS_LINKS = [
+      ['r1', 't8'], ['r2', 'm2'], ['r3', 'r7'],
+      ['m1', 't1'],
+      ['i1', 'p2'], ['i7', 't1'],
+      ['t4', 'e9'], ['t8', 'p6'],
+      ['e3', 'i4'],
+      ['t6', 'i7'],
+      ['m8', 'r1'], ['p8', 'r2'],
+      ['t2', 'r1'],
+      ['p3', 't1'],
+      ['p11', 'i1'],
+      ['e5', 'e3'],
+      ['i10', 'i4'],
+      ['p4', 't4'],
+    ];
+
+    // ============================================================
+    // SETUP
+    // ============================================================
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const tip = document.getElementById('tip');
+    const tipTitle = document.getElementById('tip-title');
+    const tipMeta = document.getElementById('tip-meta');
+
+    let W, H, dpr;
+    let positions = {};
+    let hovered = null;
+    let activeTheme = null;
+    let focusedTheme = null;  // when set, this theme becomes the center
+    let animFrame;
+    let t = 0;
+    let dark = matchMedia('(prefers-color-scheme: dark)').matches;
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => { dark = e.matches; });
+
+    const MARGIN_X = 90;
+    const MARGIN_Y_TOP = 50;
+    const MARGIN_Y_BOTTOM = 60;
+
+    // Stats
+    const totalEntries = CORPUS.length;
+    const sourceTotals = CORPUS.reduce((acc, n) => { acc[n.source] = (acc[n.source]||0)+1; return acc; }, {});
+    document.getElementById('stats').innerHTML =
+      '<span class="stat-num">' + totalEntries + '</span> entries · ' +
+      '<span class="stat-num">' + THEMES.length + '</span> themes · ' +
+      '<span class="stat-num">' + Object.keys(sourceTotals).length + '</span> forms';
+
+    // Legend
+    const legendEl = document.getElementById('legend');
+    THEMES.forEach(th => {
+      const item = document.createElement('div');
+      item.className = 'legend-item';
+      item.dataset.theme = th.id;
+      const count = CORPUS.filter(n => n.theme === th.id).length;
+      item.innerHTML = '<div class="legend-dot" style="background:' + th.color + '"></div>' +
+        th.label + ' <span style="opacity:0.6;margin-left:2px">·' + count + '</span>';
+      item.onclick = () => {
+        activeTheme = activeTheme === th.id ? null : th.id;
+        document.querySelectorAll('.legend-item').forEach(el => {
+          el.classList.toggle('dim', activeTheme && el.dataset.theme !== activeTheme);
+        });
+      };
+      legendEl.appendChild(item);
+    });
+
+    function themeColor(themeId, alpha) {
+      if (alpha === undefined) alpha = 1;
+      const th = THEMES.find(x => x.id === themeId);
+      if (!th) return 'rgba(120,120,120,' + alpha + ')';
+      const hex = dark ? th.light : th.color;
+      const r = parseInt(hex.slice(1,3), 16);
+      const g = parseInt(hex.slice(3,5), 16);
+      const b = parseInt(hex.slice(5,7), 16);
+      return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+    }
+
+    function themeAccent(themeId) {
+      const th = THEMES.find(x => x.id === themeId);
+      return dark ? th.light : th.accent;
+    }
+
+    function resize() {
+      dpr = window.devicePixelRatio || 1;
+      const wrap = canvas.parentElement;
+      W = wrap.offsetWidth;
+      H = wrap.offsetHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+      initPositions();
+    }
+
+    // Deterministic-ish jitter from id (so re-renders are stable)
+    function hashFloat(seed) {
+      let h = 2166136261;
+      for (let i = 0; i < seed.length; i++) {
+        h ^= seed.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return ((h >>> 0) % 10000) / 10000;
+    }
+
+    function initPositions() {
+      positions = {};
+      const cx = W / 2;
+      const cy = H / 2;
+      const maxR = Math.min(
+        (W - 2 * MARGIN_X) / 2,
+        (H - MARGIN_Y_TOP - MARGIN_Y_BOTTOM) / 2
+      );
+
+      // ── OVERVIEW MODE: aidan at center, themes orbit at ~50% radius ──
+      if (!focusedTheme) {
+        positions['__root'] = { x: cx, y: cy, isRoot: true };
+
+        const N = THEMES.length;
+        const startAngle = -Math.PI / 2;
+        const baseR = maxR * 0.5;
+
+        THEMES.forEach((th, i) => {
+          const angle = startAngle + (i / N) * Math.PI * 2;
+          positions['__' + th.id] = {
+            x: cx + Math.cos(angle) * baseR,
+            y: cy + Math.sin(angle) * baseR,
+            isTheme: true,
+            themeId: th.id,
+            angle: angle,
+            baseR: baseR
+          };
+        });
+
+        placeLeaves();
+        return;
+      }
+
+      // ── FOCUS MODE: a single theme becomes the center ──
+      // The focused theme sits at center. The other themes drift to the edges
+      // as faint satellites — context but not competition.
+      const focused = THEMES.find(t => t.id === focusedTheme);
+      const others = THEMES.filter(t => t.id !== focusedTheme);
+
+      // Hide root in focus mode (the focused theme replaces it conceptually)
+      positions['__root'] = { x: cx, y: cy, isRoot: true, hidden: true };
+
+      // Focused theme at center
+      positions['__' + focused.id] = {
+        x: cx, y: cy,
+        isTheme: true,
+        themeId: focused.id,
+        angle: 0,
+        baseR: 0,
+        isFocus: true
+      };
+
+      // Other themes pushed to the perimeter
+      const satelliteR = maxR * 0.92;
+      const startAngle = -Math.PI / 2;
+      others.forEach((th, i) => {
+        const angle = startAngle + (i / others.length) * Math.PI * 2;
+        positions['__' + th.id] = {
+          x: cx + Math.cos(angle) * satelliteR,
+          y: cy + Math.sin(angle) * satelliteR,
+          isTheme: true,
+          themeId: th.id,
+          angle: angle,
+          baseR: satelliteR,
+          isSatellite: true
+        };
+      });
+
+      placeLeaves();
+    }
+
+    // Place leaves around their theme nodes with organic variance.
+    // Stable across renders (deterministic from id) but irregularly spaced
+    // so it doesn't read as a perfect spoke pattern.
+    function placeLeaves() {
+      const byTheme = {};
+      CORPUS.forEach(n => {
+        if (!byTheme[n.theme]) byTheme[n.theme] = [];
+        byTheme[n.theme].push(n);
+      });
+
+      Object.keys(byTheme).forEach(themeId => {
+        const tp = positions['__' + themeId];
+        const leaves = byTheme[themeId];
+
+        // Determine the wedge available for this theme's leaves
+        let wedge, baseAngle, minDist, distRange;
+
+        if (tp.isFocus) {
+          // Focused theme: leaves spread across full 360° around the new center
+          wedge = Math.PI;
+          baseAngle = 0;
+          minDist = 90;
+          distRange = 130;
+        } else if (tp.isSatellite) {
+          // Satellite themes: leaves cluster tightly around them, pointing outward
+          wedge = 0.6;
+          baseAngle = tp.angle;
+          minDist = 35;
+          distRange = 30;
+        } else {
+          // Overview mode: leaves fan into the theme's natural wedge
+          wedge = 0.5;
+          baseAngle = tp.angle;
+          minDist = 70;
+          distRange = 60;
+        }
+
+        leaves.forEach((n, i) => {
+          // Base angular position spread evenly across the wedge
+          const u = leaves.length === 1 ? 0.5 : i / (leaves.length - 1);
+          // Two stable random offsets per leaf for organic placement
+          const angularJitter = (hashFloat(n.id + '_aj') - 0.5) * (wedge * 0.4);
+          const radialJitter = hashFloat(n.id + '_rj');
+
+          const leafAngle = baseAngle + (u - 0.5) * 2 * wedge + angularJitter;
+
+          // Some leaves are "outliers" that sit further from the cluster center
+          // — this is the organic feel: not every idea is the same distance from
+          // its theme. Higher-weight (essays) tend to sit closer; light leaves drift.
+          const isOutlier = hashFloat(n.id + '_o') > 0.78;
+          const outlierBoost = isOutlier ? 25 + hashFloat(n.id + '_ob') * 25 : 0;
+
+          const dist = minDist + n.weight * 8 + radialJitter * distRange + outlierBoost;
+
+          positions[n.id] = {
+            x: tp.x + Math.cos(leafAngle) * dist,
+            y: tp.y + Math.sin(leafAngle) * dist,
+            phase: hashFloat(n.id + '_p') * Math.PI * 2,
+            speed: 0.7 + hashFloat(n.id + '_s') * 0.5,
+            amp: 4 + hashFloat(n.id + '_a') * 4,
+            satellite: tp.isSatellite,
+            node: n
+          };
+        });
+      });
+    }
+
+    // No force simulation. Layout computes once and freezes.
+    // What follows is purely decorative drift applied at draw time —
+    // tiny per-node oscillation around the fixed position.
+
+    function curvedPath(ax, ay, bx, by, curveAmount) {
+      if (curveAmount === undefined) curveAmount = 0.3;
+      const mx = (ax + bx) / 2;
+      const my = (ay + by) / 2;
+      const dx = bx - ax;
+      const dy = by - ay;
+      const len = Math.sqrt(dx*dx + dy*dy) + 0.001;
+      const ox = -dy/len * curveAmount * len * 0.15;
+      const oy = dx/len * curveAmount * len * 0.15;
+      return { cpx: mx + ox, cpy: my + oy };
+    }
+
+    function isFaded(themeId) {
+      return activeTheme && themeId !== activeTheme;
+    }
+
+    // Decorative drift — slow, gentle, returns the visible (rendered) position
+    // for any node. Theme nodes breathe radially outward; leaves drift in 2D.
+    function rendered(id) {
+      const p = positions[id];
+      if (!p) return null;
+      if (p.isRoot) {
+        return { x: p.x, y: p.y };
+      }
+      if (p.isTheme) {
+        // Theme nodes breathe — slowly expand and contract along their outward axis
+        // so the whole canopy feels like it's inhaling
+        const breath = Math.sin(t * 0.5 + p.angle * 1.5) * 5;
+        return {
+          x: p.x + Math.cos(p.angle) * breath,
+          y: p.y + Math.sin(p.angle) * breath
+        };
+      }
+      // Leaves: Lissajous-like drift, each at its own phase/speed/amplitude
+      const ox = Math.cos(t * p.speed + p.phase) * p.amp;
+      const oy = Math.sin(t * p.speed * 0.7 + p.phase) * p.amp;
+      return { x: p.x + ox, y: p.y + oy };
+    }
+
+    // Tempo: noticeable but unhurried. Full leaf orbit ~10–14 seconds.
+    const TIME_STEP = 0.005;
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      t += TIME_STEP;
+
+      // 1. Cross-theme links
+      CROSS_LINKS.forEach(pair => {
+        const aId = pair[0], bId = pair[1];
+        const a = rendered(aId);
+        const b = rendered(bId);
+        if (!a || !b) return;
+        const aNode = positions[aId].node;
+        const bNode = positions[bId].node;
+        const faded = isFaded(aNode.theme) && isFaded(bNode.theme);
+
+        const cp = curvedPath(a.x, a.y, b.x, b.y, 0.6);
+
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.quadraticCurveTo(cp.cpx, cp.cpy, b.x, b.y);
+        ctx.strokeStyle = dark
+          ? 'rgba(220,220,210,' + (faded ? 0.04 : 0.13) + ')'
+          : 'rgba(80,70,55,' + (faded ? 0.04 : 0.13) + ')';
+        ctx.lineWidth = 0.6;
+        ctx.setLineDash([2.5, 4]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+
+      // 2. Root → theme branches (only in overview mode)
+      if (!focusedTheme) {
+        THEMES.forEach(th => {
+          const r = rendered('__root');
+          const p = rendered('__' + th.id);
+          const faded = isFaded(th.id);
+
+          const cp = curvedPath(r.x, r.y, p.x, p.y, 0.4);
+          ctx.beginPath();
+          ctx.moveTo(r.x, r.y);
+          ctx.quadraticCurveTo(cp.cpx, cp.cpy, p.x, p.y);
+          ctx.strokeStyle = themeColor(th.id, faded ? 0.2 : 0.7);
+          ctx.lineWidth = 2.2;
+          ctx.lineCap = 'round';
+          ctx.stroke();
+        });
+      }
+
+      // 3. Theme → leaf branches
+      CORPUS.forEach(n => {
+        const tp = rendered('__' + n.theme);
+        const np = rendered(n.id);
+        const faded = isFaded(n.theme);
+        const isSatellite = positions[n.id].satellite;
+        // Satellite leaves get much fainter branches — they're context, not focus
+        const branchAlpha = faded ? 0.05 : (isSatellite ? 0.18 : 0.4);
+
+        const cp = curvedPath(tp.x, tp.y, np.x, np.y, 0.3);
+        ctx.beginPath();
+        ctx.moveTo(tp.x, tp.y);
+        ctx.quadraticCurveTo(cp.cpx, cp.cpy, np.x, np.y);
+        ctx.strokeStyle = themeColor(n.theme, branchAlpha);
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      });
+
+      // 4. Theme nodes
+      THEMES.forEach((th, idx) => {
+        const themePos = positions['__' + th.id];
+        const p = rendered('__' + th.id);
+        const isHov = hovered === '__' + th.id;
+        const isFocus = themePos.isFocus;
+        const isSatellite = themePos.isSatellite;
+        // Heartbeat: focused theme pulses bigger, satellites smaller
+        const pulseAmt = isFocus ? 0.09 : (isSatellite ? 0.04 : 0.07);
+        const pulse = 1 + pulseAmt * Math.sin(t * 0.8 + idx * 1.2);
+        const faded = isFaded(th.id);
+        const baseR = isFocus ? 18 : (isSatellite ? 9 : 12);
+        const r = (isHov ? baseR + 2 : baseR) * pulse;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, r + 6, 0, Math.PI * 2);
+        ctx.fillStyle = themeColor(th.id, faded ? 0.04 : 0.12);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+        ctx.fillStyle = themeColor(th.id, faded ? 0.3 : 1);
+        ctx.fill();
+
+        ctx.fillStyle = dark ? 'rgba(20,18,15,0.85)' : 'rgba(255,253,248,0.95)';
+        ctx.font = "500 9px 'Geist Mono', monospace";
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(th.id.slice(0,1).toUpperCase(), p.x, p.y + 0.5);
+
+        if (!faded) {
+          // Focused theme: label below the central node, larger, italic
+          if (isFocus) {
+            ctx.fillStyle = dark ? 'rgba(232,226,212,0.95)' : 'rgba(28,24,20,0.95)';
+            ctx.font = "italic 500 14px 'EB Garamond', serif";
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+            ctx.fillText(th.label, p.x, p.y + r + 8);
+          } else {
+            // Satellite or overview theme: label projects radially outward
+            ctx.fillStyle = isSatellite
+              ? (dark ? 'rgba(220,215,205,0.45)' : 'rgba(60,55,45,0.45)')
+              : (dark ? 'rgba(220,215,205,0.7)' : 'rgba(60,55,45,0.7)');
+            ctx.font = "400 10px 'Geist Mono', monospace";
+            const angle = themePos.angle;
+            const labelDist = r + 16;
+            const lx = p.x + Math.cos(angle) * labelDist;
+            const ly = p.y + Math.sin(angle) * labelDist;
+            if (Math.cos(angle) > 0.3) {
+              ctx.textAlign = 'left';
+            } else if (Math.cos(angle) < -0.3) {
+              ctx.textAlign = 'right';
+            } else {
+              ctx.textAlign = 'center';
+            }
+            ctx.textBaseline = 'middle';
+            ctx.fillText(th.label, lx, ly);
+          }
+        }
+      });
+
+      // 5. Leaf nodes
+      CORPUS.forEach(n => {
+        const p = rendered(n.id);
+        const isHov = hovered === n.id;
+        const faded = isFaded(n.theme);
+        const isSatellite = positions[n.id].satellite;
+
+        const sizeMap = { poetry: 5, substack: 5.5, journal: 4, notes: 3.5, short_story: 5, novel: 5, project: 4 };
+        const baseSize = sizeMap[n.source] || 4;
+        // Satellite leaves render smaller — context, not focus
+        const sizeMul = isSatellite ? 0.65 : 1;
+        const r = (isHov ? baseSize + 3 : baseSize) * sizeMul;
+
+        ctx.beginPath();
+        if (n.source === 'poetry') {
+          ctx.moveTo(p.x, p.y - r);
+          ctx.lineTo(p.x + r, p.y);
+          ctx.lineTo(p.x, p.y + r);
+          ctx.lineTo(p.x - r, p.y);
+          ctx.closePath();
+        } else if (n.source === 'notes') {
+          ctx.rect(p.x - r * 0.8, p.y - r * 0.8, r * 1.6, r * 1.6);
+        } else {
+          ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+        }
+
+        // Satellite leaves are visibly muted
+        const fillAlpha = faded ? 0.15 : (isSatellite ? 0.4 : (isHov ? 1 : 0.85));
+        const strokeAlpha = faded ? 0.08 : (isSatellite ? 0.25 : 0.5);
+        ctx.fillStyle = themeColor(n.theme, fillAlpha);
+        ctx.fill();
+        ctx.strokeStyle = themeColor(n.theme, strokeAlpha);
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+
+        if (isHov && !faded) {
+          ctx.fillStyle = dark ? 'rgba(240,235,225,0.95)' : 'rgba(30,25,20,0.92)';
+          ctx.font = "italic 400 12px 'EB Garamond', serif";
+          ctx.textBaseline = 'top';
+
+          const textWidth = ctx.measureText(n.title).width;
+          const halfText = textWidth / 2;
+          let labelX = p.x;
+          let align = 'center';
+          if (labelX + halfText > W - 6) {
+            labelX = W - 6;
+            align = 'right';
+          } else if (labelX - halfText < 6) {
+            labelX = 6;
+            align = 'left';
+          }
+          ctx.textAlign = align;
+          ctx.fillText(n.title, labelX, p.y + r + 4);
+        }
+      });
+
+      // 6. Root (overview mode only)
+      if (!focusedTheme) {
+        const rp = rendered('__root');
+        ctx.beginPath();
+        ctx.arc(rp.x, rp.y, 22, 0, Math.PI * 2);
+        ctx.strokeStyle = dark ? 'rgba(230,225,215,0.25)' : 'rgba(60,50,40,0.22)';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(rp.x, rp.y, 16, 0, Math.PI * 2);
+        ctx.fillStyle = dark ? '#e8e2d4' : '#1c1814';
+        ctx.fill();
+
+        ctx.fillStyle = dark ? '#1c1814' : '#f5f0e6';
+        ctx.font = "italic 400 11px 'EB Garamond', serif";
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('aidan', rp.x, rp.y + 0.5);
+      }
+
+      animFrame = requestAnimationFrame(draw);
+    }
+
+    // Mouse / touch interaction
+    function handlePoint(mx, my) {
+      let found = null;
+      let foundData = null;
+
+      for (const n of CORPUS) {
+        const p = rendered(n.id);
+        const dx = p.x - mx, dy = p.y - my;
+        if (dx*dx + dy*dy < 144) {
+          found = n.id;
+          foundData = { kind: 'leaf', node: n };
+          break;
+        }
+      }
+
+      if (!found) {
+        for (const th of THEMES) {
+          const p = rendered('__' + th.id);
+          const dx = p.x - mx, dy = p.y - my;
+          if (dx*dx + dy*dy < 256) {
+            found = '__' + th.id;
+            foundData = { kind: 'theme', theme: th };
+            break;
+          }
+        }
+      }
+
+      hovered = found;
+
+      if (foundData) {
+        if (foundData.kind === 'leaf') {
+          const n = foundData.node;
+          tipTitle.textContent = n.title;
+          const dateStr = n.date ? new Date(n.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' }) : '';
+          tipMeta.innerHTML =
+            '<span class="tooltip-source" style="background:' + themeColor(n.theme, 0.2) + ';color:' + themeAccent(n.theme) + '">' + n.source + '</span>' +
+            dateStr;
+        } else {
+          const th = foundData.theme;
+          const count = CORPUS.filter(n => n.theme === th.id).length;
+          tipTitle.textContent = th.label;
+          tipMeta.innerHTML = '<span style="color:' + themeAccent(th.id) + '">theme cluster</span> · ' + count + ' entries';
+        }
+
+        let tx = mx + 16;
+        let ty = my - 8;
+        if (tx + 250 > W) tx = mx - 260;
+        if (ty < 10) ty = 10;
+        tip.style.left = tx + 'px';
+        tip.style.top = ty + 'px';
+        tip.classList.add('visible');
+        canvas.style.cursor = 'pointer';
+      } else {
+        tip.classList.remove('visible');
+        canvas.style.cursor = 'default';
+      }
+    }
+
+    canvas.addEventListener('mousemove', e => {
+      const rect = canvas.getBoundingClientRect();
+      handlePoint(e.clientX - rect.left, e.clientY - rect.top);
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      hovered = null;
+      tip.classList.remove('visible');
+    });
+
+    canvas.addEventListener('touchstart', e => {
+      if (e.touches.length === 0) return;
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      handlePoint(touch.clientX - rect.left, touch.clientY - rect.top);
+    }, { passive: true });
+
+    // Click on a theme to focus it; click on a non-theme empty area exits focus
+    canvas.addEventListener('click', e => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+
+      // First check theme hits (larger hit radius)
+      for (const th of THEMES) {
+        const p = rendered('__' + th.id);
+        const dx = p.x - mx, dy = p.y - my;
+        if (dx*dx + dy*dy < 400) {
+          // Toggle: clicking the focused theme returns to overview
+          if (focusedTheme === th.id) {
+            setFocus(null);
+          } else {
+            setFocus(th.id);
+          }
+          return;
+        }
+      }
+
+      // Click on root in overview mode does nothing
+      // Click on empty area in focus mode could exit, but we'll let the button handle that
+    });
+
+    function setFocus(themeId) {
+      focusedTheme = themeId;
+      // Show/hide recenter button
+      const btn = document.getElementById('recenter-btn');
+      if (themeId) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+      initPositions();
+    }
+
+    document.getElementById('recenter-btn').addEventListener('click', () => {
+      setFocus(null);
+    });
+
+    // Keyboard escape exits focus
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && focusedTheme) {
+        setFocus(null);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      cancelAnimationFrame(animFrame);
+      resize();
+      draw();
+    });
+
+    resize();
+    draw();
+  </script>
+</body>
+</html>
