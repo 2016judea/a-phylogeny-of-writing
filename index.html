@@ -393,7 +393,7 @@
 
       <div class="footer-bar">
         <span>hover · drift · let the canopy breathe</span>
-        <span class="footer-tip">click a theme to isolate</span>
+        <span class="footer-tip">click a theme to focus</span>
       </div>
 
       <section id="colophon" class="colophon">
@@ -526,21 +526,18 @@
     let positions = {};
     let hovered = null;
     let activeTheme = null;
-    let focusedTheme = null;  // when set, this theme becomes the center
+    let focusedTheme = null;
     let animFrame;
     let t = 0;
-    let isNarrow = false;  // mobile-narrow rendering flag
+    let isNarrow = false;
     let dark = matchMedia('(prefers-color-scheme: dark)').matches;
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => { dark = e.matches; });
 
-    // Margins become percentages of canvas size so the topology adapts to phones.
-    // Values are computed per-resize in resize().
     let MARGIN_X = 90;
     let MARGIN_Y_TOP = 50;
     let MARGIN_Y_BOTTOM = 60;
-    // Touch-friendly hit radius scales up on narrow screens
-    let HIT_LEAF = 144;     // (12px)^2
-    let HIT_THEME = 400;    // (20px)^2
+    let HIT_LEAF = 144;
+    let HIT_THEME = 400;
 
     // Stats
     const totalEntries = CORPUS.length;
@@ -1015,10 +1012,32 @@
       animFrame = requestAnimationFrame(draw);
     }
 
-    // Mouse / touch interaction
+    // ── TOOLTIP POSITIONING ───────────────────────────────────
+    // Keeps tooltip fully inside canvas bounds, flipping as needed.
+    function positionTooltip(nodeX, nodeY) {
+      const tipW = isNarrow ? 204 : 264;
+      const tipH = 68;
+      const pad = 10;
+      const offset = 14;
+
+      // Horizontal: prefer right of node, flip left if overflow
+      let tx = nodeX + offset;
+      if (tx + tipW + pad > W) tx = nodeX - offset - tipW;
+      tx = Math.max(pad, Math.min(W - tipW - pad, tx));
+
+      // Vertical: centre on node, clamp to canvas
+      let ty = nodeY - tipH / 2;
+      ty = Math.max(pad, Math.min(H - tipH - pad, ty));
+
+      tip.style.left = tx + 'px';
+      tip.style.top = ty + 'px';
+    }
+
+    // ── HIT TESTING ───────────────────────────────────────────
     function handlePoint(mx, my) {
       let found = null;
       let foundData = null;
+      let foundX = 0, foundY = 0;
 
       for (const n of CORPUS) {
         const p = rendered(n.id);
@@ -1026,6 +1045,7 @@
         if (dx*dx + dy*dy < HIT_LEAF) {
           found = n.id;
           foundData = { kind: 'leaf', node: n };
+          foundX = p.x; foundY = p.y;
           break;
         }
       }
@@ -1037,6 +1057,7 @@
           if (dx*dx + dy*dy < HIT_THEME) {
             found = '__' + th.id;
             foundData = { kind: 'theme', theme: th };
+            foundX = p.x; foundY = p.y;
             break;
           }
         }
@@ -1059,12 +1080,7 @@
           tipMeta.innerHTML = '<span style="color:' + themeAccent(th.id) + '">theme cluster</span> · ' + count + ' entries';
         }
 
-        let tx = mx + 16;
-        let ty = my - 8;
-        if (tx + 250 > W) tx = mx - 260;
-        if (ty < 10) ty = 10;
-        tip.style.left = tx + 'px';
-        tip.style.top = ty + 'px';
+        positionTooltip(foundX, foundY);
         tip.classList.add('visible');
         canvas.style.cursor = 'pointer';
       } else {
@@ -1073,6 +1089,7 @@
       }
     }
 
+    // ── MOUSE EVENTS ──────────────────────────────────────────
     canvas.addEventListener('mousemove', e => {
       const rect = canvas.getBoundingClientRect();
       handlePoint(e.clientX - rect.left, e.clientY - rect.top);
@@ -1083,6 +1100,7 @@
       tip.classList.remove('visible');
     });
 
+    // ── TOUCH EVENTS ──────────────────────────────────────────
     canvas.addEventListener('touchstart', e => {
       if (e.touches.length === 0) return;
       const rect = canvas.getBoundingClientRect();
@@ -1090,7 +1108,6 @@
       handlePoint(touch.clientX - rect.left, touch.clientY - rect.top);
     }, { passive: true });
 
-    // Tap outside any node clears the tooltip
     document.addEventListener('touchstart', e => {
       if (!canvas.contains(e.target)) {
         hovered = null;
@@ -1098,52 +1115,33 @@
       }
     }, { passive: true });
 
-    // Click on a theme to focus it; click on a non-theme empty area exits focus
+    // ── CLICK — theme focus toggle ─────────────────────────────
     canvas.addEventListener('click', e => {
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
 
-      // First check theme hits (responsive hit radius — bigger on touch)
       for (const th of THEMES) {
         const p = rendered('__' + th.id);
         const dx = p.x - mx, dy = p.y - my;
         if (dx*dx + dy*dy < HIT_THEME) {
-          // Toggle: clicking the focused theme returns to overview
-          if (focusedTheme === th.id) {
-            setFocus(null);
-          } else {
-            setFocus(th.id);
-          }
+          focusedTheme === th.id ? setFocus(null) : setFocus(th.id);
           return;
         }
       }
-
-      // Click on root in overview mode does nothing
-      // Click on empty area in focus mode could exit, but we'll let the button handle that
     });
 
     function setFocus(themeId) {
       focusedTheme = themeId;
-      // Show/hide recenter button
       const btn = document.getElementById('recenter-btn');
-      if (themeId) {
-        btn.classList.add('visible');
-      } else {
-        btn.classList.remove('visible');
-      }
+      btn.classList.toggle('visible', !!themeId);
       initPositions();
     }
 
-    document.getElementById('recenter-btn').addEventListener('click', () => {
-      setFocus(null);
-    });
+    document.getElementById('recenter-btn').addEventListener('click', () => setFocus(null));
 
-    // Keyboard escape exits focus
     window.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && focusedTheme) {
-        setFocus(null);
-      }
+      if (e.key === 'Escape' && focusedTheme) setFocus(null);
     });
 
     window.addEventListener('resize', () => {
