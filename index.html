@@ -56,8 +56,8 @@
       padding: 56px 40px 80px;
     }
 
-    @media (max-width: 640px) {
-      .page { padding: 36px 22px 56px; }
+    @media (max-width: 720px) {
+      .page { padding: 28px 16px 48px; }
     }
 
     .site-header {
@@ -67,6 +67,10 @@
       align-items: baseline;
       gap: 16px;
       flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .site-header { margin-bottom: 36px; }
     }
 
     .brand {
@@ -102,6 +106,11 @@
       flex-wrap: wrap;
     }
 
+    @media (max-width: 720px) {
+      .topology-header { gap: 8px; }
+      .topology-header .header-stats { text-align: left; font-size: 11px; }
+    }
+
     .header-left { display: flex; flex-direction: column; gap: 2px; }
 
     .header-eyebrow {
@@ -122,6 +131,10 @@
       line-height: 1.15;
     }
 
+    @media (max-width: 720px) {
+      .header-title { font-size: 24px; line-height: 1.2; }
+    }
+
     .header-stats {
       font-family: 'Geist Mono', monospace;
       font-size: 12px;
@@ -137,6 +150,10 @@
       gap: 18px;
       padding: 0 4px 18px;
       flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .legend { gap: 10px 14px; padding-bottom: 14px; }
     }
 
     .legend-item {
@@ -168,9 +185,13 @@
       min-height: 600px;
     }
 
-    @media (max-width: 640px) {
-      .canvas-wrap { height: 70vh; min-height: 480px; }
-      .header-title { font-size: 26px; }
+    @media (max-width: 720px) {
+      /* Square-ish canvas on phones — the topology is round, vertical aspect wastes space */
+      .canvas-wrap {
+        height: min(110vw, 90vh);
+        min-height: 380px;
+        max-height: 640px;
+      }
     }
 
     .recenter-btn {
@@ -229,6 +250,11 @@
       z-index: 10;
     }
 
+    @media (max-width: 720px) {
+      .tooltip { max-width: 200px; padding: 10px 12px; }
+      .tooltip-title { font-size: 15px; }
+    }
+
     .tooltip.visible { opacity: 1; }
 
     .tooltip-title {
@@ -270,6 +296,11 @@
       margin-top: 10px;
     }
 
+    @media (max-width: 720px) {
+      .footer-bar { flex-direction: column; gap: 6px; align-items: flex-start; font-size: 10px; }
+      .footer-tip { font-size: 13px; }
+    }
+
     .footer-tip {
       font-style: italic;
       font-family: 'EB Garamond', serif;
@@ -286,6 +317,10 @@
       line-height: 1.7;
       color: var(--text-secondary);
       max-width: 680px;
+    }
+
+    @media (max-width: 720px) {
+      .colophon { margin-top: 56px; padding-top: 28px; font-size: 15px; line-height: 1.65; }
     }
 
     .colophon p { margin-bottom: 16px; }
@@ -366,7 +401,7 @@
           What you're looking at is a map of every essay, journal entry, poem, and note
           I've kept since 2023 — clustered by theme, threaded by association.
           The branches are the dominant currents in my thinking; the leaves are
-          individual pieces; the dashed connections are where one idea bleeds into another.
+          individual pieces.
         </p>
         <p>
           The dominant themes are <em>reaching</em> (ambition, scale, ad astra),
@@ -494,12 +529,18 @@
     let focusedTheme = null;  // when set, this theme becomes the center
     let animFrame;
     let t = 0;
+    let isNarrow = false;  // mobile-narrow rendering flag
     let dark = matchMedia('(prefers-color-scheme: dark)').matches;
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => { dark = e.matches; });
 
-    const MARGIN_X = 90;
-    const MARGIN_Y_TOP = 50;
-    const MARGIN_Y_BOTTOM = 60;
+    // Margins become percentages of canvas size so the topology adapts to phones.
+    // Values are computed per-resize in resize().
+    let MARGIN_X = 90;
+    let MARGIN_Y_TOP = 50;
+    let MARGIN_Y_BOTTOM = 60;
+    // Touch-friendly hit radius scales up on narrow screens
+    let HIT_LEAF = 144;     // (12px)^2
+    let HIT_THEME = 400;    // (20px)^2
 
     // Stats
     const totalEntries = CORPUS.length;
@@ -554,6 +595,24 @@
       canvas.style.height = H + 'px';
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
+
+      // Responsive margins: tight on phones so the topology can fill the canvas
+      isNarrow = W < 540;
+      if (isNarrow) {
+        MARGIN_X = 32;
+        MARGIN_Y_TOP = 28;
+        MARGIN_Y_BOTTOM = 28;
+        // Larger touch targets — finger tips are not mouse pointers
+        HIT_LEAF = 484;   // (22px)^2
+        HIT_THEME = 784;  // (28px)^2
+      } else {
+        MARGIN_X = 90;
+        MARGIN_Y_TOP = 50;
+        MARGIN_Y_BOTTOM = 60;
+        HIT_LEAF = 144;
+        HIT_THEME = 400;
+      }
+
       initPositions();
     }
 
@@ -648,56 +707,51 @@
         byTheme[n.theme].push(n);
       });
 
+      // Distance scale — tighter on narrow screens
+      const ds = isNarrow ? 0.62 : 1.0;
+
       Object.keys(byTheme).forEach(themeId => {
         const tp = positions['__' + themeId];
         const leaves = byTheme[themeId];
 
-        // Determine the wedge available for this theme's leaves
         let wedge, baseAngle, minDist, distRange;
 
         if (tp.isFocus) {
-          // Focused theme: leaves spread across full 360° around the new center
           wedge = Math.PI;
           baseAngle = 0;
-          minDist = 90;
-          distRange = 130;
+          minDist = 90 * ds;
+          distRange = 130 * ds;
         } else if (tp.isSatellite) {
-          // Satellite themes: leaves cluster tightly around them, pointing outward
           wedge = 0.6;
           baseAngle = tp.angle;
-          minDist = 35;
-          distRange = 30;
+          minDist = 35 * ds;
+          distRange = 30 * ds;
         } else {
-          // Overview mode: leaves fan into the theme's natural wedge
           wedge = 0.5;
           baseAngle = tp.angle;
-          minDist = 70;
-          distRange = 60;
+          minDist = 70 * ds;
+          distRange = 60 * ds;
         }
 
         leaves.forEach((n, i) => {
-          // Base angular position spread evenly across the wedge
           const u = leaves.length === 1 ? 0.5 : i / (leaves.length - 1);
-          // Two stable random offsets per leaf for organic placement
           const angularJitter = (hashFloat(n.id + '_aj') - 0.5) * (wedge * 0.4);
           const radialJitter = hashFloat(n.id + '_rj');
 
           const leafAngle = baseAngle + (u - 0.5) * 2 * wedge + angularJitter;
 
-          // Some leaves are "outliers" that sit further from the cluster center
-          // — this is the organic feel: not every idea is the same distance from
-          // its theme. Higher-weight (essays) tend to sit closer; light leaves drift.
           const isOutlier = hashFloat(n.id + '_o') > 0.78;
-          const outlierBoost = isOutlier ? 25 + hashFloat(n.id + '_ob') * 25 : 0;
+          const outlierBoost = isOutlier ? (25 + hashFloat(n.id + '_ob') * 25) * ds : 0;
 
-          const dist = minDist + n.weight * 8 + radialJitter * distRange + outlierBoost;
+          const dist = minDist + n.weight * 8 * ds + radialJitter * distRange + outlierBoost;
 
           positions[n.id] = {
             x: tp.x + Math.cos(leafAngle) * dist,
             y: tp.y + Math.sin(leafAngle) * dist,
             phase: hashFloat(n.id + '_p') * Math.PI * 2,
             speed: 0.7 + hashFloat(n.id + '_s') * 0.5,
-            amp: 4 + hashFloat(n.id + '_a') * 4,
+            // Smaller drift amplitude on narrow screens — less room for motion
+            amp: (isNarrow ? 2.5 : 4) + hashFloat(n.id + '_a') * (isNarrow ? 2.5 : 4),
             satellite: tp.isSatellite,
             node: n
           };
@@ -849,12 +903,15 @@
           // Focused theme: label below the central node, larger, italic
           if (isFocus) {
             ctx.fillStyle = dark ? 'rgba(232,226,212,0.95)' : 'rgba(28,24,20,0.95)';
-            ctx.font = "italic 500 16px 'EB Garamond', serif";
+            ctx.font = isNarrow
+              ? "italic 500 14px 'EB Garamond', serif"
+              : "italic 500 16px 'EB Garamond', serif";
             ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
             ctx.fillText(th.label, p.x, p.y + r + 8);
-          } else {
+          } else if (!isNarrow) {
             // Satellite or overview theme: label projects radially outward
+            // (Skipped on narrow screens — the legend at top serves as key)
             ctx.fillStyle = isSatellite
               ? (dark ? 'rgba(220,215,205,0.45)' : 'rgba(60,55,45,0.45)')
               : (dark ? 'rgba(220,215,205,0.7)' : 'rgba(60,55,45,0.7)');
@@ -913,7 +970,9 @@
 
         if (isHov && !faded) {
           ctx.fillStyle = dark ? 'rgba(240,235,225,0.95)' : 'rgba(30,25,20,0.92)';
-          ctx.font = "italic 400 14px 'EB Garamond', serif";
+          ctx.font = isNarrow
+            ? "italic 400 12px 'EB Garamond', serif"
+            : "italic 400 14px 'EB Garamond', serif";
           ctx.textBaseline = 'top';
 
           const textWidth = ctx.measureText(n.title).width;
@@ -964,7 +1023,7 @@
       for (const n of CORPUS) {
         const p = rendered(n.id);
         const dx = p.x - mx, dy = p.y - my;
-        if (dx*dx + dy*dy < 144) {
+        if (dx*dx + dy*dy < HIT_LEAF) {
           found = n.id;
           foundData = { kind: 'leaf', node: n };
           break;
@@ -975,7 +1034,7 @@
         for (const th of THEMES) {
           const p = rendered('__' + th.id);
           const dx = p.x - mx, dy = p.y - my;
-          if (dx*dx + dy*dy < 256) {
+          if (dx*dx + dy*dy < HIT_THEME) {
             found = '__' + th.id;
             foundData = { kind: 'theme', theme: th };
             break;
@@ -1031,17 +1090,25 @@
       handlePoint(touch.clientX - rect.left, touch.clientY - rect.top);
     }, { passive: true });
 
+    // Tap outside any node clears the tooltip
+    document.addEventListener('touchstart', e => {
+      if (!canvas.contains(e.target)) {
+        hovered = null;
+        tip.classList.remove('visible');
+      }
+    }, { passive: true });
+
     // Click on a theme to focus it; click on a non-theme empty area exits focus
     canvas.addEventListener('click', e => {
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
 
-      // First check theme hits (larger hit radius)
+      // First check theme hits (responsive hit radius — bigger on touch)
       for (const th of THEMES) {
         const p = rendered('__' + th.id);
         const dx = p.x - mx, dy = p.y - my;
-        if (dx*dx + dy*dy < 400) {
+        if (dx*dx + dy*dy < HIT_THEME) {
           // Toggle: clicking the focused theme returns to overview
           if (focusedTheme === th.id) {
             setFocus(null);
