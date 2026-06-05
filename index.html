@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Idea Topology — Aidan</title>
-  <meta name="description" content="A phylogeny of writing, 2023–2026 — themes, essays, and the threads between them." />
-  <meta property="og:title" content="Idea Topology — Aidan" />
-  <meta property="og:description" content="A phylogeny of writing, 2023–2026" />
+  <title>aidan — writing, ideas & projects</title>
+  <meta name="description" content="Aidan's personal site — a topology of three years of writing, selected projects, and Glean, the editorial." />
+  <meta property="og:title" content="aidan — writing, ideas & projects" />
+  <meta property="og:description" content="A topology of three years of writing, selected projects, and Glean, the editorial." />
   <meta property="og:type" content="website" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,12 +73,25 @@
       .site-header { margin-bottom: 36px; }
     }
 
+    .brand-block { display: flex; flex-direction: column; gap: 2px; }
+
     .brand {
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 21px;
       font-weight: 500;
       font-style: italic;
       letter-spacing: -0.01em;
+    }
+
+    .brand-tagline {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 720px) {
+      .brand-tagline { font-size: 10px; }
     }
 
     .nav {
@@ -357,15 +370,172 @@
       color: var(--text-primary);
       text-decoration-color: var(--text-primary);
     }
+
+    /* ========================================
+       SELECTED WORK — project cards
+       ======================================== */
+    .section {
+      margin-top: 80px;
+      padding-top: 36px;
+      border-top: 0.5px solid var(--border-tertiary);
+    }
+
+    @media (max-width: 720px) {
+      .section { margin-top: 56px; padding-top: 28px; }
+    }
+
+    .section-head { margin-bottom: 28px; }
+
+    .section-eyebrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 720px) {
+      .section-title { font-size: 23px; }
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .work-grid { grid-template-columns: 1fr; }
+    }
+
+    .work-card {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      padding: 22px 22px 20px;
+      border: 0.5px solid var(--border-tertiary);
+      border-radius: 10px;
+      text-decoration: none;
+      color: inherit;
+      background: var(--bg-secondary);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .work-card:hover {
+      border-color: var(--border-secondary);
+      transform: translateY(-2px);
+    }
+
+    .work-card-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .work-card-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 20px;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .work-card-arrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: 13px;
+      color: var(--text-tertiary);
+      transition: color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .work-card:hover .work-card-arrow { color: var(--text-primary); }
+
+    .work-card-desc {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 15.5px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      flex-grow: 1;
+    }
+
+    .work-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 8px;
+      margin-top: 3px;
+    }
+
+    .work-tag {
+      font-family: 'Geist Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      color: var(--text-tertiary);
+      border: 0.5px solid var(--border-tertiary);
+      border-radius: 999px;
+      padding: 2px 8px;
+    }
+
+    /* ========================================
+       SITE FOOTER
+       ======================================== */
+    .site-footer {
+      margin-top: 80px;
+      padding-top: 28px;
+      border-top: 0.5px solid var(--border-tertiary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .site-footer { margin-top: 56px; }
+    }
+
+    .site-footer .footer-name {
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-links { display: flex; gap: 20px; }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text-primary); }
   </style>
 </head>
 <body>
   <div class="page">
     <header class="site-header">
-      <span class="brand">aidan</span>
+      <div class="brand-block">
+        <span class="brand">aidan</span>
+        <span class="brand-tagline">writing, ideas, and the things I build</span>
+      </div>
       <nav class="nav">
+        <a href="#work">work</a>
+        <a href="#writing">writing</a>
         <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
-        <a href="#colophon">about</a>
       </nav>
     </header>
 
@@ -396,7 +566,7 @@
         <span class="footer-tip">click a theme to focus</span>
       </div>
 
-      <section id="colophon" class="colophon">
+      <section id="writing" class="colophon">
         <p>
           What you're looking at is a map of every essay, journal entry, poem, and note
           I've kept since 2023 — clustered by theme, threaded by association.
@@ -418,7 +588,91 @@
           built with html canvas · no tracking · <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a> if you're curious
         </div>
       </section>
+
+      <section id="work" class="section">
+        <div class="section-head">
+          <div class="section-eyebrow">selected work</div>
+          <div class="section-title">things I've built</div>
+        </div>
+        <div class="work-grid">
+
+          <a class="work-card" href="https://github.com/2016judea/literature-mutations" target="_blank" rel="noopener">
+            <div class="work-card-top">
+              <span class="work-card-title">literature mutations</span>
+              <span class="work-card-arrow">↗</span>
+            </div>
+            <p class="work-card-desc">A network of novels, clustered by algorithm into genres and subgenres no shelf would name — the sibling of the map above.</p>
+            <div class="work-card-meta">
+              <span class="work-tag">Python</span><span class="work-tag">graph clustering</span><span class="work-tag">NLP</span>
+            </div>
+          </a>
+
+          <a class="work-card" href="https://github.com/2016judea/tars-mini" target="_blank" rel="noopener">
+            <div class="work-card-top">
+              <span class="work-card-title">tars-mini</span>
+              <span class="work-card-arrow">↗</span>
+            </div>
+            <p class="work-card-desc">A TARS-inspired voice assistant on a Raspberry Pi — wake word, Whisper, Claude, and a voice that answers back.</p>
+            <div class="work-card-meta">
+              <span class="work-tag">Python</span><span class="work-tag">Raspberry Pi</span><span class="work-tag">Whisper</span>
+            </div>
+          </a>
+
+          <a class="work-card" href="https://github.com/2016judea/Prose-Similarities" target="_blank" rel="noopener">
+            <div class="work-card-top">
+              <span class="work-card-title">prose similarities</span>
+              <span class="work-card-arrow">↗</span>
+            </div>
+            <p class="work-card-desc">Reads novels side by side and draws lines between the authors whose prose moves alike.</p>
+            <div class="work-card-meta">
+              <span class="work-tag">Python</span><span class="work-tag">NLP</span>
+            </div>
+          </a>
+
+          <a class="work-card" href="https://github.com/2016judea/edge-ai-experiment" target="_blank" rel="noopener">
+            <div class="work-card-top">
+              <span class="work-card-title">edge ai experiment</span>
+              <span class="work-card-arrow">↗</span>
+            </div>
+            <p class="work-card-desc">A lightweight language model running on a Raspberry Pi — intelligence at the edge, off the cloud.</p>
+            <div class="work-card-meta">
+              <span class="work-tag">Python</span><span class="work-tag">edge AI</span>
+            </div>
+          </a>
+
+          <a class="work-card" href="https://github.com/2016judea/generative-ai-with-instagram" target="_blank" rel="noopener">
+            <div class="work-card-top">
+              <span class="work-card-title">generative ai × instagram</span>
+              <span class="work-card-arrow">↗</span>
+            </div>
+            <p class="work-card-desc">GPT-4V pointed at Instagram — the model reads the feed and writes back.</p>
+            <div class="work-card-meta">
+              <span class="work-tag">Python</span><span class="work-tag">GPT-4V</span>
+            </div>
+          </a>
+
+          <a class="work-card" href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">
+            <div class="work-card-top">
+              <span class="work-card-title">a phylogeny of writing</span>
+              <span class="work-card-arrow">↗</span>
+            </div>
+            <p class="work-card-desc">This page. Three years of journals and essays handed to Claude, grown into a topology of self.</p>
+            <div class="work-card-meta">
+              <span class="work-tag">HTML canvas</span><span class="work-tag">Claude</span><span class="work-tag">you're here</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <span class="footer-name">© aidan</span>
+      <nav class="footer-links">
+        <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+        <a href="https://github.com/2016judea" target="_blank" rel="noopener">github ↗</a>
+      </nav>
+    </footer>
   </div>
 
   <script>
