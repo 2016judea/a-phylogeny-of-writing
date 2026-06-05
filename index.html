@@ -1,107 +1,55 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Aidan Jude — Projects</title>
-<meta name="description" content="Things I've built — AI on small hardware, language turned into data, and a handful of experiments."/>
-<meta property="og:site_name" content="Aidan Jude"/><meta property="og:locale" content="en_US"/>
-<meta property="og:type" content="website"/><meta property="og:url" content="https://aidanjude.vercel.app/"/>
-<meta property="og:title" content="Aidan Jude — Projects"/>
-<meta property="og:description" content="Things I've built — AI on small hardware, language turned into data, and a handful of experiments."/>
-<meta property="og:image" content="https://aidanjude.vercel.app/og/home.png"/><meta property="og:image:secure_url" content="https://aidanjude.vercel.app/og/home.png"/><meta property="og:image:type" content="image/png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="Aidan Jude — Projects"/>
-<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Aidan Jude — Projects"/><meta name="twitter:description" content="Things I've built — AI on small hardware, language turned into data."/><meta name="twitter:image" content="https://aidanjude.vercel.app/og/home.png"/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aidan Jude</title>
+<meta name="description" content="These are my ideas — projects, a novel, a decade of reading, and the threads between them. Feel free to have a look around."/>
+<meta property="og:site_name" content="Aidan Jude"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://aidanjude.vercel.app/"/>
+<meta property="og:title" content="Aidan Jude — These are my ideas."/>
+<meta property="og:description" content="Projects, a novel, a decade of reading, and the threads between them. Feel free to have a look around."/>
+<meta property="og:image" content="https://aidanjude.vercel.app/og/home.png"/>
+<meta property="og:image:secure_url" content="https://aidanjude.vercel.app/og/home.png"/>
+<meta property="og:image:type" content="image/png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Aidan Jude — These are my ideas."/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Aidan Jude — These are my ideas."/>
+<meta name="twitter:description" content="Projects, a novel, a decade of reading. Feel free to have a look around."/>
+<meta name="twitter:image" content="https://aidanjude.vercel.app/og/home.png"/>
 <meta name="theme-color" content="#f7f3ec"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#f7f3ec;--bg2:#efe9dd;--ink:#1c1814;--ink2:#544e44;--faint:#8b8478;--rule:rgba(60,50,40,.16);--accent:#7c4a3a}
-@media(prefers-color-scheme:dark){:root{--bg:#15120f;--bg2:#1d1916;--ink:#e9e3d5;--ink2:#b3aa9a;--faint:#7d766a;--rule:rgba(230,220,200,.16);--accent:#c98a6b}}
+:root{--bg:#f7f3ec;--ink:#1c1814;--ink2:#544e44;--faint:#8b8478;--rule:rgba(60,50,40,.16);--accent:#7c4a3a}
+@media(prefers-color-scheme:dark){:root{--bg:#15120f;--ink:#e9e3d5;--ink2:#b3aa9a;--faint:#7d766a;--rule:rgba(230,220,200,.16);--accent:#c98a6b}}
 *{margin:0;padding:0;box-sizing:border-box}html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}
-.page{max-width:60rem;margin:0 auto;padding:32px 28px 14vh}@media(max-width:560px){.page{padding:22px 20px 12vh}}
-.site-header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:64px}
-.brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
-.nav{display:flex;gap:20px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
-.nav a{color:var(--faint);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--ink)}
-.nav a.active{color:var(--ink);border-bottom:1px solid var(--rule)}
-.hero{margin-bottom:52px;max-width:42rem}
-.hero .eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
-.hero h1{font-size:clamp(38px,8vw,60px);font-weight:600;font-style:italic;letter-spacing:-.02em;line-height:1.03}
-.hero p{margin-top:20px;font-size:21px;color:var(--ink2);line-height:1.5;max-width:36rem}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}@media(max-width:620px){.grid{grid-template-columns:1fr}}
-.card{display:flex;flex-direction:column;background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:22px 22px 18px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s,box-shadow .2s}
-.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.card-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.card h2{font-size:23px;font-weight:600;font-style:italic;letter-spacing:-.01em;line-height:1.1}
-.card .arr{font-family:'Geist Mono',monospace;font-size:15px;color:var(--faint);transition:color .2s}.card:hover .arr{color:var(--accent)}
-.card .desc{margin-top:11px;font-size:17px;color:var(--ink2);line-height:1.5;flex:1}
-.card .gloss{margin-top:7px;font-size:15px;font-style:italic;color:var(--faint);line-height:1.45}
-.card-meta{margin-top:16px;display:flex;align-items:center;gap:15px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.02em;color:var(--faint)}
-.card-meta .lang{display:inline-flex;align-items:center;gap:6px}.card-meta .lang i{width:9px;height:9px;border-radius:50%;display:inline-block}
-.card-meta .live{margin-left:auto;color:var(--accent);text-decoration:none}.card-meta .live:hover{text-decoration:underline}
-.foot{margin-top:46px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
-.foot a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule)}.foot a:hover{color:var(--ink)}
-</style></head>
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 24px}
+.eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);margin-bottom:30px}
+h1{font-size:clamp(40px,11vw,68px);font-weight:600;font-style:italic;letter-spacing:-.025em;line-height:1.02}
+.tag{margin-top:20px;font-size:clamp(19px,5vw,23px);color:var(--ink2)}
+nav{margin-top:54px;display:flex;flex-wrap:wrap;justify-content:center;gap:14px 26px;max-width:34rem;font-family:'Geist Mono',monospace;font-size:14px;letter-spacing:.05em}
+nav a{color:var(--ink2);text-decoration:none;padding:4px 2px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+nav a:hover{color:var(--ink);border-color:var(--rule)}
+nav a.ext{color:var(--faint)}nav a.ext:hover{color:var(--ink)}
+</style>
+</head>
 <body>
-<div class="page">
-  <header class="site-header">
-    <span class="brand"><a href="/">Aidan&nbsp;Jude</a></span>
-    <nav class="nav">
-      <a href="/" class="active">projects</a>
-      <a href="/topology.html">topology</a>
-      <a href="/something-western.html">writing</a>
-      <a href="/reading.html">reading</a>
-      <a href="/work.html">creative</a>
-      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
-    </nav>
-  </header>
-  <section class="hero">
-    <div class="eyebrow">Aidan Jude · GitHub</div>
-    <h1>These are my projects.</h1>
-    <p>Things I've built — voice assistants on Raspberry Pis, AI that watches a screen, and a long habit of turning books and language into data.</p>
-  </section>
-  <main class="grid">
-    <a class="card" href="https://github.com/2016judea/tars-mini" target="_blank" rel="noopener">
-      <div class="card-top"><h2>Tars Mini</h2><span class="arr">↗</span></div>
-      <p class="desc">TARS-inspired voice assistant for Raspberry Pi — wake word → Whisper → Claude → Piper TTS</p>
-      <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">2026</span></div>
-    </a>
-    <a class="card" href="https://github.com/2016judea/AI-screen-monitor-service" target="_blank" rel="noopener">
-      <div class="card-top"><h2>AI Screen Monitor Service</h2><span class="arr">↗</span></div>
-      <p class="desc">Running a local AI agent that is capable of answering questions related to your screen activity.</p>
-      <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">2025</span></div>
-    </a>
-    <a class="card" href="https://github.com/2016judea/edge-ai-experiment" target="_blank" rel="noopener">
-      <div class="card-top"><h2>Edge AI Experiment</h2><span class="arr">↗</span></div>
-      <p class="desc">Running a lightweight AI model on a Raspberry Pi</p>
-      <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="star">★ 1</span><span class="yr">2025</span></div>
-    </a>
-    <a class="card" href="https://github.com/2016judea/generative-ai-with-instagram" target="_blank" rel="noopener">
-      <div class="card-top"><h2>Generative AI with Instagram</h2><span class="arr">↗</span></div>
-      <p class="desc">This project joins the power of the GPT-4V LLM with the popular social media platform Instagram.</p>
-      <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">2024</span></div>
-    </a>
-    <a class="card" href="https://github.com/2016judea/Physical-Therapy-Market-Analysis" target="_blank" rel="noopener">
-      <div class="card-top"><h2>Physical Therapy Market Analysis</h2><span class="arr">↗</span></div>
-      <p class="desc">Data pipeline to aggregate payer reimbursement data from Transparency in Coverage (TiC) machine-readable files. Filtered to PT-relevant CPT codes. For contract negotiation analysis.</p>
-      <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">2026</span></div>
-    </a>
-    <a class="card" href="https://github.com/2016judea/literature-mutations" target="_blank" rel="noopener">
-      <div class="card-top"><h2>Literature Mutations</h2><span class="arr">↗</span></div>
-      <p class="desc">Generating a network of literature and applying graph clustering algorithms to derive genres/subgenres</p>
-      <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">2023</span></div>
-    </a>
-    <a class="card" href="https://github.com/2016judea/Prose-Similarities" target="_blank" rel="noopener">
-      <div class="card-top"><h2>Prose Similarities</h2><span class="arr">↗</span></div>
-      <p class="desc">This repo takes novels and draws comparisons using NLP to establish authors with the most similar prose.</p>
-      <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">2020</span></div>
-    </a>
-    <a class="card" href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">
-      <div class="card-top"><h2>A Phylogeny of Writing</h2><span class="arr">↗</span></div>
-      <p class="desc">Connected three years of journal entries and substack essays to Claude. Had it generate a toplogy of self.</p><p class="gloss">This very site — three years of journals and essays, mapped.</p>
-      
-    </a>
-  </main>
-  <div class="foot">
-    <span>8 selected · the rest live on <a href="https://github.com/2016judea" target="_blank" rel="noopener">github.com/2016judea ↗</a></span>
-  </div>
-</div>
-</body></html>
+  <div class="eyebrow">Aidan Jude</div>
+  <h1>These are my ideas.</h1>
+  <p class="tag">Feel free to have a look around&nbsp;:p</p>
+  <nav>
+    <a href="/projects.html">projects</a>
+    <a href="/topology.html">topology</a>
+    <a href="/something-western.html">writing</a>
+    <a href="/reading.html">reading</a>
+    <a href="/work.html">creative</a>
+    <a class="ext" href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+  </nav>
+</body>
+</html>
