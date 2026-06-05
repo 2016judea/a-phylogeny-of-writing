@@ -73,7 +73,7 @@
 </head>
 <body>
   <header class="glean-bar">
-    <a class="masthead" href="../">GLEAN<span class="dot">.</span></a>
+    <a class="masthead" href="/glean/">GLEAN<span class="dot">.</span></a>
     <span class="issue-tag">Issue №1 · Spring 2026</span>
   </header>
 
@@ -123,7 +123,7 @@
     const nextBtn = document.getElementById('next');
     let view = 0;
 
-    function src(n){ return 'pages/page-' + String(n).padStart(2,'0') + '.webp'; }
+    function src(n){ return '/glean/issue-01/pages/page-' + String(n).padStart(2,'0') + '.webp'; }
 
     function render(){
       const pages = spreads[view];
