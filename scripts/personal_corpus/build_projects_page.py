@@ -15,10 +15,11 @@ CURATED = [
     "edge-ai-experiment",
     "generative-ai-with-instagram",
     "Physical-Therapy-Market-Analysis",
-    "literature-mutations",
-    "Prose-Similarities",
     "a-phylogeny-of-writing",
 ]
+# NOTE: literary-analysis repos (literature-mutations, Prose-Similarities,
+# Novel_NLP_Analyzer, Quotable_NLP_Synset) live on the Research page (research.html),
+# not here — keep them out of this dev-projects list.
 # A one-line, plain-spoken gloss per project (mine — sits under the repo's own
 # description only where it adds context; kept honest and concrete).
 TAGLINE = {
