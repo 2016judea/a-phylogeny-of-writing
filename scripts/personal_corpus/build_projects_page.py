@@ -1,99 +1,90 @@
 #!/usr/bin/env python3
-"""Build the projects landing page (the new site home) from a curated set of
-GitHub repos — warm-paper editorial aesthetic, matching the rest of the site.
-Bakes repo data (description, language, stars, year) at build time.
+"""Build the dev-projects page (projects.html) from a curated, hand-tuned list.
 
-Usage: build_projects_page.py [out_dir=/tmp/phylo]
+The page is intentionally NOT derived from the GitHub API: titles, descriptions,
+years, and language mixes are all hand-curated (the API's pushed_at year and
+one-line description don't match the editorial copy). So this is the source of
+truth — edit PROJECTS below and re-run to regenerate.
+
+Literary-analysis repos (Prose-Similarities, Quotable_NLP_Synset, Novel_NLP_Analyzer,
+literature-mutations) live on the Research page (build via the site-page skill),
+not here.
+
+Usage: build_projects_page.py [out_dir]   # default: the site repo root (writes in place)
 """
-import json, sys, urllib.request, html as H, pathlib
+import sys, pathlib
 
 USER = "2016judea"
-# Curated, in display order (best / most representative first).
-CURATED = [
-    "tars-mini",
-    "AI-screen-monitor-service",
-    "edge-ai-experiment",
-    "generative-ai-with-instagram",
-    "Physical-Therapy-Market-Analysis",
-    "a-phylogeny-of-writing",
-]
-# NOTE: literary-analysis repos (literature-mutations, Prose-Similarities,
-# Novel_NLP_Analyzer, Quotable_NLP_Synset) live on the Research page (research.html),
-# not here — keep them out of this dev-projects list.
-# A one-line, plain-spoken gloss per project (mine — sits under the repo's own
-# description only where it adds context; kept honest and concrete).
-TAGLINE = {
-    "a-phylogeny-of-writing": "This very site — three years of journals and essays, mapped.",
-}
-# Repos whose lang/year meta row is suppressed (e.g. the site itself).
-HIDE_META = {"a-phylogeny-of-writing"}
-ACR = {"ai": "AI", "tts": "TTS", "nlp": "NLP", "dow": "DOW", "cdk": "CDK", "api": "API", "rpi": "RPi"}
-SMALL = {"of", "the", "and", "with", "to", "for", "a", "an", "in", "on"}
-def pretty(name):
-    words = name.replace("_", "-").split("-")
-    out = []
-    for i, w in enumerate(words):
-        lw = w.lower()
-        if lw in ACR: out.append(ACR[lw])
-        elif i > 0 and lw in SMALL: out.append(lw)
-        else: out.append(w[:1].upper() + w[1:])
-    return " ".join(out)
+GH = f"https://github.com/{USER}"
 
+# GitHub's language-bar colors, overridden where the site uses its own (Shell black,
+# TypeScript lime — matching the rest of the site).
 LANG_COLOR = {
-    "Python": "#3572A5", "HTML": "#e34c26", "TypeScript": "#3178c6",
-    "JavaScript": "#f1e05a", "Jupyter Notebook": "#DA5B0B", "C++": "#f34b7d",
-    "Shell": "#89e051", "Go": "#00ADD8", "Rust": "#dea584", "CSS": "#563d7c",
+    "Python": "#3572A5", "Shell": "#111111", "HTML": "#e34c26",
+    "CSS": "#563d7c", "TypeScript": "#a3e635", "JavaScript": "#f1e05a",
 }
 
-out_dir = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else "/tmp/phylo")
+# Curated, in display order (best / most representative first).
+# langs: in display order. star/gloss optional.
+PROJECTS = [
+    dict(repo="tars-mini", title="Tars Mini", year="2026", langs=["Python", "Shell"],
+         desc="TARS-inspired voice assistant for Raspberry Pi — wake word → Whisper → Claude → Piper TTS"),
+    dict(repo="AI-screen-monitor-service", title="AI Screen Monitor Service", year="2025", langs=["Python"],
+         desc="Running a local AI agent that is capable of answering questions related to your screen activity."),
+    dict(repo="edge-ai-experiment", title="Edge AI Experiment", year="2025", langs=["Python"], star=1,
+         desc="Running a lightweight AI model on a Raspberry Pi"),
+    dict(repo="generative-ai-with-instagram", title="Generative AI with Instagram", year="2024",
+         langs=["Python", "CSS", "HTML"],
+         desc="This project joins the power of the GPT-4V LLM with the popular social media platform Instagram."),
+    dict(repo="Physical-Therapy-Market-Analysis", title="Physical Therapy Market Analysis", year="2026",
+         langs=["Python"],
+         desc="Data pipeline to aggregate payer reimbursement data from Transparency in Coverage (TiC) machine-readable files. Filtered to PT-relevant CPT codes. For contract negotiation analysis."),
+    dict(repo="a-phylogeny-of-writing", title="A Phylogeny of Writing", year="2026", langs=["HTML"],
+         desc="Connected three years of journal entries and substack essays to Claude. Had it generate a toplogy of self.",
+         gloss="This very site — three years of journals and essays, mapped."),
+    dict(repo="small-group-mobile", title="Small Group Mobile", year="2023", langs=["TypeScript"],
+         desc="An Expo / React Native mobile app for organizing and running small groups."),
+    dict(repo="small-group-cdk", title="Small Group CDK", year="2023", langs=["TypeScript"],
+         desc="The AWS CDK package — cloud infrastructure behind the Small Group app."),
+    dict(repo="Single-Camera-Based-Package-Counting", title="Single-Camera Package Counting", year="2023",
+         langs=["Python"],
+         desc="Counts packages of varying types through a single camera-based visual interface."),
+    dict(repo="Goodreads_Audiobook_Matchmaker", title="Goodreads Audiobook Matchmaker", year="2019",
+         langs=["Python"],
+         desc='Matches your Goodreads "want to read" shelf to downloadable audiobook links — a web crawler plus the Goodreads API.'),
+    dict(repo="Spotify_User_Playlists", title="Spotify User Playlists", year="2019", langs=["Python"],
+         desc="Views the playlists — and the songs in each — for any given Spotify user."),
+    dict(repo="Referral_System", title="Referral System", year="2019", langs=["HTML", "Python", "JavaScript"],
+         desc="A referral system built for The News Memo."),
+    dict(repo="Quotable", title="Quotable", year="2019", langs=["Python"],
+         desc="A bot that texts you quotes from favorite authors, scraped with BeautifulSoup."),
+    dict(repo="DOW_Watchdog", title="DOW Watchdog", year="2018", langs=["Python"],
+         desc="Monitors a selection of stocks and sends SMS alerts when they cross preset thresholds."),
+]
 
-req = urllib.request.Request(
-    f"https://api.github.com/users/{USER}/repos?per_page=100&type=owner",
-    headers={"Accept": "application/vnd.github+json", "User-Agent": "aidan-site-build"})
-repos = {r["name"]: r for r in json.load(urllib.request.urlopen(req))}
 
-cards = []
-for name in CURATED:
-    r = repos.get(name)
-    if not r:
-        print(f"  ! missing repo: {name}", file=sys.stderr); continue
-    desc = (r.get("description") or "").strip()
-    extra = TAGLINE.get(name, "")
-    lang = r.get("language") or ""
-    color = LANG_COLOR.get(lang, "#8b8478")
-    stars = r.get("stargazers_count", 0)
-    year = (r.get("pushed_at") or "")[:4]
-    home = (r.get("homepage") or "").strip()
-    title = pretty(name)
-    meta_bits = []
-    if lang:
-        meta_bits.append(f'<span class="lang"><i style="background:{color}"></i>{H.escape(lang)}</span>')
-    if stars:
-        meta_bits.append(f'<span class="star">★ {stars}</span>')
-    if year:
-        meta_bits.append(f'<span class="yr">{year}</span>')
-    blurb = f'<p class="desc">{H.escape(desc)}</p>' if desc else ""
-    gloss = f'<p class="gloss">{H.escape(extra)}</p>' if extra else ""
-    meta_html = f'<div class="card-meta">{"".join(meta_bits)}</div>' if (meta_bits and name not in HIDE_META) else ""
-    cards.append(f"""    <a class="card" href="{H.escape(r['html_url'])}" target="_blank" rel="noopener">
-      <div class="card-top"><h2>{H.escape(title)}</h2><span class="arr">↗</span></div>
-      {blurb}{gloss}
-      {meta_html}
-    </a>""")
+def card(p):
+    meta = "".join(
+        f'<span class="lang"><i style="background:{LANG_COLOR.get(l, "#8b8478")}"></i>{l}</span>'
+        for l in p["langs"])
+    if p.get("star"):
+        meta += f'<span class="star">★ {p["star"]}</span>'
+    meta += f'<span class="yr">{p["year"]}</span>'
+    descblock = f'<p class="desc">{p["desc"]}</p>'
+    if p.get("gloss"):
+        descblock += f'<p class="gloss">{p["gloss"]}</p>'
+    return (f'    <a class="card" href="{GH}/{p["repo"]}" target="_blank" rel="noopener">\n'
+            f'      <div class="card-top"><h2>{p["title"]}</h2><span class="arr">↗</span></div>\n'
+            f'      {descblock}\n'
+            f'      <div class="card-meta">{meta}</div>\n'
+            f'    </a>')
 
-GRID = "\n".join(cards)
-count = len(cards)
 
-NAV = """    <nav class="nav">
-      <a href="/projects.html" class="active">dev projects</a>
-      <a href="/topology.html">topology</a>
-      <a href="/something-western.html">writing</a>
-      <a href="/reading.html">reading</a>
-      <a href="/work.html">creative</a>
-      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
-    </nav>"""
+GRID = "\n".join(card(p) for p in PROJECTS)
 
-HTML = f"""<!DOCTYPE html><html lang="en"><head>
+# Everything outside the card grid is static chrome (head/styles/Ubik hero/nav/footer).
+# %%GRID%% is the only substitution — keep this template in sync with the page design.
+TEMPLATE = r'''<!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Aidan Jude — Dev Projects</title>
 <meta name="description" content="Things I've built — AI on small hardware, language turned into data, and a handful of experiments."/>
@@ -107,57 +98,89 @@ HTML = f"""<!DOCTYPE html><html lang="en"><head>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
-:root{{--bg:#f7f3ec;--bg2:#efe9dd;--ink:#1c1814;--ink2:#544e44;--faint:#8b8478;--rule:rgba(60,50,40,.16);--accent:#7c4a3a}}
-@media(prefers-color-scheme:dark){{:root{{--bg:#15120f;--bg2:#1d1916;--ink:#e9e3d5;--ink2:#b3aa9a;--faint:#7d766a;--rule:rgba(230,220,200,.16);--accent:#c98a6b}}}}
-*{{margin:0;padding:0;box-sizing:border-box}}html{{-webkit-text-size-adjust:100%}}
-body{{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}}
-.page{{max-width:60rem;margin:0 auto;padding:32px 28px 14vh}}@media(max-width:560px){{.page{{padding:22px 20px 12vh}}}}
-.site-header{{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:64px}}
-.brand{{font-size:21px;font-weight:500;font-style:italic}}.brand a{{color:inherit;text-decoration:none}}
-.nav{{display:flex;gap:20px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}}
-.nav a{{color:var(--faint);text-decoration:none;transition:color .2s}}.nav a:hover{{color:var(--ink)}}
-.nav a.active{{color:var(--ink);border-bottom:1px solid var(--rule)}}
-.hero{{margin-bottom:52px;max-width:42rem}}
-.hero .eyebrow{{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}}
-.hero h1{{font-size:clamp(38px,8vw,60px);font-weight:600;font-style:italic;letter-spacing:-.02em;line-height:1.03}}
-.hero p{{margin-top:20px;font-size:21px;color:var(--ink2);line-height:1.5;max-width:36rem}}
-.grid{{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}}@media(max-width:620px){{.grid{{grid-template-columns:1fr}}}}
-.card{{display:flex;flex-direction:column;background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:22px 22px 18px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s,box-shadow .2s}}
-.card:hover{{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}}
-.card-top{{display:flex;justify-content:space-between;align-items:baseline;gap:10px}}
-.card h2{{font-size:23px;font-weight:600;font-style:italic;letter-spacing:-.01em;line-height:1.1}}
-.card .arr{{font-family:'Geist Mono',monospace;font-size:15px;color:var(--faint);transition:color .2s}}.card:hover .arr{{color:var(--accent)}}
-.card .desc{{margin-top:11px;font-size:17px;color:var(--ink2);line-height:1.5;flex:1}}
-.card .gloss{{margin-top:7px;font-size:15px;font-style:italic;color:var(--faint);line-height:1.45}}
-.card-meta{{margin-top:16px;display:flex;align-items:center;gap:15px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.02em;color:var(--faint)}}
-.card-meta .lang{{display:inline-flex;align-items:center;gap:6px}}.card-meta .lang i{{width:9px;height:9px;border-radius:50%;display:inline-block}}
-.card-meta .live{{margin-left:auto;color:var(--accent);text-decoration:none}}.card-meta .live:hover{{text-decoration:underline}}
-.foot{{margin-top:46px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}}
-.foot a{{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule)}}.foot a:hover{{color:var(--ink)}}
+:root{--bg:#f7f3ec;--bg2:#efe9dd;--ink:#1c1814;--ink2:#544e44;--faint:#8b8478;--rule:rgba(60,50,40,.16);--accent:#7c4a3a}
+@media(prefers-color-scheme:dark){:root{--bg:#15120f;--bg2:#1d1916;--ink:#e9e3d5;--ink2:#b3aa9a;--faint:#7d766a;--rule:rgba(230,220,200,.16);--accent:#c98a6b}}
+*{margin:0;padding:0;box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}
+.page{max-width:60rem;margin:0 auto;padding:32px 28px 14vh}@media(max-width:560px){.page{padding:22px 20px 12vh}}
+.site-header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:64px}
+.brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+.nav{display:flex;gap:20px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+.nav a{color:var(--faint);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--ink)}
+.nav a.active{color:var(--ink);border-bottom:1px solid var(--rule)}
+html,body{overflow-x:clip}
+/* Ubik hero — full-bleed band washed in the art's own colors, with a framed plate */
+.ubik-band{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-bottom:52px;
+  background:
+    radial-gradient(70% 130% at 86% 20%, rgba(230,150,54,.26), rgba(230,150,54,0) 58%),
+    radial-gradient(66% 120% at 8% 98%, rgba(45,104,101,.22), rgba(45,104,101,0) 60%),
+    var(--bg2);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.ubik-inner{max-width:60rem;margin:0 auto;padding:46px 28px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.ubik-inner .eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+.ubik-inner h1{font-size:clamp(38px,8vw,60px);font-weight:600;font-style:italic;letter-spacing:-.02em;line-height:1.03}
+.ubik-inner p.lede{margin-top:20px;font-size:21px;color:var(--ink2);line-height:1.5;max-width:34rem}
+.ubik-fig{margin:0;justify-self:center;width:100%;max-width:340px}
+.plate{margin:0;background:#fbf8f1;padding:13px;border:1px solid var(--rule);border-radius:4px;box-shadow:0 22px 54px rgba(20,12,4,.24),0 2px 6px rgba(20,12,4,.12)}
+.plate img{width:100%;height:auto;display:block;border-radius:2px}
+.plate-cap{margin-top:12px;text-align:center;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--faint);line-height:1.5}
+.plate-cap em{font-family:'EB Garamond',Georgia,serif;font-style:italic;letter-spacing:0}
+@media(prefers-color-scheme:dark){.plate{background:#211d18}}
+@media(max-width:680px){.ubik-inner{grid-template-columns:1fr;gap:28px;padding:34px 24px}.ubik-fig{max-width:330px;margin:6px auto 0}}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}@media(max-width:620px){.grid{grid-template-columns:1fr}}
+.card{display:flex;flex-direction:column;background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:22px 22px 18px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s,box-shadow .2s}
+.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.card-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.card h2{font-size:23px;font-weight:600;font-style:italic;letter-spacing:-.01em;line-height:1.1}
+.card .arr{font-family:'Geist Mono',monospace;font-size:15px;color:var(--faint);transition:color .2s}.card:hover .arr{color:var(--accent)}
+.card .desc{margin-top:11px;font-size:17px;color:var(--ink2);line-height:1.5;flex:1}
+.card .gloss{margin-top:7px;font-size:15px;font-style:italic;color:var(--faint);line-height:1.45}
+.card-meta{margin-top:16px;display:flex;align-items:center;gap:15px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.02em;color:var(--faint)}
+.card-meta .lang{display:inline-flex;align-items:center;gap:6px}.card-meta .lang i{width:10px;height:10px;border-radius:50%;display:inline-block;box-shadow:0 0 0 1px rgba(120,120,120,.35)}
+.card-meta .live{margin-left:auto;color:var(--accent);text-decoration:none}.card-meta .live:hover{text-decoration:underline}
+.foot{margin-top:46px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.foot a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule)}.foot a:hover{color:var(--ink)}
 </style></head>
 <body>
 <div class="page">
   <header class="site-header">
     <span class="brand"><a href="/">Aidan&nbsp;Jude</a></span>
-{NAV}
+    <nav class="nav">
+      <a href="/projects.html" class="active">dev projects</a>
+      <a href="/research.html">research</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">novel</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html">study</a>
+      <a href="/essays.html">essays</a>
+      <a href="https://www.instagram.com/_aidan_jude/" target="_blank" rel="noopener">35mm photography</a>
+    </nav>
   </header>
-  <section class="hero">
-    <div class="eyebrow">Aidan Jude · GitHub</div>
-    <h1>These are my dev projects.</h1>
-    <p>Things I've built — voice assistants on Raspberry Pis, AI that watches a screen, and a long habit of turning books and language into data.</p>
+  <section class="ubik-band">
+    <div class="ubik-inner">
+      <div>
+        <div class="eyebrow">Aidan Jude · GitHub</div>
+        <h1>These are my dev projects.</h1>
+        <p class="lede">Things I've built — voice assistants on Raspberry Pis, AI that watches a screen, and a long habit of turning books and language into data.</p>
+      </div>
+      <figure class="ubik-fig">
+        <div class="plate"><img src="/img/ubik.webp" width="739" height="889" alt="Bob Pepper's cover illustration for Philip K. Dick's Ubik — a skeleton with a television-screen face holding a spray can labeled UBIK." loading="eager"/></div>
+        <figcaption class="plate-cap">Bob Pepper · cover art for Philip&nbsp;K.&nbsp;Dick's <em>Ubik</em></figcaption>
+      </figure>
+    </div>
   </section>
   <main class="grid">
-{GRID}
+%%GRID%%
   </main>
   <div class="foot">
-    <span>{count} selected · the rest live on <a href="https://github.com/{USER}" target="_blank" rel="noopener">github.com/{USER} ↗</a></span>
+    <span>My literary-analysis work lives on the <a href="/research.html">research page</a> · all of it on <a href="https://github.com/2016judea" target="_blank" rel="noopener">github.com/2016judea ↗</a></span>
   </div>
 </div>
-</body></html>"""
+</body></html>'''
 
-(out_dir / "projects.html").write_text(HTML, encoding="utf-8")
-print(f"wrote {out_dir/'projects.html'} — {count} project cards")
-for name in CURATED:
-    if name in repos:
-        r = repos[name]
-        print(f"  · {name:<34} {r.get('language') or '-':<8} ★{r.get('stargazers_count',0)} {(r.get('pushed_at') or '')[:4]}")
+HTML = TEMPLATE.replace("%%GRID%%", GRID)
+
+out_dir = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else pathlib.Path(__file__).resolve().parents[2]
+dest = out_dir / "projects.html"
+dest.write_text(HTML, encoding="utf-8")
+print(f"wrote {dest} — {len(PROJECTS)} project cards")

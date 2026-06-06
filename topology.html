@@ -420,8 +420,7 @@
 
       <section id="colophon" class="colophon">
         <p>
-          What you're looking at is a map of every essay, journal entry, poem, and note
-          I've kept since 2023 — clustered by theme, threaded by association.
+          What you're looking at is a map of every Substack essay I've published since 2023 — threaded with the poems between them — clustered by theme, linked by association.
           The branches are the dominant currents in my thinking; the leaves are
           individual pieces.
         </p>
@@ -434,7 +433,7 @@
           <em>the examined day</em> (philosophy, society, criticism).
         </p>
         <p>
-          The full essays live on <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">my Substack</a>.
+          The full essays live in <a href="/essays.html">the archive</a> (and on <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">Substack</a>).
         </p>
         <div class="colophon-meta">
           built with html canvas · no tracking · <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a> if you're curious
@@ -461,58 +460,86 @@
     // landmark journals. Loose notes mostly removed to let the canopy breathe.
     // ============================================================
     const CORPUS = [
-      // reaching — all poetry + landmark essays
-      { id: 'r1',  title: 'Ad Astra',                       theme: 'reaching', source: 'poetry',   date: '2023-10-01', weight: 3 },
-      { id: 'r2',  title: 'Tumbling Astronauts',            theme: 'reaching', source: 'poetry',   date: '2023-09-06', weight: 3 },
-      { id: 'r3',  title: 'Ambition',                       theme: 'reaching', source: 'poetry',   date: '2024-05-08', weight: 3 },
-      { id: 'r4',  title: 'Hang High the Roof Beams',       theme: 'reaching', source: 'poetry',   date: '2023-08-19', weight: 3 },
-      { id: 'r5',  title: 'The Merchant Ship',              theme: 'reaching', source: 'poetry',   date: '2023-11-08', weight: 3 },
-      { id: 'r6',  title: 'Move Cross Country',             theme: 'reaching', source: 'poetry',   date: '2023-08-19', weight: 3 },
-      { id: 'r7',  title: "Substack — Startups & Scale",    theme: 'reaching', source: 'substack', date: '2024-08-01', weight: 4 },
-      { id: 'r8',  title: "November '24 — Follow Talent",   theme: 'reaching', source: 'substack', date: '2024-11-01', weight: 4 },
-
-      // mind — essays only, drop the loose notes
-      { id: 'm1',  title: "October '23 — AI Ancestor",      theme: 'mind', source: 'substack', date: '2023-10-01', weight: 4 },
-      { id: 'm2',  title: "May '24 — AGI & The Apple",      theme: 'mind', source: 'substack', date: '2024-05-01', weight: 4 },
-      { id: 'm3',  title: "August '23 — AI & The Brain",    theme: 'mind', source: 'substack', date: '2023-08-01', weight: 4 },
-      { id: 'm4',  title: "October '24 — Few Understand",   theme: 'mind', source: 'substack', date: '2024-10-01', weight: 4 },
-      { id: 'm5',  title: 'The AI Bubble',                  theme: 'mind', source: 'substack', date: '2025-02-01', weight: 4 },
-      { id: 'm8',  title: "January '25 — Beyond Bounds",    theme: 'mind', source: 'substack', date: '2025-01-15', weight: 4 },
-
-      // inner — essays + poetry + key journals
-      { id: 'i1',  title: "March '24 — Days Alone",         theme: 'inner', source: 'substack', date: '2024-03-01', weight: 4 },
-      { id: 'i4',  title: 'Life Philosophy',                theme: 'inner', source: 'notes',    date: '2024-11-02', weight: 2 },
-      { id: 'i7',  title: "September '25",                  theme: 'inner', source: 'substack', date: '2025-09-01', weight: 4 },
-      { id: 'i9',  title: 'After Dark',                     theme: 'inner', source: 'poetry',   date: '2023-10-05', weight: 3 },
-      { id: 'i10', title: "October '24 — Stuck in the Present", theme: 'inner', source: 'substack', date: '2024-10-15', weight: 4 },
-      { id: 'i11', title: 'Coors Banquet & rainbow trout',  theme: 'inner', source: 'poetry',   date: '2024-04-12', weight: 3 },
-
-      // time — essays + poetry, drop Hegel notes
-      { id: 't1',  title: "March '24 — Legacy Thinking",    theme: 'time', source: 'substack', date: '2024-03-15', weight: 4 },
-      { id: 't2',  title: "December '24 — Black Holes",     theme: 'time', source: 'substack', date: '2024-12-01', weight: 4 },
-      { id: 't3',  title: "December '23 — Why We Wait",     theme: 'time', source: 'substack', date: '2023-12-01', weight: 4 },
-      { id: 't4',  title: "August '24 — Outdated 1950s",    theme: 'time', source: 'substack', date: '2024-08-15', weight: 4 },
-      { id: 't6',  title: 'MAR 26 — Spirit',                theme: 'time', source: 'substack', date: '2026-03-01', weight: 4 },
-      { id: 't8',  title: "September '23 — Stars Falling",  theme: 'time', source: 'substack', date: '2023-09-01', weight: 4 },
-      { id: 't9',  title: 'Maple Leaves',                   theme: 'time', source: 'poetry',   date: '2024-05-08', weight: 3 },
-
-      // place — essays + poetry
-      { id: 'p2',  title: "January '25 — Desert Town",      theme: 'place', source: 'substack', date: '2025-01-01', weight: 4 },
-      { id: 'p3',  title: "August '23 — 800 Years",         theme: 'place', source: 'substack', date: '2023-08-15', weight: 4 },
-      { id: 'p4',  title: 'Italia',                         theme: 'place', source: 'substack', date: '2024-09-15', weight: 4 },
-      { id: 'p6',  title: 'One Mountain, Four Angels',      theme: 'place', source: 'poetry',   date: '2023-10-01', weight: 3 },
-      { id: 'p7',  title: 'Parallel Rails',                 theme: 'place', source: 'poetry',   date: '2023-09-16', weight: 3 },
-      { id: 'p8',  title: 'Portal',                         theme: 'place', source: 'poetry',   date: '2024-03-09', weight: 3 },
-      { id: 'p9',  title: 'The Fair',                       theme: 'place', source: 'poetry',   date: '2023-10-01', weight: 3 },
-      { id: 'p11', title: "January '24 — Amsterdam",        theme: 'place', source: 'substack', date: '2024-01-15', weight: 4 },
-
-      // examined — essays only
-      { id: 'e3',  title: "June '23 — Metaphysics",         theme: 'examined', source: 'substack', date: '2023-06-01', weight: 4 },
-      { id: 'e4',  title: "April '24 — Social Media",       theme: 'examined', source: 'substack', date: '2024-04-01', weight: 4 },
-      { id: 'e5',  title: "March '23 — Rawls' Veil",        theme: 'examined', source: 'substack', date: '2023-03-01', weight: 4 },
-      { id: 'e7',  title: "September '23 — Bonds",          theme: 'examined', source: 'substack', date: '2023-09-15', weight: 4 },
-      { id: 'e8',  title: "April '25 — Amazon Logistics",   theme: 'examined', source: 'substack', date: '2025-04-01', weight: 4 },
-      { id: 'e9',  title: "February '23 — Spy Balloons",    theme: 'examined', source: 'substack', date: '2023-02-15', weight: 4 },
+      // reaching
+      { id: 's6', title: "May '23", theme: 'reaching', source: 'substack', date: "2023-05-20", weight: 4 },
+      { id: 's26', title: "February ‘25", theme: 'reaching', source: 'substack', date: "2025-02-15", weight: 4 },
+      { id: 's30', title: "June '25", theme: 'reaching', source: 'substack', date: "2025-06-13", weight: 4 },
+      { id: 's31', title: "August '25", theme: 'reaching', source: 'substack', date: "2025-08-25", weight: 4 },
+      { id: 's50', title: "Publishing a newspaper.", theme: 'reaching', source: 'substack', date: "2026-05-20", weight: 4 },
+      { id: 'p1', title: "Ad Astra", theme: 'reaching', source: 'poetry', date: "", weight: 3 },
+      { id: 'p3', title: "Ambition", theme: 'reaching', source: 'poetry', date: "", weight: 3 },
+      { id: 'p6', title: "Hang High the Roof Beams", theme: 'reaching', source: 'poetry', date: "", weight: 3 },
+      { id: 'p10', title: "Move Cross Country", theme: 'reaching', source: 'poetry', date: "", weight: 3 },
+      { id: 'p13', title: "Portal", theme: 'reaching', source: 'poetry', date: "", weight: 3 },
+      { id: 'p18', title: "The Merchant Ship", theme: 'reaching', source: 'poetry', date: "", weight: 3 },
+      { id: 'p20', title: "Tumbling Astronauts", theme: 'reaching', source: 'poetry', date: "", weight: 3 },
+      { id: 'p21', title: "Your Morning Halo", theme: 'reaching', source: 'poetry', date: "", weight: 3 },
+      // mind
+      { id: 's10', title: "September '23", theme: 'mind', source: 'substack', date: "2023-09-27", weight: 4 },
+      { id: 's12', title: "November '23", theme: 'mind', source: 'substack', date: "2023-11-25", weight: 4 },
+      { id: 's22', title: "December '24", theme: 'mind', source: 'substack', date: "2024-12-08", weight: 4 },
+      { id: 's24', title: "Titans and Transformers", theme: 'mind', source: 'substack', date: "2025-01-22", weight: 4 },
+      { id: 's25', title: "DeepSeek", theme: 'mind', source: 'substack', date: "2025-01-28", weight: 4 },
+      { id: 's32', title: "September '25", theme: 'mind', source: 'substack', date: "2025-09-01", weight: 4 },
+      { id: 's35', title: "The AI Bubble", theme: 'mind', source: 'substack', date: "2025-11-28", weight: 4 },
+      { id: 's44', title: "APR 26", theme: 'mind', source: 'substack', date: "2026-04-15", weight: 4 },
+      { id: 's47', title: "Working w/Claude Code", theme: 'mind', source: 'substack', date: "2026-05-03", weight: 4 },
+      { id: 's49', title: "Thought Experiment", theme: 'mind', source: 'substack', date: "2026-05-18", weight: 4 },
+      // inner
+      { id: 's11', title: "October '23", theme: 'inner', source: 'substack', date: "2023-10-24", weight: 4 },
+      { id: 's14', title: "January '24", theme: 'inner', source: 'substack', date: "2024-01-24", weight: 4 },
+      { id: 's18', title: "May '24", theme: 'inner', source: 'substack', date: "2024-05-21", weight: 4 },
+      { id: 's19', title: "August '24", theme: 'inner', source: 'substack', date: "2024-08-21", weight: 4 },
+      { id: 's20', title: "October '24", theme: 'inner', source: 'substack', date: "2024-10-22", weight: 4 },
+      { id: 's21', title: "November '24", theme: 'inner', source: 'substack', date: "2024-11-23", weight: 4 },
+      { id: 's23', title: "January '25", theme: 'inner', source: 'substack', date: "2025-01-18", weight: 4 },
+      { id: 's37', title: "DEC 25 — PT2", theme: 'inner', source: 'substack', date: "2025-12-27", weight: 4 },
+      { id: 's41', title: "FEB 26", theme: 'inner', source: 'substack', date: "2026-02-17", weight: 4 },
+      { id: 's45', title: "Physical Media Journal", theme: 'inner', source: 'substack', date: "2026-04-18", weight: 4 },
+      { id: 's46', title: "Soulful", theme: 'inner', source: 'substack', date: "2026-04-25", weight: 4 },
+      { id: 's51', title: "Appreciative.", theme: 'inner', source: 'substack', date: "2026-05-22", weight: 4 },
+      { id: 's53', title: "Something Greek", theme: 'inner', source: 'substack', date: "2026-05-31", weight: 4 },
+      { id: 'p2', title: "After Dark", theme: 'inner', source: 'poetry', date: "", weight: 3 },
+      { id: 'p5', title: "For Tiera", theme: 'inner', source: 'poetry', date: "", weight: 3 },
+      { id: 'p7', title: "Let's Get Sentimental Babe", theme: 'inner', source: 'poetry', date: "", weight: 3 },
+      { id: 'p9', title: "Maple Leaves", theme: 'inner', source: 'poetry', date: "", weight: 3 },
+      { id: 'p14', title: "Purple Pettled Peonies", theme: 'inner', source: 'poetry', date: "", weight: 3 },
+      { id: 'p15', title: "Rainbow Trout", theme: 'inner', source: 'poetry', date: "", weight: 3 },
+      // time
+      { id: 's13', title: "December '23", theme: 'time', source: 'substack', date: "2023-12-17", weight: 4 },
+      { id: 's16', title: "March '24", theme: 'time', source: 'substack', date: "2024-03-20", weight: 4 },
+      { id: 's33', title: "SEPT 25 — PT2", theme: 'time', source: 'substack', date: "2025-09-25", weight: 4 },
+      { id: 's36', title: "DEC 25", theme: 'time', source: 'substack', date: "2025-12-10", weight: 4 },
+      { id: 's40', title: "Primitive Anthropology", theme: 'time', source: 'substack', date: "2026-02-01", weight: 4 },
+      { id: 's42', title: "MAR 26", theme: 'time', source: 'substack', date: "2026-03-04", weight: 4 },
+      { id: 's43', title: "MAR 26 PT2", theme: 'time', source: 'substack', date: "2026-03-24", weight: 4 },
+      { id: 'p17', title: "The Flood", theme: 'time', source: 'poetry', date: "", weight: 3 },
+      { id: 'p19', title: "These Stones", theme: 'time', source: 'poetry', date: "", weight: 3 },
+      // place
+      { id: 's27', title: "South Africa", theme: 'place', source: 'substack', date: "2025-03-01", weight: 4 },
+      { id: 's38', title: "Italia", theme: 'place', source: 'substack', date: "2026-01-03", weight: 4 },
+      { id: 's39', title: "NYC", theme: 'place', source: 'substack', date: "2026-01-23", weight: 4 },
+      { id: 'p4', title: "Big Sky", theme: 'place', source: 'poetry', date: "", weight: 3 },
+      { id: 'p11', title: "One Mountain, Four Angels", theme: 'place', source: 'poetry', date: "", weight: 3 },
+      { id: 'p12', title: "Parallel Rails", theme: 'place', source: 'poetry', date: "", weight: 3 },
+      { id: 'p16', title: "The Fair", theme: 'place', source: 'poetry', date: "", weight: 3 },
+      // examined
+      { id: 's1', title: "January: Part 1 '23", theme: 'examined', source: 'substack', date: "2023-01-08", weight: 4 },
+      { id: 's2', title: "January: Part 2 '23", theme: 'examined', source: 'substack', date: "2023-01-24", weight: 4 },
+      { id: 's3', title: "February '23", theme: 'examined', source: 'substack', date: "2023-02-24", weight: 4 },
+      { id: 's4', title: "March '23", theme: 'examined', source: 'substack', date: "2023-03-19", weight: 4 },
+      { id: 's5', title: "April '23", theme: 'examined', source: 'substack', date: "2023-04-15", weight: 4 },
+      { id: 's7', title: "June '23", theme: 'examined', source: 'substack', date: "2023-06-18", weight: 4 },
+      { id: 's8', title: "July '23", theme: 'examined', source: 'substack', date: "2023-07-15", weight: 4 },
+      { id: 's9', title: "August '23", theme: 'examined', source: 'substack', date: "2023-08-23", weight: 4 },
+      { id: 's15', title: "February '24", theme: 'examined', source: 'substack', date: "2024-02-22", weight: 4 },
+      { id: 's17', title: "April '24", theme: 'examined', source: 'substack', date: "2024-04-25", weight: 4 },
+      { id: 's28', title: "April '25", theme: 'examined', source: 'substack', date: "2025-04-18", weight: 4 },
+      { id: 's29', title: "Monopolistic Behavior in Modern Business", theme: 'examined', source: 'substack', date: "2025-05-30", weight: 4 },
+      { id: 's34', title: "OCT 25", theme: 'examined', source: 'substack', date: "2025-10-28", weight: 4 },
+      { id: 's48', title: "The Stoddard Temple is a threat to many things.", theme: 'examined', source: 'substack', date: "2026-05-06", weight: 4 },
+      { id: 's52', title: "Opinions on the stock market", theme: 'examined', source: 'substack', date: "2026-05-28", weight: 4 },
+      { id: 'p8', title: "Like An American", theme: 'examined', source: 'poetry', date: "", weight: 3 },
     ];
 
     // ============================================================
@@ -520,19 +547,7 @@
     // (filtered to only include surviving nodes)
     // ============================================================
     const CROSS_LINKS = [
-      ['r1', 't8'], ['r2', 'm2'], ['r3', 'r7'],
-      ['m1', 't1'],
-      ['i1', 'p2'], ['i7', 't1'],
-      ['t4', 'e9'], ['t8', 'p6'],
-      ['e3', 'i4'],
-      ['t6', 'i7'],
-      ['m8', 'r1'], ['p8', 'r2'],
-      ['t2', 'r1'],
-      ['p3', 't1'],
-      ['p11', 'i1'],
-      ['e5', 'e3'],
-      ['i10', 'i4'],
-      ['p4', 't4'],
+      ['s10', 's14'], ['s28', 's30'], ['s24', 's52'], ['s24', 's30'], ['s17', 's19'], ['s16', 's53'], ['s4', 's16'], ['s31', 's47'], ['s29', 's32'], ['s26', 's29'], ['s25', 's28'], ['s23', 's27'], ['s22', 's23'], ['s20', 'p1'], ['s2', 's39'], ['s2', 's22'], ['s18', 's43'], ['s14', 's47'], ['s13', 's17'], ['s11', 'p8'], ['s10', 's11'], ['p1', 'p8'], ['s9', 's37'], ['s9', 's31'],
     ];
 
     // ============================================================
