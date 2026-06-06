@@ -22,10 +22,25 @@ body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,ser
 .nav{display:flex;gap:20px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
 .nav a{color:var(--faint);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--ink)}
 .nav a.active{color:var(--ink);border-bottom:1px solid var(--rule)}
-.hero{margin-bottom:52px;max-width:42rem}
-.hero .eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
-.hero h1{font-size:clamp(38px,8vw,60px);font-weight:600;font-style:italic;letter-spacing:-.02em;line-height:1.03}
-.hero p{margin-top:20px;font-size:21px;color:var(--ink2);line-height:1.5;max-width:36rem}
+html,body{overflow-x:clip}
+/* Ubik hero — full-bleed band washed in the art's own colors, with a framed plate */
+.ubik-band{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-bottom:52px;
+  background:
+    radial-gradient(70% 130% at 86% 20%, rgba(230,150,54,.26), rgba(230,150,54,0) 58%),
+    radial-gradient(66% 120% at 8% 98%, rgba(45,104,101,.22), rgba(45,104,101,0) 60%),
+    var(--bg2);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.ubik-inner{max-width:60rem;margin:0 auto;padding:46px 28px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.ubik-inner .eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+.ubik-inner h1{font-size:clamp(38px,8vw,60px);font-weight:600;font-style:italic;letter-spacing:-.02em;line-height:1.03}
+.ubik-inner p.lede{margin-top:20px;font-size:21px;color:var(--ink2);line-height:1.5;max-width:34rem}
+.ubik-fig{margin:0;justify-self:center;width:100%;max-width:340px}
+.plate{margin:0;background:#fbf8f1;padding:13px;border:1px solid var(--rule);border-radius:4px;box-shadow:0 22px 54px rgba(20,12,4,.24),0 2px 6px rgba(20,12,4,.12)}
+.plate img{width:100%;height:auto;display:block;border-radius:2px}
+.plate-cap{margin-top:12px;text-align:center;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--faint);line-height:1.5}
+.plate-cap em{font-family:'EB Garamond',Georgia,serif;font-style:italic;letter-spacing:0}
+@media(prefers-color-scheme:dark){.plate{background:#211d18}}
+@media(max-width:680px){.ubik-inner{grid-template-columns:1fr;gap:28px;padding:34px 24px}.ubik-fig{max-width:330px;margin:6px auto 0}}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}@media(max-width:620px){.grid{grid-template-columns:1fr}}
 .card{display:flex;flex-direction:column;background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:22px 22px 18px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s,box-shadow .2s}
 .card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
@@ -49,14 +64,22 @@ body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,ser
       <a href="/topology.html">topology</a>
       <a href="/something-western.html">writing</a>
       <a href="/reading.html">reading</a>
-      <a href="/work.html">creative</a>
+      <a href="/study.html">study</a>
       <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
     </nav>
   </header>
-  <section class="hero">
-    <div class="eyebrow">Aidan Jude · GitHub</div>
-    <h1>These are my dev projects.</h1>
-    <p>Things I've built — voice assistants on Raspberry Pis, AI that watches a screen, and a long habit of turning books and language into data.</p>
+  <section class="ubik-band">
+    <div class="ubik-inner">
+      <div>
+        <div class="eyebrow">Aidan Jude · GitHub</div>
+        <h1>These are my dev projects.</h1>
+        <p class="lede">Things I've built — voice assistants on Raspberry Pis, AI that watches a screen, and a long habit of turning books and language into data.</p>
+      </div>
+      <figure class="ubik-fig">
+        <div class="plate"><img src="/img/ubik.webp" width="739" height="889" alt="Bob Pepper's cover illustration for Philip K. Dick's Ubik — a skeleton with a television-screen face holding a spray can labeled UBIK." loading="eager"/></div>
+        <figcaption class="plate-cap">Bob Pepper · cover art for Philip&nbsp;K.&nbsp;Dick's <em>Ubik</em></figcaption>
+      </figure>
+    </div>
   </section>
   <main class="grid">
     <a class="card" href="https://github.com/2016judea/tars-mini" target="_blank" rel="noopener">
