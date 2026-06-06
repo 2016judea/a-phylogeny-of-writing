@@ -95,6 +95,25 @@ multi-topic, so each is filed by dominant voice); **new posts not in the map fal
 back to keyword scoring** — add a slug to `THEME` to override. See
 [[substack-export]] for the export details.
 
+## Step 5 — rebuild the idea topology (after new posts/poems)
+
+`/topology.html` ("a phylogeny of writing") is the drifting canopy: every Substack
+essay + the poems, clustered into six idea-themes. `build_topology_page.py` is an
+**in-place transform** — it reads topology.html, swaps the `CORPUS` + `CROSS_LINKS`
+arrays (stats/legend recompute themselves) and freshens the colophon, leaving the
+canvas engine + the six `THEMES` untouched:
+
+```bash
+python3 scripts/personal_corpus/substack_all_export.py   # if essays changed
+python3 scripts/personal_corpus/build_topology_page.py    # → topology.html (74 nodes)
+```
+
+Essays carry real dates; **poems have none** (writing_corpus dates are the import
+sentinel) so they render undated. Theme assignment is a manual `ESSAY_THEME` /
+`POEM_THEME` map (slugs/titles → one of reaching·mind·inner·time·place·examined);
+unmapped essays fall back to `examined`. Cross-links are derived from shared
+vocabulary (degree-capped at 2, ≤24 total).
+
 The "by the numbers" stats are hand-curated in `build_topography.py` from
 `analyze_corpus.py` output — re-run that and update the stat cards if the data
 shifts materially. Writing dates come from `writing_library` (real per-piece
