@@ -78,6 +78,23 @@ python3 scripts/personal_corpus/build_topography.py /path/to/phylo    # writes B
 # git -C /path/to/phylo commit -am "refresh topography" && git push   → Vercel auto-deploys
 ```
 
+## Step 4 — rebuild the essays archive (after new Substack posts)
+
+`/essays.html` is the full Substack archive (every dispatch since 2023), grouped
+into three voices. It builds straight from the repo (run from the site root):
+
+```bash
+export $(grep -v ^# .env | xargs)                          # NOTION_TOKEN
+python3 scripts/personal_corpus/substack_all_export.py     # → substack_all.json (all 53)
+python3 scripts/personal_corpus/build_essays_page.py       # → essays.html
+# git commit -am "essays: refresh archive" && git push     → Vercel auto-deploys
+```
+
+`build_essays_page.py` holds a manual `slug → voice` map (the 2023–24 issues are
+multi-topic, so each is filed by dominant voice); **new posts not in the map fall
+back to keyword scoring** — add a slug to `THEME` to override. See
+[[substack-export]] for the export details.
+
 The "by the numbers" stats are hand-curated in `build_topography.py` from
 `analyze_corpus.py` output — re-run that and update the stat cards if the data
 shifts materially. Writing dates come from `writing_library` (real per-piece
