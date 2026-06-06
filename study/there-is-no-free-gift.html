@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>There is no free gift — A Study</title>
+<meta name="description" content="A present looks like the opposite of a transaction. Marcel Mauss spent a famous essay showing it is the oldest transaction there is — and the one that built society." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg-primary:#f7f3ec;--bg-secondary:#f1ece2;--text-primary:#1c1814;--text-secondary:#5a544a;--text-tertiary:#8b8478;--border-tertiary:rgba(60,50,40,.12);--border-secondary:rgba(60,50,40,.22)}
+  @media (prefers-color-scheme:dark){:root{--bg-primary:#1a1714;--bg-secondary:#221e1a;--text-primary:#e8e2d4;--text-secondary:#b8b0a0;--text-tertiary:#807a6d;--border-tertiary:rgba(230,220,200,.12);--border-secondary:rgba(230,220,200,.22)}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg-primary);color:var(--text-primary);font-family:'EB Garamond',Georgia,serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}@media (max-width:720px){.page{padding:28px 16px 48px}}
+  .site-header{margin-bottom:44px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+  .nav{display:flex;gap:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--text-primary)}
+  .nav a.active{color:var(--text-primary);border-bottom:1px solid var(--border-secondary)}
+  .site-footer{margin-top:54px;padding-top:18px;border-top:1px solid var(--border-tertiary);font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);line-height:1.7}
+  .site-footer a{color:var(--text-secondary);text-decoration:none}.site-footer a:hover{color:var(--text-primary)}
+
+  .back{display:inline-block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--text-tertiary);text-decoration:none;margin-bottom:26px}
+  .back:hover{color:var(--text-primary)}
+  .guide{max-width:42rem}
+  .guide-head .eyebrow{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  .guide-head h1{font-size:38px;line-height:1.08;letter-spacing:-.015em;margin:12px 0 0;font-weight:600}
+  @media (max-width:560px){.guide-head h1{font-size:30px}}
+  .guide-head .dek{font-size:19px;font-style:italic;line-height:1.45;color:var(--text-secondary);margin-top:16px}
+  .guide-head .meta{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.06em;margin-top:18px;padding-bottom:22px;border-bottom:1px solid var(--border-tertiary)}
+  .prose{margin-top:26px}
+  .prose p{font-size:18px;line-height:1.62;margin-bottom:18px}
+  .prose .lead{font-size:20px;line-height:1.55}
+  .prose .lead::first-letter{font-size:3.1em;float:left;line-height:.82;padding:6px 10px 0 0;font-weight:600}
+  .prose b{font-weight:600;color:var(--text-primary)}
+  .prose h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin:36px 0 16px}
+  .deeper,.shelf{margin-top:34px;padding-top:24px;border-top:1px solid var(--border-tertiary)}
+  .deeper h2,.shelf h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:16px}
+  .deeper ul{list-style:none}
+  .deeper li{margin-bottom:16px;padding-left:16px;border-left:2px solid var(--border-tertiary)}
+  .deeper .work{display:block;font-size:17px;color:var(--text-primary);font-style:italic}
+  .deeper .note{display:block;font-size:14.5px;line-height:1.5;color:var(--text-secondary);margin-top:4px}
+  .shelf p{font-size:17px;line-height:1.6;color:var(--text-secondary)}
+  .shelf b{color:var(--text-primary);font-weight:600}
+  .guide-nav{margin-top:40px;padding-top:22px;border-top:1px solid var(--border-tertiary);display:flex;justify-content:space-between;gap:16px;font-family:'Geist Mono',monospace;font-size:12px}
+  .guide-nav a{color:var(--text-secondary);text-decoration:none;max-width:46%}.guide-nav a:hover{color:var(--text-primary)}
+  .guide-nav .nx{text-align:right;margin-left:auto}
+  .guide-nav .lbl{display:block;font-size:10px;letter-spacing:.1em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:3px}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <div class="brand"><a href="/">Aidan</a></div>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">writing</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html" class="active">study</a>
+      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+    </nav>
+  </header>
+  <main>
+    <article class="guide">
+      <a class="back" href="/study.html">← study plan</a>
+      <div class="guide-head">
+        <span class="eyebrow" style="color:#7a9c6b">Anthropology · no. 08</span>
+        <h1>There is no free gift</h1>
+        <p class="dek">A present looks like the opposite of a transaction. Marcel Mauss spent a famous essay showing it is the oldest transaction there is — and the one that built society.</p>
+        <div class="meta">4 min read</div>
+      </div>
+      <div class="prose">
+        <p class="lead">You flagged the line from the affluent-society field that stayed with you: among foragers, “a person's standing was measured by what they gave away, not what they held.” That is not a quirk of the Kalahari. It is, Marcel Mauss argued in 1925, one of the founding facts of human society — and it runs through your life too. Give someone a lavish present and watch what happens: they are delighted, and they are also, faintly, in your debt. Mauss asked the question hiding inside that small discomfort. <i>Why does a gift oblige?</i></p>
+        <h2>The argument</h2>
+      <p>In his essay <i>The Gift</i>, Mauss combed the ethnography — the Pacific Northwest, Melanesia, ancient Rome and India — and found everywhere the same hidden structure, written in no law yet binding like iron: <b>three obligations</b>. The obligation to <i>give</i> (to refuse is to refuse alliance, nearly to declare war). The obligation to <i>receive</i> (you cannot decline a gift without insult). And the heaviest, the obligation to <i>reciprocate</i> — to return, in time, something of equal or greater worth. Round and round those three turns the whole traffic of early societies: not barter, not charity, but a perpetual circulation of obligation.</p>
+      <p>Why must the gift come back? Mauss reached for a Māori idea — the <b>hau</b>, the spirit of the gift. A given thing is not inert; it carries a part of the giver, and that part strains to return to its source. To keep a gift, to break the circle, is to hold something that is in a sense still alive and not quite yours. We feel the ghost of this still — the unease of an unreturned favour, the friend who “shouldn't have,” the debt that is not money but is unmistakably a debt. Mauss's claim is that this is not sentiment laid over economics. It is older than economics. The gift, not the trade, is the root.</p>
+      <p>At the far extreme stands the <b>potlatch</b> of the Northwest Coast: feasts where chiefs competed not to accumulate but to <i>give away</i> — and sometimes to destroy outright — staggering piles of blankets, coppers, oil, and food, the winner being whoever could dispose of the most. To our eyes, madness; to Mauss, the logic of the gift turned up to full volume. Where standing flows from giving, wealth is not something you hoard but something you <i>move</i>. The rich man is not the one with the fullest house but the one through whom the most has passed. Hold that beside your own world's instinct to accumulate, and Mauss has done his work: he has made your common sense look strange.</p>
+        <h2>Where it’s contested</h2>
+      <p>Mauss's specifics took fire. The Māori <i>hau</i>, his keystone, may have been over-read — later anthropologists argued he balanced a whole theory on one possibly garbled informant's remark. The tidy line he drew between “archaic” gift and “modern” market is too clean: the two interpenetrate everywhere, then and now. And his hope — that the gift pointed to a humane third way between cold capitalism and cold communism — reads now as a 1920s dream.</p>
+      <p>But the deep finding is unkillable, and it is the one that should unsettle you: <b>there is no free gift.</b> Every gift creates a relationship, and a relationship is a debt — which is exactly why the truly free gift, the one that obliges nothing and expects nothing, is so strangely hard to give, and can even land as a <i>refusal</i> of connection. We moderns tell ourselves the gift — love, generosity, the pure present — is the one place that stands outside the economy. Mauss's quiet, permanent reply: it was the <i>first</i> economy, and it may still be the realest one.</p>
+      </div>
+      <section class="deeper">
+        <h2>Read further</h2>
+        <ul>
+        <li><span class="work">The Gift: The Form and Reason for Exchange in Archaic Societies — Marcel Mauss (1925)</span><span class="note">Short, dense, foundational — the source of half of modern anthropology's working vocabulary.</span></li>
+        <li><span class="work">The Gift: Creativity and the Artist in the Modern World — Lewis Hyde (1983)</span><span class="note">The great modern extension: why art lives in a gift economy and withers in a pure market. Written for exactly someone like you.</span></li>
+        </ul>
+      </section>
+      <section class="shelf">
+        <h2>On your shelf</h2>
+        <p>This is the engine room beneath your favourite line from the affluent-society field, now in the archive. Sahlins showed you a people who measured status by what they gave away; Mauss tells you <i>why</i> that works, as a kind of social physics present in every society, including yours. And Hyde carries it where you actually live: he argues a poem or a novel is a <i>gift</i>, not a commodity — it has to be given to do its work — which may be why the marketplace and the writing desk have always felt, to you, like two different countries.</p>
+      </section>
+      <nav class="guide-nav">
+        <a class="pv" href="/study/the-perennial-gale.html"><span class="lbl">← previous field</span>The perennial gale</a>
+        <a class="nx" href="/study/against-the-grain.html"><span class="lbl">next field →</span>Why the first states grew grain</a>
+      </nav>
+    </article>
+  </main>
+  <footer class="site-footer">AI Generated Study Plan · no tracking · <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a></footer>
+</div>
+</body></html>

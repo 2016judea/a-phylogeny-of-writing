@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gravity is not a force — A Study</title>
+<meta name="description" content="Nothing is pulling you into your chair. The chair is shoving you up — and that shove is the only force in the whole story." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg-primary:#f7f3ec;--bg-secondary:#f1ece2;--text-primary:#1c1814;--text-secondary:#5a544a;--text-tertiary:#8b8478;--border-tertiary:rgba(60,50,40,.12);--border-secondary:rgba(60,50,40,.22)}
+  @media (prefers-color-scheme:dark){:root{--bg-primary:#1a1714;--bg-secondary:#221e1a;--text-primary:#e8e2d4;--text-secondary:#b8b0a0;--text-tertiary:#807a6d;--border-tertiary:rgba(230,220,200,.12);--border-secondary:rgba(230,220,200,.22)}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg-primary);color:var(--text-primary);font-family:'EB Garamond',Georgia,serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}@media (max-width:720px){.page{padding:28px 16px 48px}}
+  .site-header{margin-bottom:44px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+  .nav{display:flex;gap:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--text-primary)}
+  .nav a.active{color:var(--text-primary);border-bottom:1px solid var(--border-secondary)}
+  .site-footer{margin-top:54px;padding-top:18px;border-top:1px solid var(--border-tertiary);font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);line-height:1.7}
+  .site-footer a{color:var(--text-secondary);text-decoration:none}.site-footer a:hover{color:var(--text-primary)}
+
+  .back{display:inline-block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--text-tertiary);text-decoration:none;margin-bottom:26px}
+  .back:hover{color:var(--text-primary)}
+  .guide{max-width:42rem}
+  .guide-head .eyebrow{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  .guide-head h1{font-size:38px;line-height:1.08;letter-spacing:-.015em;margin:12px 0 0;font-weight:600}
+  @media (max-width:560px){.guide-head h1{font-size:30px}}
+  .guide-head .dek{font-size:19px;font-style:italic;line-height:1.45;color:var(--text-secondary);margin-top:16px}
+  .guide-head .meta{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.06em;margin-top:18px;padding-bottom:22px;border-bottom:1px solid var(--border-tertiary)}
+  .prose{margin-top:26px}
+  .prose p{font-size:18px;line-height:1.62;margin-bottom:18px}
+  .prose .lead{font-size:20px;line-height:1.55}
+  .prose .lead::first-letter{font-size:3.1em;float:left;line-height:.82;padding:6px 10px 0 0;font-weight:600}
+  .prose b{font-weight:600;color:var(--text-primary)}
+  .prose h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin:36px 0 16px}
+  .deeper,.shelf{margin-top:34px;padding-top:24px;border-top:1px solid var(--border-tertiary)}
+  .deeper h2,.shelf h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:16px}
+  .deeper ul{list-style:none}
+  .deeper li{margin-bottom:16px;padding-left:16px;border-left:2px solid var(--border-tertiary)}
+  .deeper .work{display:block;font-size:17px;color:var(--text-primary);font-style:italic}
+  .deeper .note{display:block;font-size:14.5px;line-height:1.5;color:var(--text-secondary);margin-top:4px}
+  .shelf p{font-size:17px;line-height:1.6;color:var(--text-secondary)}
+  .shelf b{color:var(--text-primary);font-weight:600}
+  .guide-nav{margin-top:40px;padding-top:22px;border-top:1px solid var(--border-tertiary);display:flex;justify-content:space-between;gap:16px;font-family:'Geist Mono',monospace;font-size:12px}
+  .guide-nav a{color:var(--text-secondary);text-decoration:none;max-width:46%}.guide-nav a:hover{color:var(--text-primary)}
+  .guide-nav .nx{text-align:right;margin-left:auto}
+  .guide-nav .lbl{display:block;font-size:10px;letter-spacing:.1em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:3px}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <div class="brand"><a href="/">Aidan</a></div>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">writing</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html" class="active">study</a>
+      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+    </nav>
+  </header>
+  <main>
+    <article class="guide">
+      <a class="back" href="/study.html">← study plan</a>
+      <div class="guide-head">
+        <span class="eyebrow" style="color:#6b8f9c">Physics · no. 04</span>
+        <h1>Gravity is not a force</h1>
+        <p class="dek">Nothing is pulling you into your chair. The chair is shoving you up — and that shove is the only force in the whole story.</p>
+        <div class="meta">4 min read</div>
+      </div>
+      <div class="prose">
+        <p class="lead">Right now you can feel gravity pulling you down into your seat. Einstein's strangest and best idea is that nothing is pulling you at all. There is no force of gravity. The chair is pushing you <i>up</i> — and that shove is the only real force in the story. Everything else is the shape of space.</p>
+        <h2>The argument</h2>
+      <p>Start where Einstein started, with what he called the happiest thought of his life: a person in free fall does not feel their own weight. Drop a ball beside you as you fall and it hangs there, weightless, exactly as it would in deep space. So gravity can be made to <i>vanish</i> simply by letting go. This is the <b>equivalence principle</b>: standing in a gravitational field feels identical to accelerating, and falling freely feels identical to floating where there is no gravity at all. If a force can be switched off just by releasing your grip, Einstein reasoned, maybe it was never a force to begin with.</p>
+      <p>Here is the replacement picture. Mass and energy bend the geometry of <b>spacetime</b> — the four-dimensional fabric of where-and-when. A planet does not reach out and tug the Moon with an invisible rope; that was Newton's picture, and it always bothered people (action at a distance, across empty space, instantaneously?). Instead the planet <i>curves the spacetime around it</i>, and the Moon simply travels the straightest possible path through that curved geometry. We call the path an orbit, but to the Moon it is a straight line — it is coasting, force-free, through a valley in the shape of space. John Wheeler compressed the whole theory into one sentence: “Spacetime tells matter how to move; matter tells spacetime how to curve.”</p>
+      <p>And the chair? You feel pinned to it because the chair is constantly <i>stopping</i> you from following your natural, straight, force-free path — which is to fall. The ground shoves you off course every second. <b>The sensation of weight is the sensation of being prevented from falling.</b> This isn't a teaching metaphor; it makes hard predictions Newton can't. Starlight bends as it grazes the Sun (measured in 1919). Time runs measurably slower deep in a gravity well (your phone's GPS corrects for it every second, or it would drift miles off). And where the curvature runs away with itself, you get a black hole — a place where the geometry folds so steeply that <i>down</i> points only inward.</p>
+        <h2>Where it’s contested</h2>
+      <p>General relativity is among the most ruthlessly tested theories in all of science; for a century it has not put a foot wrong, from Mercury's orbit to the gravitational waves detected in 2015. The unfinished business lies elsewhere: it does not get along with the other great theory of the age, <b>quantum mechanics</b>. Relativity describes spacetime as smooth and continuous; quantum theory describes a world that is grainy, probabilistic, jittering at the smallest scales.</p>
+      <p>At the center of a black hole, and in the first instant of the universe, both theories apply at once — and they flatly contradict each other, the smooth geometry dissolving into infinities no one can read. So Einstein's curved spacetime is almost certainly <i>not</i> the last word, but a breathtaking approximation of something deeper we can't yet see: a quantum theory of gravity. The shape of space, it seems, may itself be made of something — and we don't know what.</p>
+      </div>
+      <section class="deeper">
+        <h2>Read further</h2>
+        <ul>
+        <li><span class="work">Relativity: The Special and the General Theory — Albert Einstein (1916)</span><span class="note">His own popular account. Surprisingly readable — he wanted ordinary readers to follow it.</span></li>
+        <li><span class="work">Seven Brief Lessons on Physics — Carlo Rovelli (2014)</span><span class="note">The most elegant short modern telling of curved spacetime — the first lesson is on exactly this.</span></li>
+        </ul>
+      </section>
+      <section class="shelf">
+        <h2>On your shelf</h2>
+        <p>You read Hawking and Thorne and Gleick's <i>Chaos</i> — you go to science for the same thing you go to McCarthy for: the confrontation with something vast and indifferent. This is the cleanest version of it. Newton handed you a clockwork you could feel mastered by; Einstein hands you a universe whose very stage is bent by whatever stands on it, where time itself runs at a local rate. It may be the most literary idea in all of physics: the shape of the world depends on what is in it.</p>
+      </section>
+      <nav class="guide-nav">
+        <a class="pv" href="/study/archive/the-original-affluent-society.html"><span class="lbl">← previous field</span>The original affluent society</a>
+        <a class="nx" href="/study/archive/how-good-got-two-meanings.html"><span class="lbl">next field →</span>How “good” got two meanings</a>
+      </nav>
+    </article>
+  </main>
+  <footer class="site-footer">AI Generated Study Plan · no tracking · <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a></footer>
+</div>
+</body></html>

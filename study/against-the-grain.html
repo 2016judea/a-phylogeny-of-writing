@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Why the first states grew grain — A Study</title>
+<meta name="description" content="Civilization tells a flattering origin story: we settled, we farmed, we were saved. James Scott marshals the evidence that we were, in a real sense, trapped — and that the trap was made of wheat." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg-primary:#f7f3ec;--bg-secondary:#f1ece2;--text-primary:#1c1814;--text-secondary:#5a544a;--text-tertiary:#8b8478;--border-tertiary:rgba(60,50,40,.12);--border-secondary:rgba(60,50,40,.22)}
+  @media (prefers-color-scheme:dark){:root{--bg-primary:#1a1714;--bg-secondary:#221e1a;--text-primary:#e8e2d4;--text-secondary:#b8b0a0;--text-tertiary:#807a6d;--border-tertiary:rgba(230,220,200,.12);--border-secondary:rgba(230,220,200,.22)}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg-primary);color:var(--text-primary);font-family:'EB Garamond',Georgia,serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}@media (max-width:720px){.page{padding:28px 16px 48px}}
+  .site-header{margin-bottom:44px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+  .nav{display:flex;gap:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--text-primary)}
+  .nav a.active{color:var(--text-primary);border-bottom:1px solid var(--border-secondary)}
+  .site-footer{margin-top:54px;padding-top:18px;border-top:1px solid var(--border-tertiary);font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);line-height:1.7}
+  .site-footer a{color:var(--text-secondary);text-decoration:none}.site-footer a:hover{color:var(--text-primary)}
+
+  .back{display:inline-block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--text-tertiary);text-decoration:none;margin-bottom:26px}
+  .back:hover{color:var(--text-primary)}
+  .guide{max-width:42rem}
+  .guide-head .eyebrow{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  .guide-head h1{font-size:38px;line-height:1.08;letter-spacing:-.015em;margin:12px 0 0;font-weight:600}
+  @media (max-width:560px){.guide-head h1{font-size:30px}}
+  .guide-head .dek{font-size:19px;font-style:italic;line-height:1.45;color:var(--text-secondary);margin-top:16px}
+  .guide-head .meta{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.06em;margin-top:18px;padding-bottom:22px;border-bottom:1px solid var(--border-tertiary)}
+  .prose{margin-top:26px}
+  .prose p{font-size:18px;line-height:1.62;margin-bottom:18px}
+  .prose .lead{font-size:20px;line-height:1.55}
+  .prose .lead::first-letter{font-size:3.1em;float:left;line-height:.82;padding:6px 10px 0 0;font-weight:600}
+  .prose b{font-weight:600;color:var(--text-primary)}
+  .prose h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin:36px 0 16px}
+  .deeper,.shelf{margin-top:34px;padding-top:24px;border-top:1px solid var(--border-tertiary)}
+  .deeper h2,.shelf h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:16px}
+  .deeper ul{list-style:none}
+  .deeper li{margin-bottom:16px;padding-left:16px;border-left:2px solid var(--border-tertiary)}
+  .deeper .work{display:block;font-size:17px;color:var(--text-primary);font-style:italic}
+  .deeper .note{display:block;font-size:14.5px;line-height:1.5;color:var(--text-secondary);margin-top:4px}
+  .shelf p{font-size:17px;line-height:1.6;color:var(--text-secondary)}
+  .shelf b{color:var(--text-primary);font-weight:600}
+  .guide-nav{margin-top:40px;padding-top:22px;border-top:1px solid var(--border-tertiary);display:flex;justify-content:space-between;gap:16px;font-family:'Geist Mono',monospace;font-size:12px}
+  .guide-nav a{color:var(--text-secondary);text-decoration:none;max-width:46%}.guide-nav a:hover{color:var(--text-primary)}
+  .guide-nav .nx{text-align:right;margin-left:auto}
+  .guide-nav .lbl{display:block;font-size:10px;letter-spacing:.1em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:3px}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <div class="brand"><a href="/">Aidan</a></div>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">writing</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html" class="active">study</a>
+      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+    </nav>
+  </header>
+  <main>
+    <article class="guide">
+      <a class="back" href="/study.html">← study plan</a>
+      <div class="guide-head">
+        <span class="eyebrow" style="color:#b89a6a">History · no. 09</span>
+        <h1>Why the first states grew grain</h1>
+        <p class="dek">Civilization tells a flattering origin story: we settled, we farmed, we were saved. James Scott marshals the evidence that we were, in a real sense, trapped — and that the trap was made of wheat.</p>
+        <div class="meta">4 min read</div>
+      </div>
+      <div class="prose">
+        <p class="lead">We tell the origin of civilization as a rescue: humans wandered, hungry and precarious, until they learned to farm, settled down, built cities and states, and were delivered into safety and plenty. It is the story under every museum diorama. In 2017 the political scientist James C. Scott assembled the deep archaeology and asked a heretic's question: if settling down was such a deliverance, why does the skeletal record show that the people who did it grew <i>sicker, shorter, and less free?</i> What if the first states were not the reward for agriculture, but a trap built on it?</p>
+        <h2>The argument</h2>
+      <p>The first awkward fact is a gap of thousands of years: humans knew how to cultivate grain long before anyone organized a state around it, and frequently declined to — foraging was less work and the diet was better. When sedentism finally came, Scott reframes it as a cascade of <b>domestications</b> running in both directions. We domesticated fire, then plants, then animals — and the very same process domesticated <i>us</i>: penned populations, narrowed diets, and the unprecedented crowding of people, livestock and stored grain that bred the first epidemic diseases. The early agrarian town was, in his phrase, a “late-Neolithic multispecies resettlement camp” — and a sickly one.</p>
+      <p>Here is the hinge, and it answers the title. Why are all the early states — Mesopotamia, Egypt, China, Mesoamerica — built on cereal <b>grains</b>, and never on lentils, potatoes, or cassava? Not because grain feeds people best. Because grain can be <i>taxed</i>. It ripens above ground, all at once, on a visible and predictable schedule; it can be seen, counted, assessed, divided, stored, and seized. A tax collector can stand at the edge of a wheat field and estimate the harvest; he can do nothing of the kind with tubers that hide underground and are dug as needed. Grain made the population and its surplus <b>legible</b> to power — and legibility is the thing a state runs on. The state did not arise from grain because grain was nourishing. It arose because grain was <i>countable</i>.</p>
+      <p>And the dark twin of the claim: if the early states were unhealthy and coercive, then the “barbarians” outside them — the herders, foragers and raiders the chronicles sneer at — were often not stragglers who missed the boat but people who had <i>seen</i> the boat and stayed off it. Much of early history, Scott argues, is the story of people fleeing the grain-state for the freer, healthier life beyond the tax line, and of states straining — with walls, with bondage — to keep their human raw material from simply walking away. The wall around the ancient city, he suggests, may have been built as much to keep the taxpayers <i>in</i> as to keep the enemy out.</p>
+        <h2>Where it’s contested</h2>
+      <p>Scott is a provocateur, and the specialists pushed back. The picture is uneven; some early states look less coercive than his model wants; and the clean “trap” narrative flattens a messy, regionally varied record. The fiercest recent challenge — Graeber and Wengrow's <i>The Dawn of Everything</i> — agrees the old “farming saved us” story is dead, but attacks <i>any</i> single replacement, Scott's included, arguing that early humans consciously experimented with wildly different social forms, some egalitarian and some hierarchical, by choice rather than by trap. (That book, in turn, has its own critics, charged with cherry-picking the cases that flatter it.)</p>
+      <p>What survives every quarrel is the reversal of the arrow, and it should change how you read the word “civilization.” Progress was not a ladder we climbed once and for all. The move to the grain-state was a <i>trade</i> — security and scale bought with health, freedom, and equality — and for a very long time many humans, having weighed it, declined. It is the same lesson Sahlins taught from the forager's side, arriving now from the state's: <i>more</i> was not obviously <i>better</i>, and the people of the deep past knew it.</p>
+      </div>
+      <section class="deeper">
+        <h2>Read further</h2>
+        <ul>
+        <li><span class="work">Against the Grain: A Deep History of the Earliest States — James C. Scott (2017)</span><span class="note">The argument in full — short, bracing, and built on a generation of others' archaeology.</span></li>
+        <li><span class="work">The Dawn of Everything: A New History of Humanity — David Graeber &amp; David Wengrow (2021)</span><span class="note">The big, contested counter-history: no single origin story for humankind — including no single trap.</span></li>
+        </ul>
+      </section>
+      <section class="shelf">
+        <h2>On your shelf</h2>
+        <p>This is the history that clamps onto two fields now in your archive. It is Sahlins's “original affluent society” told from the other end — what, precisely, the foragers were declining when they declined to settle. And it rhymes with Turner: both are arguments about what a <i>frontier</i> is — for Turner the free edge that forged the American character, for Scott the free beyond-the-tax-line that the first states could never quite close. Your shelf keeps circling the same nerve: what we gave up in order to be governed.</p>
+      </section>
+      <nav class="guide-nav">
+        <a class="pv" href="/study/there-is-no-free-gift.html"><span class="lbl">← previous field</span>There is no free gift</a>
+        <a class="nx" href="/study/empty-of-itself.html"><span class="lbl">next field →</span>Empty of itself</a>
+      </nav>
+    </article>
+  </main>
+  <footer class="site-footer">AI Generated Study Plan · no tracking · <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a></footer>
+</div>
+</body></html>

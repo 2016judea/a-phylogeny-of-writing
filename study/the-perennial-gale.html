@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The perennial gale — A Study</title>
+<meta name="description" content="What the textbooks treat as a disturbance to be smoothed away, Schumpeter said is the main event — capitalism is not a state but a storm, and the storm is the whole point." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg-primary:#f7f3ec;--bg-secondary:#f1ece2;--text-primary:#1c1814;--text-secondary:#5a544a;--text-tertiary:#8b8478;--border-tertiary:rgba(60,50,40,.12);--border-secondary:rgba(60,50,40,.22)}
+  @media (prefers-color-scheme:dark){:root{--bg-primary:#1a1714;--bg-secondary:#221e1a;--text-primary:#e8e2d4;--text-secondary:#b8b0a0;--text-tertiary:#807a6d;--border-tertiary:rgba(230,220,200,.12);--border-secondary:rgba(230,220,200,.22)}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg-primary);color:var(--text-primary);font-family:'EB Garamond',Georgia,serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}@media (max-width:720px){.page{padding:28px 16px 48px}}
+  .site-header{margin-bottom:44px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+  .nav{display:flex;gap:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--text-primary)}
+  .nav a.active{color:var(--text-primary);border-bottom:1px solid var(--border-secondary)}
+  .site-footer{margin-top:54px;padding-top:18px;border-top:1px solid var(--border-tertiary);font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);line-height:1.7}
+  .site-footer a{color:var(--text-secondary);text-decoration:none}.site-footer a:hover{color:var(--text-primary)}
+
+  .back{display:inline-block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--text-tertiary);text-decoration:none;margin-bottom:26px}
+  .back:hover{color:var(--text-primary)}
+  .guide{max-width:42rem}
+  .guide-head .eyebrow{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  .guide-head h1{font-size:38px;line-height:1.08;letter-spacing:-.015em;margin:12px 0 0;font-weight:600}
+  @media (max-width:560px){.guide-head h1{font-size:30px}}
+  .guide-head .dek{font-size:19px;font-style:italic;line-height:1.45;color:var(--text-secondary);margin-top:16px}
+  .guide-head .meta{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.06em;margin-top:18px;padding-bottom:22px;border-bottom:1px solid var(--border-tertiary)}
+  .prose{margin-top:26px}
+  .prose p{font-size:18px;line-height:1.62;margin-bottom:18px}
+  .prose .lead{font-size:20px;line-height:1.55}
+  .prose .lead::first-letter{font-size:3.1em;float:left;line-height:.82;padding:6px 10px 0 0;font-weight:600}
+  .prose b{font-weight:600;color:var(--text-primary)}
+  .prose h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin:36px 0 16px}
+  .deeper,.shelf{margin-top:34px;padding-top:24px;border-top:1px solid var(--border-tertiary)}
+  .deeper h2,.shelf h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:16px}
+  .deeper ul{list-style:none}
+  .deeper li{margin-bottom:16px;padding-left:16px;border-left:2px solid var(--border-tertiary)}
+  .deeper .work{display:block;font-size:17px;color:var(--text-primary);font-style:italic}
+  .deeper .note{display:block;font-size:14.5px;line-height:1.5;color:var(--text-secondary);margin-top:4px}
+  .shelf p{font-size:17px;line-height:1.6;color:var(--text-secondary)}
+  .shelf b{color:var(--text-primary);font-weight:600}
+  .guide-nav{margin-top:40px;padding-top:22px;border-top:1px solid var(--border-tertiary);display:flex;justify-content:space-between;gap:16px;font-family:'Geist Mono',monospace;font-size:12px}
+  .guide-nav a{color:var(--text-secondary);text-decoration:none;max-width:46%}.guide-nav a:hover{color:var(--text-primary)}
+  .guide-nav .nx{text-align:right;margin-left:auto}
+  .guide-nav .lbl{display:block;font-size:10px;letter-spacing:.1em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:3px}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <div class="brand"><a href="/">Aidan</a></div>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">writing</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html" class="active">study</a>
+      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+    </nav>
+  </header>
+  <main>
+    <article class="guide">
+      <a class="back" href="/study.html">← study plan</a>
+      <div class="guide-head">
+        <span class="eyebrow" style="color:#9c7a3c">Economics · no. 07</span>
+        <h1>The perennial gale</h1>
+        <p class="dek">What the textbooks treat as a disturbance to be smoothed away, Schumpeter said is the main event — capitalism is not a state but a storm, and the storm is the whole point.</p>
+        <div class="meta">4 min read</div>
+      </div>
+      <div class="prose">
+        <p class="lead">Open an economics textbook and you meet a world at rest: supply meets demand, prices settle, the market “clears,” equilibrium. Joseph Schumpeter looked at that picture and saw a still photograph of a hurricane. In 1942, in a six-page chapter, he named what the equations leave out and made it the entire story: capitalism is not a <i>state</i>, it is a <i>process</i> — and its essential fact is destruction.</p>
+        <h2>The argument</h2>
+      <p>His phrase is “the perennial gale of creative destruction,” and every word is working. Capitalism, he wrote, “incessantly revolutionizes the economic structure <i>from within</i>, incessantly destroying the old one, incessantly creating a new one.” The railway destroys the stagecoach; electric light destroys the gas-lamp and the whale-oil fleet; the new annihilates the old not as an accident but as the <b>mechanism</b>. The textbook treats these upheavals as shocks that disturb the equilibrium. Schumpeter says the upheaval <i>is</i> the system, and the calm between gales is the illusion.</p>
+      <p>This is exactly the intuition you flagged — that a market is driven by <i>action</i>, not by the product sitting on the shelf. In the static picture a market is a stock of goods at a price. In Schumpeter's it is a sequence of <b>actions</b>: an entrepreneur introducing a new good, a new method, a new market, a new way of organizing — each a small detonation that renders some existing thing obsolete. The competition that matters is not two shops shaving a penny off the same loaf. It is, in his words, the competition “from the new commodity, the new technology… which strikes not at the margins of the profits of the existing firms but at their foundations and their very lives.” The threat was never a cheaper rival. It is obsolescence.</p>
+      <p>And the unsettling payoff. Profit, in this telling, is not a reward for owning capital or for balancing supply against demand. It is the temporary prize for <i>disrupting</i> — and it is <i>meant</i> to be temporary, competed away by the next gale, which is why the entrepreneur can never stop moving. The same logic finally eats its maker: Schumpeter thought capitalism's very success would routinize innovation inside vast bureaucratic firms, dissolve the lone entrepreneur into a committee, and corrode the culture that once made the whole turbulent business feel legitimate. Capitalism, he predicted, would be killed not by its failures but by its triumphs. The gale, in the end, blows down the house that raised it.</p>
+        <h2>Where it’s contested</h2>
+      <p>The cheerful reading — “disruption is good, let the gale blow” — is a Silicon Valley bumper sticker that Schumpeter, a gloomy Austrian who fully expected capitalism to die, would have found absurd. The honest tension is the human one: creative destruction is genuinely creative <i>and</i> genuinely destruction. The cost of the new is borne by specific people — the obsolete trade, the hollowed town, the skill that took a life to master and is worth nothing on Monday. “Creative” and “destruction” are not a slogan; they are a ledger with two columns, and the second column has names in it.</p>
+      <p>The sharpest modern descendant of the idea turns political. Acemoglu and Robinson argue that the people about to be destroyed are usually the people with the power to <i>stop</i> it — incumbents lobby, capture the regulators, pull the ladder up behind them — so the gale is not natural weather at all, but something societies either permit or strangle. Which leaves the real question Schumpeter hands you: not “is destruction efficient?” but <i>who decides which old things must die, and who pays for the new ones to be born?</i></p>
+      </div>
+      <section class="deeper">
+        <h2>Read further</h2>
+        <ul>
+        <li><span class="work">Capitalism, Socialism and Democracy — Joseph A. Schumpeter (1942)</span><span class="note">Part II, “The Process of Creative Destruction” — the six pages everything else traces back to.</span></li>
+        <li><span class="work">Why Nations Fail — Daron Acemoglu &amp; James A. Robinson (2012)</span><span class="note">The modern political turn: prosperity depends on institutions that <i>allow</i> creative destruction instead of letting incumbents block it.</span></li>
+        </ul>
+      </section>
+      <section class="shelf">
+        <h2>On your shelf</h2>
+        <p>You've read Rand's hymn to the producer, and — now in the archive here — Hayek on the price system. Schumpeter completes that triangle and darkens it. Rand gives you the heroic builder; Hayek gives you the order no one designs; Schumpeter gives you the thing both leave out — that the builder's creation is someone else's ruin, that the order is a permanent churning, and that the system's ultimate reward for genius is to render genius obsolete. It is the least sentimental account of the engine you find most romantic.</p>
+      </section>
+      <nav class="guide-nav">
+        <a class="pv" href="/study/what-space-is-made-of.html"><span class="lbl">← previous field</span>What space is made of</a>
+        <a class="nx" href="/study/there-is-no-free-gift.html"><span class="lbl">next field →</span>There is no free gift</a>
+      </nav>
+    </article>
+  </main>
+  <footer class="site-footer">AI Generated Study Plan · no tracking · <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a></footer>
+</div>
+</body></html>

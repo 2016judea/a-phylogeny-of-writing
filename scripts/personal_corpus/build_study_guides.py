@@ -28,6 +28,7 @@ import os, sys, html
 GUIDES = [
     {
         "n": 1,
+        "archived": True,
         "slug": "the-price-of-knowing",
         "discipline": "Economics",
         "color": "#9c7a3c",
@@ -98,6 +99,7 @@ GUIDES = [
     },
     {
         "n": 2,
+        "archived": True,
         "slug": "the-frontier-and-its-ghost",
         "discipline": "History",
         "color": "#b89a6a",
@@ -164,6 +166,7 @@ GUIDES = [
     },
     {
         "n": 3,
+        "archived": True,
         "slug": "the-original-affluent-society",
         "discipline": "Anthropology",
         "color": "#7a9c6b",
@@ -228,6 +231,7 @@ GUIDES = [
     },
     {
         "n": 4,
+        "archived": True,
         "slug": "gravity-is-not-a-force",
         "discipline": "Physics",
         "color": "#6b8f9c",
@@ -300,6 +304,7 @@ GUIDES = [
     },
     {
         "n": 5,
+        "archived": True,
         "slug": "how-good-got-two-meanings",
         "discipline": "Philosophy · Philology",
         "color": "#8c6b9c",
@@ -367,6 +372,390 @@ GUIDES = [
             "small words."
         ),
     },
+    {
+        "n": 6,
+        "slug": "what-space-is-made-of",
+        "discipline": "Physics",
+        "color": "#6b8f9c",
+        "title": "What space is made of",
+        "dek": "Our two best theories of reality contradict each other where they meet. The likeliest reason: space and time aren't the floor of the world — they're built out of something else.",
+        "hook": "Why our two best theories can't both be true — and a guess at what's underneath.",
+        "read": 5,
+        "provocation": (
+            "The archived field “Gravity is not a force” ended on a cliff: general relativity and "
+            "quantum mechanics, each confirmed to absurd precision, flatly contradict each other where "
+            "they meet — the centre of a black hole, the first instant of the universe. A century of "
+            "the best minds alive has not closed the gap. You asked the obvious next question: "
+            "<i>why?</i> Here is the honest state of it — and, since you asked an AI to take a side, "
+            "where I think the answer lies."
+        ),
+        "argument": [
+            "First, what the fight is actually about. It is not a clash of details; it is a clash about "
+            "<b>what the stage is</b>. In quantum mechanics, things evolve <i>on</i> spacetime — a "
+            "fixed, smooth backdrop given in advance, the same for everyone. General relativity's whole "
+            "revolution was to abolish that backdrop: spacetime is not the stage, it is an actor. It "
+            "bends, stretches, ripples, and is shaped by whatever it contains. So the two theories don't "
+            "merely give different answers — they disagree about whether the floor of the world is fixed "
+            "or itself in play. Try to quantize gravity naïvely, treating its field by the same quantum "
+            "rules as every other field, and the equations vomit infinities: probabilities that sum past "
+            "one, energies without bound. The math is not failing. It is telling us something.",
+            "The two leading programs split on what to surrender. <b>String theory</b> keeps a background "
+            "and adds structure — the point-particle becomes a vibrating string, the infinities cancel, "
+            "and the price is extra dimensions and a “landscape” of perhaps 10<sup>500</sup> possible "
+            "universes, none yet shown to be ours. <b>Loop quantum gravity</b> (Rovelli, Smolin, "
+            "Ashtekar) keeps relativity's lesson — no background — and pays by quantizing space itself: "
+            "at the smallest scale, area and volume come in discrete grains, space is a fine weave of "
+            "relations (a “spin network”), and the smooth spacetime we move through is just the "
+            "coarse-grained average of that mesh. Different bets — but notice the instinct they now "
+            "share, hardening across two decades of failure to unify them: <i>spacetime is not "
+            "fundamental. It emerges.</i>",
+            "Here is where you asked me to plant a flag, so I will — with the humility the subject "
+            "demands. The clue I trust most is <b>background independence</b>: relativity's hard-won "
+            "discovery that geometry is not the stage but the play. Any theory that quietly smuggles a "
+            "fixed background back in is treating as bedrock the very thing relativity showed to be "
+            "dynamical. So I'd bet the resolution is <i>relational and emergent</i> — that space and "
+            "time are not the container of events but a statistical description of how quantum things "
+            "relate, the way <i>temperature</i> is perfectly real but not fundamental, only a story "
+            "about jostling atoms. There is no smallest box that space sits in; “distance” is a summary "
+            "of correlations. Whether the right machinery is loop networks or something newer — "
+            "spacetime woven out of <i>entanglement</i>, the liveliest current frontier — I'd wager on "
+            "the shape of the answer: at the bottom there is no space, only relation, and space is what "
+            "relation looks like when there is enough of it."
+        ],
+        "tension": [
+            "The most important thing to say is that <b>no one knows</b>, and anyone who tells you "
+            "otherwise is selling something. Not one of the candidate theories has made a single "
+            "confirmed novel prediction. The energy where quantum gravity bites is roughly a quadrillion "
+            "times beyond our largest collider; the scale may lie forever past direct experiment. String "
+            "theory has been attacked — by Smolin himself, in <i>The Trouble with Physics</i> — for "
+            "drifting into beautiful, unfalsifiable mathematics; loop quantum gravity for struggling to "
+            "get ordinary smooth spacetime back out in the everyday limit. And “emergence,” critics "
+            "rightly warn, can be a word doing the work that an actual mechanism should.",
+            "So separate the strong claim from the deep one. The <i>strong</i> version of my bet — "
+            "“space is definitely made of entanglement” — is speculation, and I hold it loosely. The "
+            "<i>deep</i> version is sturdier: the contradiction between our two theories is almost "
+            "certainly the sign that one of our most basic intuitions — that space and time are the "
+            "fixed, fundamental container of all that happens — is simply wrong, the way “solid matter” "
+            "turned out to be mostly empty space and field. The next revolution probably isn't a better "
+            "theory written <i>on</i> spacetime. It is a theory from which spacetime falls <i>out</i>. "
+            "(Strangely, that relational picture rhymes with a 2nd-century Buddhist argument — see the "
+            "last field in this set, on emptiness.)"
+        ],
+        "deeper": [
+            {"label": "Reality Is Not What It Seems: The Journey to Quantum Gravity — Carlo Rovelli (2016)",
+             "note": "The loop-quantum-gravity vision as intellectual history — lyrical, and honest about the size of what we don't know."},
+            {"label": "Three Roads to Quantum Gravity — Lee Smolin (2001)",
+             "note": "The clearest map of the rival programs, and the best plain-language case for background independence."},
+        ],
+        "shelf": (
+            "This is the deeper water you asked for under “Gravity is not a force,” now in the archive. "
+            "You read Hawking and Thorne for the confrontation with something vast and indifferent; this "
+            "is the live edge of it, where the indifference reaches all the way into our own concepts. "
+            "And note the rhyme waiting at the end of this set: when Rovelli tried to explain his "
+            "relational reading of the quantum world, people kept asking him, <i>have you read "
+            "Nāgārjuna?</i> — a 2nd-century monk who argued that nothing whatever exists on its own, only "
+            "in relation. Physics may be backing, by experiment, into a metaphysics twenty centuries old."
+        ),
+    },
+    {
+        "n": 7,
+        "slug": "the-perennial-gale",
+        "discipline": "Economics",
+        "color": "#9c7a3c",
+        "title": "The perennial gale",
+        "dek": "What the textbooks treat as a disturbance to be smoothed away, Schumpeter said is the main event — capitalism is not a state but a storm, and the storm is the whole point.",
+        "hook": "Why capitalism's engine is destruction, and the entrepreneur is its weather.",
+        "read": 4,
+        "provocation": (
+            "Open an economics textbook and you meet a world at rest: supply meets demand, prices "
+            "settle, the market “clears,” equilibrium. Joseph Schumpeter looked at that picture and saw "
+            "a still photograph of a hurricane. In 1942, in a six-page chapter, he named what the "
+            "equations leave out and made it the entire story: capitalism is not a <i>state</i>, it is a "
+            "<i>process</i> — and its essential fact is destruction."
+        ),
+        "argument": [
+            "His phrase is “the perennial gale of creative destruction,” and every word is working. "
+            "Capitalism, he wrote, “incessantly revolutionizes the economic structure <i>from "
+            "within</i>, incessantly destroying the old one, incessantly creating a new one.” The "
+            "railway destroys the stagecoach; electric light destroys the gas-lamp and the whale-oil "
+            "fleet; the new annihilates the old not as an accident but as the <b>mechanism</b>. The "
+            "textbook treats these upheavals as shocks that disturb the equilibrium. Schumpeter says the "
+            "upheaval <i>is</i> the system, and the calm between gales is the illusion.",
+            "This is exactly the intuition you flagged — that a market is driven by <i>action</i>, not "
+            "by the product sitting on the shelf. In the static picture a market is a stock of goods at "
+            "a price. In Schumpeter's it is a sequence of <b>actions</b>: an entrepreneur introducing a "
+            "new good, a new method, a new market, a new way of organizing — each a small detonation "
+            "that renders some existing thing obsolete. The competition that matters is not two shops "
+            "shaving a penny off the same loaf. It is, in his words, the competition “from the new "
+            "commodity, the new technology… which strikes not at the margins of the profits of the "
+            "existing firms but at their foundations and their very lives.” The threat was never a "
+            "cheaper rival. It is obsolescence.",
+            "And the unsettling payoff. Profit, in this telling, is not a reward for owning capital or "
+            "for balancing supply against demand. It is the temporary prize for <i>disrupting</i> — and "
+            "it is <i>meant</i> to be temporary, competed away by the next gale, which is why the "
+            "entrepreneur can never stop moving. The same logic finally eats its maker: Schumpeter "
+            "thought capitalism's very success would routinize innovation inside vast bureaucratic "
+            "firms, dissolve the lone entrepreneur into a committee, and corrode the culture that once "
+            "made the whole turbulent business feel legitimate. Capitalism, he predicted, would be "
+            "killed not by its failures but by its triumphs. The gale, in the end, blows down the house "
+            "that raised it."
+        ],
+        "tension": [
+            "The cheerful reading — “disruption is good, let the gale blow” — is a Silicon Valley "
+            "bumper sticker that Schumpeter, a gloomy Austrian who fully expected capitalism to die, "
+            "would have found absurd. The honest tension is the human one: creative destruction is "
+            "genuinely creative <i>and</i> genuinely destruction. The cost of the new is borne by "
+            "specific people — the obsolete trade, the hollowed town, the skill that took a life to "
+            "master and is worth nothing on Monday. “Creative” and “destruction” are not a slogan; they "
+            "are a ledger with two columns, and the second column has names in it.",
+            "The sharpest modern descendant of the idea turns political. Acemoglu and Robinson argue "
+            "that the people about to be destroyed are usually the people with the power to <i>stop</i> "
+            "it — incumbents lobby, capture the regulators, pull the ladder up behind them — so the gale "
+            "is not natural weather at all, but something societies either permit or strangle. Which "
+            "leaves the real question Schumpeter hands you: not “is destruction efficient?” but "
+            "<i>who decides which old things must die, and who pays for the new ones to be born?</i>"
+        ],
+        "deeper": [
+            {"label": "Capitalism, Socialism and Democracy — Joseph A. Schumpeter (1942)",
+             "note": "Part II, “The Process of Creative Destruction” — the six pages everything else traces back to."},
+            {"label": "Why Nations Fail — Daron Acemoglu & James A. Robinson (2012)",
+             "note": "The modern political turn: prosperity depends on institutions that <i>allow</i> creative destruction instead of letting incumbents block it."},
+        ],
+        "shelf": (
+            "You've read Rand's hymn to the producer, and — now in the archive here — Hayek on the "
+            "price system. Schumpeter completes that triangle and darkens it. Rand gives you the heroic "
+            "builder; Hayek gives you the order no one designs; Schumpeter gives you the thing both "
+            "leave out — that the builder's creation is someone else's ruin, that the order is a "
+            "permanent churning, and that the system's ultimate reward for genius is to render genius "
+            "obsolete. It is the least sentimental account of the engine you find most romantic."
+        ),
+    },
+    {
+        "n": 8,
+        "slug": "there-is-no-free-gift",
+        "discipline": "Anthropology",
+        "color": "#7a9c6b",
+        "title": "There is no free gift",
+        "dek": "A present looks like the opposite of a transaction. Marcel Mauss spent a famous essay showing it is the oldest transaction there is — and the one that built society.",
+        "hook": "Why a gift always has a string attached — and why that string is the social bond itself.",
+        "read": 4,
+        "provocation": (
+            "You flagged the line from the affluent-society field that stayed with you: among foragers, "
+            "“a person's standing was measured by what they gave away, not what they held.” That is not "
+            "a quirk of the Kalahari. It is, Marcel Mauss argued in 1925, one of the founding facts of "
+            "human society — and it runs through your life too. Give someone a lavish present and watch "
+            "what happens: they are delighted, and they are also, faintly, in your debt. Mauss asked the "
+            "question hiding inside that small discomfort. <i>Why does a gift oblige?</i>"
+        ),
+        "argument": [
+            "In his essay <i>The Gift</i>, Mauss combed the ethnography — the Pacific Northwest, "
+            "Melanesia, ancient Rome and India — and found everywhere the same hidden structure, written "
+            "in no law yet binding like iron: <b>three obligations</b>. The obligation to <i>give</i> "
+            "(to refuse is to refuse alliance, nearly to declare war). The obligation to <i>receive</i> "
+            "(you cannot decline a gift without insult). And the heaviest, the obligation to "
+            "<i>reciprocate</i> — to return, in time, something of equal or greater worth. Round and "
+            "round those three turns the whole traffic of early societies: not barter, not charity, but "
+            "a perpetual circulation of obligation.",
+            "Why must the gift come back? Mauss reached for a Māori idea — the <b>hau</b>, the spirit of "
+            "the gift. A given thing is not inert; it carries a part of the giver, and that part strains "
+            "to return to its source. To keep a gift, to break the circle, is to hold something that is "
+            "in a sense still alive and not quite yours. We feel the ghost of this still — the unease of "
+            "an unreturned favour, the friend who “shouldn't have,” the debt that is not money but is "
+            "unmistakably a debt. Mauss's claim is that this is not sentiment laid over economics. It is "
+            "older than economics. The gift, not the trade, is the root.",
+            "At the far extreme stands the <b>potlatch</b> of the Northwest Coast: feasts where chiefs "
+            "competed not to accumulate but to <i>give away</i> — and sometimes to destroy outright — "
+            "staggering piles of blankets, coppers, oil, and food, the winner being whoever could "
+            "dispose of the most. To our eyes, madness; to Mauss, the logic of the gift turned up to "
+            "full volume. Where standing flows from giving, wealth is not something you hoard but "
+            "something you <i>move</i>. The rich man is not the one with the fullest house but the one "
+            "through whom the most has passed. Hold that beside your own world's instinct to "
+            "accumulate, and Mauss has done his work: he has made your common sense look strange."
+        ],
+        "tension": [
+            "Mauss's specifics took fire. The Māori <i>hau</i>, his keystone, may have been over-read — "
+            "later anthropologists argued he balanced a whole theory on one possibly garbled informant's "
+            "remark. The tidy line he drew between “archaic” gift and “modern” market is too clean: the "
+            "two interpenetrate everywhere, then and now. And his hope — that the gift pointed to a "
+            "humane third way between cold capitalism and cold communism — reads now as a 1920s dream.",
+            "But the deep finding is unkillable, and it is the one that should unsettle you: <b>there is "
+            "no free gift.</b> Every gift creates a relationship, and a relationship is a debt — which "
+            "is exactly why the truly free gift, the one that obliges nothing and expects nothing, is so "
+            "strangely hard to give, and can even land as a <i>refusal</i> of connection. We moderns "
+            "tell ourselves the gift — love, generosity, the pure present — is the one place that stands "
+            "outside the economy. Mauss's quiet, permanent reply: it was the <i>first</i> economy, and "
+            "it may still be the realest one."
+        ],
+        "deeper": [
+            {"label": "The Gift: The Form and Reason for Exchange in Archaic Societies — Marcel Mauss (1925)",
+             "note": "Short, dense, foundational — the source of half of modern anthropology's working vocabulary."},
+            {"label": "The Gift: Creativity and the Artist in the Modern World — Lewis Hyde (1983)",
+             "note": "The great modern extension: why art lives in a gift economy and withers in a pure market. Written for exactly someone like you."},
+        ],
+        "shelf": (
+            "This is the engine room beneath your favourite line from the affluent-society field, now in "
+            "the archive. Sahlins showed you a people who measured status by what they gave away; Mauss "
+            "tells you <i>why</i> that works, as a kind of social physics present in every society, "
+            "including yours. And Hyde carries it where you actually live: he argues a poem or a novel "
+            "is a <i>gift</i>, not a commodity — it has to be given to do its work — which may be why "
+            "the marketplace and the writing desk have always felt, to you, like two different countries."
+        ),
+    },
+    {
+        "n": 9,
+        "slug": "against-the-grain",
+        "discipline": "History",
+        "color": "#b89a6a",
+        "title": "Why the first states grew grain",
+        "dek": "Civilization tells a flattering origin story: we settled, we farmed, we were saved. James Scott marshals the evidence that we were, in a real sense, trapped — and that the trap was made of wheat.",
+        "hook": "The first states didn't rise on grain because grain fed people. They rose on grain because grain could be taxed.",
+        "read": 4,
+        "provocation": (
+            "We tell the origin of civilization as a rescue: humans wandered, hungry and precarious, "
+            "until they learned to farm, settled down, built cities and states, and were delivered into "
+            "safety and plenty. It is the story under every museum diorama. In 2017 the political "
+            "scientist James C. Scott assembled the deep archaeology and asked a heretic's question: if "
+            "settling down was such a deliverance, why does the skeletal record show that the people who "
+            "did it grew <i>sicker, shorter, and less free?</i> What if the first states were not the "
+            "reward for agriculture, but a trap built on it?"
+        ),
+        "argument": [
+            "The first awkward fact is a gap of thousands of years: humans knew how to cultivate grain "
+            "long before anyone organized a state around it, and frequently declined to — foraging was "
+            "less work and the diet was better. When sedentism finally came, Scott reframes it as a "
+            "cascade of <b>domestications</b> running in both directions. We domesticated fire, then "
+            "plants, then animals — and the very same process domesticated <i>us</i>: penned "
+            "populations, narrowed diets, and the unprecedented crowding of people, livestock and stored "
+            "grain that bred the first epidemic diseases. The early agrarian town was, in his phrase, a "
+            "“late-Neolithic multispecies resettlement camp” — and a sickly one.",
+            "Here is the hinge, and it answers the title. Why are all the early states — Mesopotamia, "
+            "Egypt, China, Mesoamerica — built on cereal <b>grains</b>, and never on lentils, potatoes, "
+            "or cassava? Not because grain feeds people best. Because grain can be <i>taxed</i>. It "
+            "ripens above ground, all at once, on a visible and predictable schedule; it can be seen, "
+            "counted, assessed, divided, stored, and seized. A tax collector can stand at the edge of a "
+            "wheat field and estimate the harvest; he can do nothing of the kind with tubers that hide "
+            "underground and are dug as needed. Grain made the population and its surplus <b>legible</b> "
+            "to power — and legibility is the thing a state runs on. The state did not arise from grain "
+            "because grain was nourishing. It arose because grain was <i>countable</i>.",
+            "And the dark twin of the claim: if the early states were unhealthy and coercive, then the "
+            "“barbarians” outside them — the herders, foragers and raiders the chronicles sneer at — "
+            "were often not stragglers who missed the boat but people who had <i>seen</i> the boat and "
+            "stayed off it. Much of early history, Scott argues, is the story of people fleeing the "
+            "grain-state for the freer, healthier life beyond the tax line, and of states straining — "
+            "with walls, with bondage — to keep their human raw material from simply walking away. The "
+            "wall around the ancient city, he suggests, may have been built as much to keep the "
+            "taxpayers <i>in</i> as to keep the enemy out."
+        ],
+        "tension": [
+            "Scott is a provocateur, and the specialists pushed back. The picture is uneven; some early "
+            "states look less coercive than his model wants; and the clean “trap” narrative flattens a "
+            "messy, regionally varied record. The fiercest recent challenge — Graeber and Wengrow's "
+            "<i>The Dawn of Everything</i> — agrees the old “farming saved us” story is dead, but "
+            "attacks <i>any</i> single replacement, Scott's included, arguing that early humans "
+            "consciously experimented with wildly different social forms, some egalitarian and some "
+            "hierarchical, by choice rather than by trap. (That book, in turn, has its own critics, "
+            "charged with cherry-picking the cases that flatter it.)",
+            "What survives every quarrel is the reversal of the arrow, and it should change how you read "
+            "the word “civilization.” Progress was not a ladder we climbed once and for all. The move to "
+            "the grain-state was a <i>trade</i> — security and scale bought with health, freedom, and "
+            "equality — and for a very long time many humans, having weighed it, declined. It is the "
+            "same lesson Sahlins taught from the forager's side, arriving now from the state's: "
+            "<i>more</i> was not obviously <i>better</i>, and the people of the deep past knew it."
+        ],
+        "deeper": [
+            {"label": "Against the Grain: A Deep History of the Earliest States — James C. Scott (2017)",
+             "note": "The argument in full — short, bracing, and built on a generation of others' archaeology."},
+            {"label": "The Dawn of Everything: A New History of Humanity — David Graeber & David Wengrow (2021)",
+             "note": "The big, contested counter-history: no single origin story for humankind — including no single trap."},
+        ],
+        "shelf": (
+            "This is the history that clamps onto two fields now in your archive. It is Sahlins's "
+            "“original affluent society” told from the other end — what, precisely, the foragers were "
+            "declining when they declined to settle. And it rhymes with Turner: both are arguments about "
+            "what a <i>frontier</i> is — for Turner the free edge that forged the American character, "
+            "for Scott the free beyond-the-tax-line that the first states could never quite close. Your "
+            "shelf keeps circling the same nerve: what we gave up in order to be governed."
+        ),
+    },
+    {
+        "n": 10,
+        "slug": "empty-of-itself",
+        "discipline": "Philosophy",
+        "color": "#8c6b9c",
+        "title": "Empty of itself",
+        "dek": "A 2nd-century Buddhist monk built an argument that nothing — no thing, no self, no atom — exists on its own. Eighteen centuries later, a quantum physicist found he had been making the same case.",
+        "hook": "The claim that nothing has its own being, only borrowed being — and why it isn't nihilism.",
+        "read": 4,
+        "provocation": (
+            "You've read all of Nietzsche, so the philosophy field owes you ground you haven't already "
+            "walked. Here is some — and it means leaving the West entirely. In the 2nd century, in "
+            "India, a Buddhist monk named Nāgārjuna mounted an argument so strange and so tight that "
+            "philosophers have not finished with it in eighteen hundred years: that nothing whatsoever "
+            "exists in and of itself. Not you, not a table, not an atom — not even emptiness. Everything "
+            "is <i>empty</i>. And he meant it as the most liberating thing a person could possibly know."
+        ),
+        "argument": [
+            "The technical heart is one move against one idea. Most of us assume things possess "
+            "<b>svabhāva</b> — an “own-being,” an intrinsic essence that makes a thing itself "
+            "independently of everything else. The cup is a cup by its own inner cup-nature. In the "
+            "<i>Mūlamadhyamakakārikā</i> (“Fundamental Verses on the Middle Way”), Nāgārjuna denies this "
+            "of <i>everything</i>. A cup exists only in dependence — on clay, on a potter, on the hand "
+            "that lifts it, on the word “cup,” on not being the not-cup around it. Strip away everything "
+            "the cup leans on and you do not reach a hard residue of pure cup-ness underneath. You reach "
+            "nothing. That nothing is <b>śūnyatā</b>, emptiness: not that the cup fails to exist, but "
+            "that it has no existence <i>of its own</i>.",
+            "Now the crucial guardrail — the place careless readers crash. Emptiness is <i>not</i> the "
+            "claim that nothing is real. It is the claim that things are real only <b>relationally</b> — "
+            "that “to exist” simply means “to arise in dependence on other things” "
+            "(<i>pratītyasamutpāda</i>, dependent origination). The two ideas are one idea said twice: "
+            "to be empty of own-being and to exist only by depending are the same fact. So Nāgārjuna "
+            "walks a blade between two errors he names precisely — <i>eternalism</i> (things have fixed, "
+            "independent essences) and <i>nihilism</i> (nothing exists at all). The Middle Way is that "
+            "things exist vividly and consequentially, but the way a rainbow exists, or a debt, or a "
+            "melody: entirely real, nowhere self-standing. And the final turn, the one that still stops "
+            "people cold — emptiness is <i>itself</i> empty. It is not a secret true essence hiding "
+            "behind appearances; to make emptiness the one real ground would be to miss the whole point.",
+            "Why build a logic engine this severe? Not to win debates — to dissolve a particular "
+            "suffering. If the self has no fixed essence, if “you” are a process, dependent and in flux "
+            "and empty of any hard unchanging core, then the white-knuckle grip on that self — the "
+            "endless defending and inflating and grieving of it — is a grip on something that was never "
+            "there to hold. The argument is meant to be <b>load-bearing</b>: see emptiness clearly and a "
+            "certain dread is supposed to loosen. It is metaphysics in the service of release."
+        ],
+        "tension": [
+            "Whether the argument <i>works</i> is live and fierce. Critics across the centuries press "
+            "the obvious counter: isn't “everything is empty” itself a claim with content — and if it is "
+            "true, isn't <i>it</i> a fixed truth, an own-being of its own, the very thing it forbids? "
+            "(Nāgārjuna's reply — that emptiness is empty too, that he advances no thesis of his own — "
+            "strikes some readers as profound and others as a clever dodge.) And there is the worry that "
+            "it proves too much, dissolving the ground you need to take <i>anything</i> seriously, "
+            "ethics included.",
+            "Here is why this closes the set. When the physicist Carlo Rovelli began arguing that "
+            "quantum particles have no fixed properties on their own — that a thing's properties exist "
+            "only <i>in relation</i> to other things — colleagues kept asking him: <i>have you read "
+            "Nāgārjuna?</i> He had not. He went and read, and wrote a book partly about it. A 2nd-century "
+            "monk's argument that nothing has own-being, only relational being, turns out to be the "
+            "cleanest available language for the strangest finding of 20th-century physics. The first "
+            "field in this set guessed that, at the bottom, “there is no space, only relation.” Nāgārjuna "
+            "got there first — without a single experiment, by thinking very hard about a cup."
+        ],
+        "deeper": [
+            {"label": "The Fundamental Wisdom of the Middle Way: Nāgārjuna's Mūlamadhyamakakārikā — trans. Jay L. Garfield (1995)",
+             "note": "The standard way in for Western readers: the verses themselves, with patient analytic commentary."},
+            {"label": "Helgoland — Carlo Rovelli (2020)",
+             "note": "The physicist's relational reading of quantum mechanics, and his encounter with Nāgārjuna — reads the physics field and this one as a single thought."},
+        ],
+        "shelf": (
+            "Your to-read shelf already leans east — Zen, <i>Siddhartha</i>, the examined life and how "
+            "little a self truly requires — and this is the rigorous spine beneath all of it. Where "
+            "<i>Siddhartha</i> <i>narrates</i> the dissolving of the grasping self, Nāgārjuna <i>proves</i> "
+            "it, or tries to, with a logician's cold patience. And set him against your Nietzsche: both "
+            "take a hammer to a comforting illusion — Nietzsche to the divine origin of morals, "
+            "Nāgārjuna to the independent existence of the self — but where Nietzsche leaves you in the "
+            "rubble to build new values by sheer will, Nāgārjuna says the rubble was the good news all "
+            "along. There was never anything to defend."
+        ),
+    },
 ]
 
 SITE_NAME = "Aidan"
@@ -405,6 +794,12 @@ INDEX_CSS = """
   .card p{font-size:14.5px;line-height:1.5;color:var(--text-secondary)}
   .card .arrow{margin-top:14px;font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary)}
   .closing{margin-top:40px;font-size:14px;line-height:1.6;color:var(--text-tertiary);font-family:'Geist Mono',monospace;max-width:70ch}
+  .archive-head{margin-top:56px;padding-top:26px;border-top:1px solid var(--border-tertiary)}
+  .archive-head h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary)}
+  .archive-head p{margin-top:8px;font-size:14px;line-height:1.55;color:var(--text-tertiary);font-family:'Geist Mono',monospace;max-width:64ch}
+  .grid.archived{margin-top:22px}
+  .grid.archived .card{background:transparent;opacity:.78;transition:opacity .18s,border-color .18s,transform .18s}
+  .grid.archived .card:hover{opacity:1}
 """
 
 GUIDE_CSS = """
@@ -484,35 +879,47 @@ def shell(title, desc, css, body, active):
 """
 
 
-def render_index():
-    cards = []
-    for g in GUIDES:
-        cards.append(f"""      <a class="card" href="/study/{g['slug']}.html">
+def _card(g, base):
+    return f"""      <a class="card" href="{base}{g['slug']}.html">
         <div class="row"><span class="disc" style="color:{g['color']}">{html.escape(g['discipline'])}</span><span class="rt">no. {g['n']:02d} · {g['read']} min</span></div>
         <h2>{html.escape(g['title'])}</h2>
         <p>{html.escape(g['hook'])}</p>
         <div class="arrow">read →</div>
-      </a>""")
+      </a>"""
+
+
+def render_index(active, archived):
+    cards = "\n".join(_card(g, "/study/") for g in active)
     body = f"""    <div class="study-head">
       <h1>AI Generated Study Plan</h1>
     </div>
     <div class="grid">
-{chr(10).join(cards)}
+{cards}
+    </div>"""
+    if archived:
+        arch_cards = "\n".join(_card(g, "/study/archive/") for g in archived)
+        body += f"""
+    <div class="archive-head">
+      <h2>The archive</h2>
+      <p>Earlier fields, retired from the rotation but kept in full. Old links still work — they redirect here.</p>
+    </div>
+    <div class="grid archived">
+{arch_cards}
     </div>"""
     return shell("AI Generated Study Plan — Aidan",
                  "AI generated study plan — short reads in economics, history, anthropology, physics, and philosophy.",
                  INDEX_CSS, body, "study")
 
 
-def render_guide(g, prev_g, next_g):
+def render_guide(g, prev_g, next_g, base="/study/"):
     arg = "\n".join(f'      <p>{p}</p>' for p in g["argument"])
     ten = "\n".join(f'      <p>{p}</p>' for p in g["tension"])
     links = []
     for d in g["deeper"]:
         links.append(f"""        <li><span class="work">{html.escape(d['label'])}</span><span class="note">{d['note']}</span></li>""")
-    nav_prev = (f'<a class="pv" href="/study/{prev_g["slug"]}.html"><span class="lbl">← previous field</span>{html.escape(prev_g["title"])}</a>'
+    nav_prev = (f'<a class="pv" href="{base}{prev_g["slug"]}.html"><span class="lbl">← previous field</span>{html.escape(prev_g["title"])}</a>'
                 if prev_g else '<span></span>')
-    nav_next = (f'<a class="nx" href="/study/{next_g["slug"]}.html"><span class="lbl">next field →</span>{html.escape(next_g["title"])}</a>'
+    nav_next = (f'<a class="nx" href="{base}{next_g["slug"]}.html"><span class="lbl">next field →</span>{html.escape(next_g["title"])}</a>'
                 if next_g else '')
     body = f"""    <article class="guide">
       <a class="back" href="/study.html">← study plan</a>
@@ -548,24 +955,81 @@ def render_guide(g, prev_g, next_g):
                  g["dek"], GUIDE_CSS, body, "study")
 
 
+SITE_URL = "https://aidanjude.vercel.app"
+
+
+def redirect_stub(g):
+    """Tiny page left at the OLD /study/<slug>.html path once a field is archived,
+    so links already shared with people keep working. Redirects to the archive copy."""
+    dest = f"/study/archive/{g['slug']}.html"
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{html.escape(g['title'])} — moved to the archive</title>
+<link rel="canonical" href="{SITE_URL}{dest}" />
+<meta http-equiv="refresh" content="0; url={dest}" />
+{FONTS}
+<style>{HEAD_CSS}
+  .page{{max-width:640px}}
+  .moved{{margin-top:60px;font-family:'EB Garamond',Georgia,serif}}
+  .moved .eyebrow{{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary)}}
+  .moved h1{{font-size:30px;font-style:italic;margin:12px 0 16px}}
+  .moved p{{font-size:17px;line-height:1.6;color:var(--text-secondary)}}
+  .moved a{{color:var(--text-primary)}}
+</style>
+<script>location.replace("{dest}");</script>
+</head>
+<body>
+<div class="page">
+  <div class="moved">
+    <div class="eyebrow">moved to the archive</div>
+    <h1>{html.escape(g['title'])}</h1>
+    <p>This field has been retired from the rotation and kept in the archive.
+       If you're not redirected automatically,
+       <a href="{dest}">read it here →</a></p>
+  </div>
+</div>
+</body></html>
+"""
+
+
 def main():
     site = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser("~/Desktop/writing-topology")
     if not os.path.isdir(site):
         sys.exit(f"site dir not found: {site}")
     study_dir = os.path.join(site, "study")
-    os.makedirs(study_dir, exist_ok=True)
+    archive_dir = os.path.join(study_dir, "archive")
+    os.makedirs(archive_dir, exist_ok=True)
+
+    active = [g for g in GUIDES if not g.get("archived")]
+    archived = [g for g in GUIDES if g.get("archived")]
 
     idx = os.path.join(site, "study.html")
-    open(idx, "w").write(render_index())
+    open(idx, "w").write(render_index(active, archived))
     print(f"wrote {idx}")
 
-    for i, g in enumerate(GUIDES):
-        prev_g = GUIDES[i - 1] if i > 0 else None
-        next_g = GUIDES[i + 1] if i < len(GUIDES) - 1 else None
+    # active fields -> /study/<slug>.html, prev/next within the active set
+    for i, g in enumerate(active):
+        prev_g = active[i - 1] if i > 0 else None
+        next_g = active[i + 1] if i < len(active) - 1 else None
         path = os.path.join(study_dir, f"{g['slug']}.html")
-        open(path, "w").write(render_guide(g, prev_g, next_g))
+        open(path, "w").write(render_guide(g, prev_g, next_g, base="/study/"))
         print(f"wrote {path}")
-    print(f"\n{len(GUIDES)} field(s) built into {site}")
+
+    # archived fields -> /study/archive/<slug>.html (prev/next within the archive),
+    # plus a redirect stub left at the old /study/<slug>.html path
+    for i, g in enumerate(archived):
+        prev_g = archived[i - 1] if i > 0 else None
+        next_g = archived[i + 1] if i < len(archived) - 1 else None
+        path = os.path.join(archive_dir, f"{g['slug']}.html")
+        open(path, "w").write(render_guide(g, prev_g, next_g, base="/study/archive/"))
+        print(f"wrote {path}")
+        stub = os.path.join(study_dir, f"{g['slug']}.html")
+        open(stub, "w").write(redirect_stub(g))
+        print(f"wrote {stub} (redirect → archive)")
+
+    print(f"\n{len(active)} active + {len(archived)} archived field(s) built into {site}")
 
 
 if __name__ == "__main__":

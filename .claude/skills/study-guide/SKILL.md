@@ -69,6 +69,10 @@ Content lives in the `GUIDES` list at the top of that file. To add a field:
    `hook` (one line for the index card), `read` (minutes), `provocation` (str),
    `argument` (list of HTML paras), `tension` (list of HTML paras),
    `deeper` (list of `{label, note}` — `label` is `Title — Author (year)`, no URLs), `shelf` (str).
+   - Optional `archived` (bool) — set `True` to retire a field. The builder then
+     renders it to `study/archive/<slug>.html`, lists it in the index's "Archive"
+     section, and leaves a redirect stub at the old `study/<slug>.html` so shared
+     links keep working. Retiring/rotating a batch is the **study-review** skill.
    - Inline `<i>`/`<b>` are fine in prose fields. Use real curly quotes.
    - `color` — reuse the site's thread palette so each discipline reads
      consistently: economics `#9c7a3c`, history `#b89a6a`, anthropology

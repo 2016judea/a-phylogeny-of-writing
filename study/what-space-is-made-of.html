@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>What space is made of — A Study</title>
+<meta name="description" content="Our two best theories of reality contradict each other where they meet. The likeliest reason: space and time aren&#x27;t the floor of the world — they&#x27;re built out of something else." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg-primary:#f7f3ec;--bg-secondary:#f1ece2;--text-primary:#1c1814;--text-secondary:#5a544a;--text-tertiary:#8b8478;--border-tertiary:rgba(60,50,40,.12);--border-secondary:rgba(60,50,40,.22)}
+  @media (prefers-color-scheme:dark){:root{--bg-primary:#1a1714;--bg-secondary:#221e1a;--text-primary:#e8e2d4;--text-secondary:#b8b0a0;--text-tertiary:#807a6d;--border-tertiary:rgba(230,220,200,.12);--border-secondary:rgba(230,220,200,.22)}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg-primary);color:var(--text-primary);font-family:'EB Garamond',Georgia,serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}@media (max-width:720px){.page{padding:28px 16px 48px}}
+  .site-header{margin-bottom:44px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+  .nav{display:flex;gap:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--text-primary)}
+  .nav a.active{color:var(--text-primary);border-bottom:1px solid var(--border-secondary)}
+  .site-footer{margin-top:54px;padding-top:18px;border-top:1px solid var(--border-tertiary);font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);line-height:1.7}
+  .site-footer a{color:var(--text-secondary);text-decoration:none}.site-footer a:hover{color:var(--text-primary)}
+
+  .back{display:inline-block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--text-tertiary);text-decoration:none;margin-bottom:26px}
+  .back:hover{color:var(--text-primary)}
+  .guide{max-width:42rem}
+  .guide-head .eyebrow{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  .guide-head h1{font-size:38px;line-height:1.08;letter-spacing:-.015em;margin:12px 0 0;font-weight:600}
+  @media (max-width:560px){.guide-head h1{font-size:30px}}
+  .guide-head .dek{font-size:19px;font-style:italic;line-height:1.45;color:var(--text-secondary);margin-top:16px}
+  .guide-head .meta{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.06em;margin-top:18px;padding-bottom:22px;border-bottom:1px solid var(--border-tertiary)}
+  .prose{margin-top:26px}
+  .prose p{font-size:18px;line-height:1.62;margin-bottom:18px}
+  .prose .lead{font-size:20px;line-height:1.55}
+  .prose .lead::first-letter{font-size:3.1em;float:left;line-height:.82;padding:6px 10px 0 0;font-weight:600}
+  .prose b{font-weight:600;color:var(--text-primary)}
+  .prose h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin:36px 0 16px}
+  .deeper,.shelf{margin-top:34px;padding-top:24px;border-top:1px solid var(--border-tertiary)}
+  .deeper h2,.shelf h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:16px}
+  .deeper ul{list-style:none}
+  .deeper li{margin-bottom:16px;padding-left:16px;border-left:2px solid var(--border-tertiary)}
+  .deeper .work{display:block;font-size:17px;color:var(--text-primary);font-style:italic}
+  .deeper .note{display:block;font-size:14.5px;line-height:1.5;color:var(--text-secondary);margin-top:4px}
+  .shelf p{font-size:17px;line-height:1.6;color:var(--text-secondary)}
+  .shelf b{color:var(--text-primary);font-weight:600}
+  .guide-nav{margin-top:40px;padding-top:22px;border-top:1px solid var(--border-tertiary);display:flex;justify-content:space-between;gap:16px;font-family:'Geist Mono',monospace;font-size:12px}
+  .guide-nav a{color:var(--text-secondary);text-decoration:none;max-width:46%}.guide-nav a:hover{color:var(--text-primary)}
+  .guide-nav .nx{text-align:right;margin-left:auto}
+  .guide-nav .lbl{display:block;font-size:10px;letter-spacing:.1em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:3px}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <div class="brand"><a href="/">Aidan</a></div>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">writing</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html" class="active">study</a>
+      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+    </nav>
+  </header>
+  <main>
+    <article class="guide">
+      <a class="back" href="/study.html">← study plan</a>
+      <div class="guide-head">
+        <span class="eyebrow" style="color:#6b8f9c">Physics · no. 06</span>
+        <h1>What space is made of</h1>
+        <p class="dek">Our two best theories of reality contradict each other where they meet. The likeliest reason: space and time aren&#x27;t the floor of the world — they&#x27;re built out of something else.</p>
+        <div class="meta">5 min read</div>
+      </div>
+      <div class="prose">
+        <p class="lead">The archived field “Gravity is not a force” ended on a cliff: general relativity and quantum mechanics, each confirmed to absurd precision, flatly contradict each other where they meet — the centre of a black hole, the first instant of the universe. A century of the best minds alive has not closed the gap. You asked the obvious next question: <i>why?</i> Here is the honest state of it — and, since you asked an AI to take a side, where I think the answer lies.</p>
+        <h2>The argument</h2>
+      <p>First, what the fight is actually about. It is not a clash of details; it is a clash about <b>what the stage is</b>. In quantum mechanics, things evolve <i>on</i> spacetime — a fixed, smooth backdrop given in advance, the same for everyone. General relativity's whole revolution was to abolish that backdrop: spacetime is not the stage, it is an actor. It bends, stretches, ripples, and is shaped by whatever it contains. So the two theories don't merely give different answers — they disagree about whether the floor of the world is fixed or itself in play. Try to quantize gravity naïvely, treating its field by the same quantum rules as every other field, and the equations vomit infinities: probabilities that sum past one, energies without bound. The math is not failing. It is telling us something.</p>
+      <p>The two leading programs split on what to surrender. <b>String theory</b> keeps a background and adds structure — the point-particle becomes a vibrating string, the infinities cancel, and the price is extra dimensions and a “landscape” of perhaps 10<sup>500</sup> possible universes, none yet shown to be ours. <b>Loop quantum gravity</b> (Rovelli, Smolin, Ashtekar) keeps relativity's lesson — no background — and pays by quantizing space itself: at the smallest scale, area and volume come in discrete grains, space is a fine weave of relations (a “spin network”), and the smooth spacetime we move through is just the coarse-grained average of that mesh. Different bets — but notice the instinct they now share, hardening across two decades of failure to unify them: <i>spacetime is not fundamental. It emerges.</i></p>
+      <p>Here is where you asked me to plant a flag, so I will — with the humility the subject demands. The clue I trust most is <b>background independence</b>: relativity's hard-won discovery that geometry is not the stage but the play. Any theory that quietly smuggles a fixed background back in is treating as bedrock the very thing relativity showed to be dynamical. So I'd bet the resolution is <i>relational and emergent</i> — that space and time are not the container of events but a statistical description of how quantum things relate, the way <i>temperature</i> is perfectly real but not fundamental, only a story about jostling atoms. There is no smallest box that space sits in; “distance” is a summary of correlations. Whether the right machinery is loop networks or something newer — spacetime woven out of <i>entanglement</i>, the liveliest current frontier — I'd wager on the shape of the answer: at the bottom there is no space, only relation, and space is what relation looks like when there is enough of it.</p>
+        <h2>Where it’s contested</h2>
+      <p>The most important thing to say is that <b>no one knows</b>, and anyone who tells you otherwise is selling something. Not one of the candidate theories has made a single confirmed novel prediction. The energy where quantum gravity bites is roughly a quadrillion times beyond our largest collider; the scale may lie forever past direct experiment. String theory has been attacked — by Smolin himself, in <i>The Trouble with Physics</i> — for drifting into beautiful, unfalsifiable mathematics; loop quantum gravity for struggling to get ordinary smooth spacetime back out in the everyday limit. And “emergence,” critics rightly warn, can be a word doing the work that an actual mechanism should.</p>
+      <p>So separate the strong claim from the deep one. The <i>strong</i> version of my bet — “space is definitely made of entanglement” — is speculation, and I hold it loosely. The <i>deep</i> version is sturdier: the contradiction between our two theories is almost certainly the sign that one of our most basic intuitions — that space and time are the fixed, fundamental container of all that happens — is simply wrong, the way “solid matter” turned out to be mostly empty space and field. The next revolution probably isn't a better theory written <i>on</i> spacetime. It is a theory from which spacetime falls <i>out</i>. (Strangely, that relational picture rhymes with a 2nd-century Buddhist argument — see the last field in this set, on emptiness.)</p>
+      </div>
+      <section class="deeper">
+        <h2>Read further</h2>
+        <ul>
+        <li><span class="work">Reality Is Not What It Seems: The Journey to Quantum Gravity — Carlo Rovelli (2016)</span><span class="note">The loop-quantum-gravity vision as intellectual history — lyrical, and honest about the size of what we don't know.</span></li>
+        <li><span class="work">Three Roads to Quantum Gravity — Lee Smolin (2001)</span><span class="note">The clearest map of the rival programs, and the best plain-language case for background independence.</span></li>
+        </ul>
+      </section>
+      <section class="shelf">
+        <h2>On your shelf</h2>
+        <p>This is the deeper water you asked for under “Gravity is not a force,” now in the archive. You read Hawking and Thorne for the confrontation with something vast and indifferent; this is the live edge of it, where the indifference reaches all the way into our own concepts. And note the rhyme waiting at the end of this set: when Rovelli tried to explain his relational reading of the quantum world, people kept asking him, <i>have you read Nāgārjuna?</i> — a 2nd-century monk who argued that nothing whatever exists on its own, only in relation. Physics may be backing, by experiment, into a metaphysics twenty centuries old.</p>
+      </section>
+      <nav class="guide-nav">
+        <span></span>
+        <a class="nx" href="/study/the-perennial-gale.html"><span class="lbl">next field →</span>The perennial gale</a>
+      </nav>
+    </article>
+  </main>
+  <footer class="site-footer">AI Generated Study Plan · no tracking · <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a></footer>
+</div>
+</body></html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The price of knowing — A Study</title>
+<meta name="description" content="Nobody knows how to make a pencil — and that is exactly why the price system is the smartest thing in the room." />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg-primary:#f7f3ec;--bg-secondary:#f1ece2;--text-primary:#1c1814;--text-secondary:#5a544a;--text-tertiary:#8b8478;--border-tertiary:rgba(60,50,40,.12);--border-secondary:rgba(60,50,40,.22)}
+  @media (prefers-color-scheme:dark){:root{--bg-primary:#1a1714;--bg-secondary:#221e1a;--text-primary:#e8e2d4;--text-secondary:#b8b0a0;--text-tertiary:#807a6d;--border-tertiary:rgba(230,220,200,.12);--border-secondary:rgba(230,220,200,.22)}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg-primary);color:var(--text-primary);font-family:'EB Garamond',Georgia,serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}@media (max-width:720px){.page{padding:28px 16px 48px}}
+  .site-header{margin-bottom:44px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+  .nav{display:flex;gap:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--text-primary)}
+  .nav a.active{color:var(--text-primary);border-bottom:1px solid var(--border-secondary)}
+  .site-footer{margin-top:54px;padding-top:18px;border-top:1px solid var(--border-tertiary);font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);line-height:1.7}
+  .site-footer a{color:var(--text-secondary);text-decoration:none}.site-footer a:hover{color:var(--text-primary)}
+
+  .back{display:inline-block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--text-tertiary);text-decoration:none;margin-bottom:26px}
+  .back:hover{color:var(--text-primary)}
+  .guide{max-width:42rem}
+  .guide-head .eyebrow{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  .guide-head h1{font-size:38px;line-height:1.08;letter-spacing:-.015em;margin:12px 0 0;font-weight:600}
+  @media (max-width:560px){.guide-head h1{font-size:30px}}
+  .guide-head .dek{font-size:19px;font-style:italic;line-height:1.45;color:var(--text-secondary);margin-top:16px}
+  .guide-head .meta{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.06em;margin-top:18px;padding-bottom:22px;border-bottom:1px solid var(--border-tertiary)}
+  .prose{margin-top:26px}
+  .prose p{font-size:18px;line-height:1.62;margin-bottom:18px}
+  .prose .lead{font-size:20px;line-height:1.55}
+  .prose .lead::first-letter{font-size:3.1em;float:left;line-height:.82;padding:6px 10px 0 0;font-weight:600}
+  .prose b{font-weight:600;color:var(--text-primary)}
+  .prose h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin:36px 0 16px}
+  .deeper,.shelf{margin-top:34px;padding-top:24px;border-top:1px solid var(--border-tertiary)}
+  .deeper h2,.shelf h2{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:16px}
+  .deeper ul{list-style:none}
+  .deeper li{margin-bottom:16px;padding-left:16px;border-left:2px solid var(--border-tertiary)}
+  .deeper .work{display:block;font-size:17px;color:var(--text-primary);font-style:italic}
+  .deeper .note{display:block;font-size:14.5px;line-height:1.5;color:var(--text-secondary);margin-top:4px}
+  .shelf p{font-size:17px;line-height:1.6;color:var(--text-secondary)}
+  .shelf b{color:var(--text-primary);font-weight:600}
+  .guide-nav{margin-top:40px;padding-top:22px;border-top:1px solid var(--border-tertiary);display:flex;justify-content:space-between;gap:16px;font-family:'Geist Mono',monospace;font-size:12px}
+  .guide-nav a{color:var(--text-secondary);text-decoration:none;max-width:46%}.guide-nav a:hover{color:var(--text-primary)}
+  .guide-nav .nx{text-align:right;margin-left:auto}
+  .guide-nav .lbl{display:block;font-size:10px;letter-spacing:.1em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:3px}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <div class="brand"><a href="/">Aidan</a></div>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">writing</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html" class="active">study</a>
+      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+    </nav>
+  </header>
+  <main>
+    <article class="guide">
+      <a class="back" href="/study.html">← study plan</a>
+      <div class="guide-head">
+        <span class="eyebrow" style="color:#9c7a3c">Economics · no. 01</span>
+        <h1>The price of knowing</h1>
+        <p class="dek">Nobody knows how to make a pencil — and that is exactly why the price system is the smartest thing in the room.</p>
+        <div class="meta">3 min read</div>
+      </div>
+      <div class="prose">
+        <p class="lead">No single person on earth knows how to make a pencil. The cedar is milled in Oregon, the graphite mined in Sri Lanka, the lacquer, the brass, the rubber each pass through thousands of hands that never meet and never plan together. Yet pencils sit in every drawer, cheap, abundant, unremarkable. How does a thing nobody can build get built ten million times a day? Friedrich Hayek's answer, in twelve pages from 1945, is one of the great arguments of the century.</p>
+        <h2>The argument</h2>
+      <p>Hayek begins by re-stating the problem everyone thought was solved. The economic question, he says, is <i>not</i> how to allocate a given stock of resources to known ends. That version is just arithmetic — hand a computer the data and it optimizes. The real problem is that <b>the data is never given to anyone</b>. Knowledge of the world exists only in scattered, perishable scraps: the factory manager who knows one machine sits idle, the trader who knows a shipment is late, the farmer who can smell the weather turning. Much of it is never written down and some of it can't even be spoken. No central authority can gather it, because gathering it would destroy it.</p>
+      <p>The price system is how a society uses knowledge no one possesses in full. A price is a signal that compresses millions of these private scraps into a single number. When tin grows scarce, its price rises — and everyone who touches tin economizes, substitutes, hunts for alternatives, <i>without knowing why</i>. They don't need to know there was a mine collapse in Bolivia or a new use found in electronics. They need to know one thing: tin costs more today. As Hayek puts it, the marvel is that in such a case “without an order being issued, without more than perhaps a handful of people knowing the cause, tens of thousands of people… are made to use the material or its products more sparingly.”</p>
+      <p>So the market is not really a marketplace at all. It is a <b>telecommunication system</b> — a vast machine for moving information, and it works <i>because</i> nobody has to understand the whole. The deepest line in the essay is the quietest: this order is “the result of human action but not of human design.” It is an intelligence that no mind built and no mind contains.</p>
+        <h2>Where it’s contested</h2>
+      <p>It is easy — and popular — to read this as a knockout argument for leaving markets alone, and the political right has mined it for exactly that. But the essay claims both less and more than the slogan. <b>Less:</b> a price knows scarcity, not worth. A clean river, an hour of a child's attention, a species going quiet — things with no price are simply invisible to the system. That blindness is not a bug you can patch; it is the same trait that makes the system efficient. It sees only what is priced.</p>
+      <p><b>More:</b> the argument cuts just as hard at the modern techno-optimist who believes that with enough sensors and compute we could finally plan an economy after all. Hayek's point is that the crucial knowledge isn't <i>data</i> — it's tacit, local, and half-unspeakable, so no quantity of measurement captures it. The live question he leaves you is not “markets or planning?” but the sharper one: <i>where does the price signal go blind — externalities, public goods, the priceless — and what do we reach for when it does?</i></p>
+      </div>
+      <section class="deeper">
+        <h2>Read further</h2>
+        <ul>
+        <li><span class="work">The Use of Knowledge in Society — F. A. Hayek (1945)</span><span class="note">The essay itself, about twelve pages — shorter and clearer than anything written about it.</span></li>
+        <li><span class="work">I, Pencil — Leonard E. Read (1958)</span><span class="note">The same idea told as a parable, in the voice of a pencil.</span></li>
+        </ul>
+      </section>
+      <section class="shelf">
+        <h2>On your shelf</h2>
+        <p>You've read Rand's romance of the producer — the heroic individual who builds the world with his own will. Hayek is the other half of that picture, and the colder half: the genius isn't in any individual at all, it's in the system no individual runs. Set beside <i>Atlas Shrugged</i>, this is the argument John Galt should have made — not that the great man matters most, but that no one is great enough to hold the whole.</p>
+      </section>
+      <nav class="guide-nav">
+        <span></span>
+        <a class="nx" href="/study/archive/the-frontier-and-its-ghost.html"><span class="lbl">next field →</span>The frontier and its ghost</a>
+      </nav>
+    </article>
+  </main>
+  <footer class="site-footer">AI Generated Study Plan · no tracking · <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a></footer>
+</div>
+</body></html>
