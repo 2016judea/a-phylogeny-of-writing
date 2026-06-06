@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Essays — Aidan</title>
+  <meta name="description" content="A monthly Substack dispatch since 2023, braiding three voices — literature & ideas, the founder, the photographer. The full archive." />
+  <meta property="og:title" content="Essays — Aidan" />
+  <meta property="og:description" content="The full Substack archive — 53 essays since 2023, in three voices." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg-primary:#f7f3ec;--bg-secondary:#f1ece2;--text-primary:#1c1814;
+      --text-secondary:#5a544a;--text-tertiary:#8b8478;
+      --border-tertiary:rgba(60,50,40,.12);--border-secondary:rgba(60,50,40,.22);
+    }
+    @media (prefers-color-scheme:dark){:root{
+      --bg-primary:#1a1714;--bg-secondary:#221e1a;--text-primary:#e8e2d4;
+      --text-secondary:#b8b0a0;--text-tertiary:#807a6d;
+      --border-tertiary:rgba(230,220,200,.12);--border-secondary:rgba(230,220,200,.22);
+    }}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{background:var(--bg-primary);color:var(--text-primary);
+      font-family:'EB Garamond',Georgia,serif;min-height:100vh;
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}
+    @media (max-width:720px){.page{padding:28px 16px 48px}}
+    .site-header{margin-bottom:44px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+    .brand{font-size:21px;font-weight:500;font-style:italic;letter-spacing:-.01em}
+    .brand a{color:inherit;text-decoration:none}
+    .nav{display:flex;gap:22px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em;flex-wrap:wrap}
+    .nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s}
+    .nav a:hover{color:var(--text-primary)}
+    .nav a.active{color:var(--text-primary);border-bottom:1px solid var(--border-secondary)}
+    .hero{padding:0 4px;margin-bottom:30px}
+    .hero .eyebrow{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.12em;text-transform:lowercase}
+    .hero h1{font-size:clamp(30px,6vw,44px);font-weight:600;font-style:italic;letter-spacing:-.02em;margin:6px 0 0}
+    .lede{max-width:64ch;margin:16px 0 0;font-size:17.5px;line-height:1.55;color:var(--text-secondary)}
+    .lede b{color:var(--text-primary);font-weight:600}
+    .meta-line{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.05em;margin-top:14px}
+    .chips{display:flex;gap:10px;flex-wrap:wrap;margin:26px 4px 8px}
+    .chip{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--text-secondary);
+      background:var(--bg-secondary);border:1px solid var(--border-tertiary);border-radius:999px;
+      padding:7px 14px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.18s}
+    .chip i{width:9px;height:9px;border-radius:50%;display:inline-block}
+    .chip b{font-family:'EB Garamond',serif;font-weight:600;color:var(--text-tertiary)}
+    .chip:hover{color:var(--text-primary);border-color:var(--border-secondary)}
+    .chip.off{opacity:.4}
+    .voice{margin-top:52px;scroll-margin-top:20px}
+    .v-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--accent);padding-bottom:8px}
+    .v-head h2{font-size:25px;font-style:italic;font-weight:600;letter-spacing:-.01em}
+    .v-count{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.05em;margin-left:auto}
+    .v-blurb{max-width:60ch;margin:12px 0 22px;font-size:15.5px;line-height:1.5;color:var(--text-secondary)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+    .card{display:flex;flex-direction:column;text-decoration:none;color:inherit;
+      background:var(--bg-secondary);border:1px solid var(--border-tertiary);
+      border-left:3px solid var(--accent);border-radius:5px;padding:16px 16px 14px;
+      transition:transform .16s,border-color .16s,box-shadow .16s}
+    .card:hover{transform:translateY(-2px);border-color:var(--border-secondary);box-shadow:0 8px 26px rgba(0,0,0,.10)}
+    .c-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+    .c-date{font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-tertiary);letter-spacing:.06em;text-transform:uppercase}
+    .pill{font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--text-tertiary);border:1px solid var(--border-tertiary);border-radius:3px;padding:1px 5px;margin-left:auto}
+    .c-title{font-size:19px;font-weight:600;line-height:1.18;letter-spacing:-.01em;margin-bottom:7px}
+    .c-teaser{font-size:14.5px;line-height:1.45;color:var(--text-secondary);flex:1;
+      display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .c-foot{display:flex;justify-content:space-between;align-items:center;margin-top:13px;
+      font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-tertiary);letter-spacing:.04em}
+    .c-go{color:var(--accent);opacity:0;transform:translateX(-4px);transition:.18s}
+    .card:hover .c-go{opacity:1;transform:none}
+    .site-footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--border-tertiary);
+      font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.04em}
+    .site-footer a{color:inherit;border-bottom:1px solid var(--border-secondary);text-decoration:none}
+    body.filtered .voice{display:none}
+    body.filtered .voice.show{display:block}
+  </style>
+</head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <div class="brand"><a href="/">Aidan</a></div>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">novel</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html">study</a>
+      <a href="/essays.html" class="active">essays</a>
+      <a href="https://www.instagram.com/_aidan_jude/" target="_blank" rel="noopener">35mm photography</a>
+    </nav>
+  </header>
+  <main>
+    <div class="hero">
+      <span class="eyebrow">the substack archive</span>
+      <h1>Essays</h1>
+      <p class="lede">A monthly dispatch since <b>January 2023</b> — 53 essays and counting, braiding three voices: <b>literature &amp; ideas</b>, <b>the founder</b>, and <b>the photographer</b>. Grouped by voice below; each card opens the piece on Substack.</p>
+      <p class="meta-line">53 essays · 3 voices · 2023–2026 · 23 live on Substack, the rest earlier issues</p>
+    </div>
+    <div class="chips" id="chips">
+      <button class="chip chip-all" data-v="all">all</button>
+      <button class="chip" data-v="ideas"><i style="background:#8c6b9c"></i>Literature &amp; Ideas <b>25</b></button>
+      <button class="chip" data-v="founder"><i style="background:#4a6b7c"></i>The Founder <b>18</b></button>
+      <button class="chip" data-v="journal"><i style="background:#b5563c"></i>Field Notes <b>10</b></button>
+    </div>
+    <section class="voice" id="ideas" style="--accent:#8c6b9c">
+      <div class="v-head"><h2>Literature &amp; Ideas</h2><span class="v-count">25 essays</span></div>
+      <p class="v-blurb">Epigraphs and arguments — McCarthy, Rand, the Greeks, Freud, Hegel. The reader thinking out loud.</p>
+      <div class="grid">
+      <a class="card" href="https://aidanjude.substack.com/p/the-stoddard-temple-is-a-threat-to" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2026</span></div>
+        <h3 class="c-title">The Stoddard Temple is a threat to many things.</h3>
+        <p class="c-teaser">If it were allowed to exist, nobody would dare to look at himself in the mirror. And that is a cruel thing to do to men. Ask anything of men. Ask…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/apr-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Mar 2026</span></div>
+        <h3 class="c-title">MAR 26 PT2</h3>
+        <p class="c-teaser">Top of Mind: Greek philosophy. The closest understanding we have to the developmental mind. Sourcing of western ideals — Socrates and Plato and…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/mar-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Mar 2026</span></div>
+        <h3 class="c-title">MAR 26</h3>
+        <p class="c-teaser">Hegel, Blood Meridian, and shots from space</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/feb-26" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Feb 2026</span></div>
+        <h3 class="c-title">FEB 26</h3>
+        <p class="c-teaser">Journal Entries.</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/primitive-anthropology" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Feb 2026</span></div>
+        <h3 class="c-title">Primitive Anthropology</h3>
+        <p class="c-teaser">The vast majority of early cave paintings were that of animals. Large herbivores — bison, aurochs, and horses. Or dangerous predators — lions, bears,…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/dec-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Dec 2025</span></div>
+        <h3 class="c-title">DEC 25</h3>
+        <p class="c-teaser">Great authors, market cap, and living with my brother</p>
+        <div class="c-foot"><span>5 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/sept-25-pt2" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Sep 2025</span></div>
+        <h3 class="c-title">SEPT 25 — PT2</h3>
+        <p class="c-teaser">Upward.</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/september-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Sep 2025</span></div>
+        <h3 class="c-title">September &#x27;25</h3>
+        <p class="c-teaser">Let&#x27;s dance</p>
+        <div class="c-foot"><span>3 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/november-24" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Nov 2024</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">November &#x27;24</h3>
+        <p class="c-teaser">Audrey Hepburn in ‘Breakfast at Tiffany’s’ :eyes: :flame: :rocket: Riff I haven’t done any creative writing in almost a year, but here’s to hoping I…</p>
+        <div class="c-foot"><span>5 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/october-24" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Oct 2024</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">October &#x27;24</h3>
+        <p class="c-teaser">Do You See Stars, Fascist Superman? by Raymond Pettibon Some Poems A few of my favorites. When I Heard the Learn’d Astronomer by Walt Whitman [LINK]…</p>
+        <div class="c-foot"><span>5 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/may-24" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2024</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">May &#x27;24</h3>
+        <p class="c-teaser">Leonardo DiCaprio starring in ‘The Aviator’ 10/23/23 Purple pettled peonies All bundled up In my hands And I got here early Sat down and scoped the…</p>
+        <div class="c-foot"><span>4 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/april-24" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Apr 2024</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">April &#x27;24</h3>
+        <p class="c-teaser">7.3.89 (SILS MARIA) by Gerhard Richter Social Media (and self control) Social media is as polarizing as politics these days. At the root of which,…</p>
+        <div class="c-foot"><span>6 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/march-24" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Mar 2024</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">March &#x27;24</h3>
+        <p class="c-teaser">Untitled (Boxer) by Jean-Michel Basquiat, 1982 The Homeric Question I was doing some research the other night, trying to find a good book that…</p>
+        <div class="c-foot"><span>5 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/february-24" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Feb 2024</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">February &#x27;24</h3>
+        <p class="c-teaser">Scene from the film ‘Saltburn’ The Nightclub Industry I’ve always found the nightclub scene a fascinating enigma. It’s one of those social strata’s…</p>
+        <div class="c-foot"><span>6 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/january" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jan 2024</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">January &#x27;24</h3>
+        <p class="c-teaser">Scene from the film ‘Aftersun’ Preface I actually wrote an entirely “traditional” Substack for January and had fully planned on sending that out this…</p>
+        <div class="c-foot"><span>10 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/december" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Dec 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">December &#x27;23</h3>
+        <p class="c-teaser">21.3.92 by Gerhard Richter Creative Riff let&#x27;s get sentimental babe Ideas Inherited Morality Friedrich Nietzsche is one of the most influential (and…</p>
+        <div class="c-foot"><span>5 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/november" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Nov 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">November &#x27;23</h3>
+        <p class="c-teaser">The Devil’s Dress, 2011 by Michaël Borremans (b. 1963) Ideas Just one essay this month. Human Evolution in a Digital World The digitation of society…</p>
+        <div class="c-foot"><span>4 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/october" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Oct 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">October &#x27;23</h3>
+        <p class="c-teaser">Pretty famous scene from Donnie Darko. Creative Riff He eventually reached the coast. The lands of wolves and failed fathers behind him. He made…</p>
+        <div class="c-foot"><span>7 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/september" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Sep 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">September &#x27;23</h3>
+        <p class="c-teaser">Scene from the film ‘Ex Machina’ Creative Riff This was formerly a “news” segment, but in all honesty, it was the only segment I disliked writing. I…</p>
+        <div class="c-foot"><span>7 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/june" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jun 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">June &#x27;23</h3>
+        <p class="c-teaser">Film poster for Blade Runner 2049 by James Jean The News Netflix: Summer 2023 Its that time of year again. I usually only pay for a streaming service…</p>
+        <div class="c-foot"><span>6 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/may" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">May &#x27;23</h3>
+        <p class="c-teaser">The Blue Bird I, 2019 by Natalie Frank (b. 1980) (no - this image doesn’t have some hidden implications with my love life — lol — I just enjoy the…</p>
+        <div class="c-foot"><span>7 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/april" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Apr 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">April &#x27;23</h3>
+        <p class="c-teaser">The Eternal City, 1937 by Peter Blume (1906–1992) The News US National Security Leak I’ve been following (though very briefly) the US national…</p>
+        <div class="c-foot"><span>7 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/february" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Feb 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">February &#x27;23</h3>
+        <p class="c-teaser">Exodo, 2022 by Julio Larraz (b. 1944) The News Love Thine Neighbor I heard recently — via various news outlets given I don’t have TikTok — that clips…</p>
+        <div class="c-foot"><span>7 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/january-part-2" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jan 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">January: Part 2 &#x27;23</h3>
+        <p class="c-teaser">The Prophecy, 2021 by Kent Monkman (b. 1965) The News Gonna be a short news segment since I haven’t been following things the past couple weeks (more…</p>
+        <div class="c-foot"><span>8 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/january-part-1" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jan 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">January: Part 1 &#x27;23</h3>
+        <p class="c-teaser">Without Even Looking by Nigel Van Wieck The News Wild Shit in Idaho Apparently I&#x27;ve been &quot;living under a rock&quot; (according to a buddy) given how late…</p>
+        <div class="c-foot"><span>7 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      </div>
+    </section>
+    <section class="voice" id="founder" style="--accent:#4a6b7c">
+      <div class="v-head"><h2>The Founder</h2><span class="v-count">18 essays</span></div>
+      <p class="v-blurb">AI, markets, and the operator's notebook — Claude Code, the bubble, antitrust, the stock that got away.</p>
+      <div class="grid">
+      <a class="card" href="https://aidanjude.substack.com/p/opinions-on-the-stock-market" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2026</span></div>
+        <h3 class="c-title">Opinions on the stock market</h3>
+        <p class="c-teaser">My biggest miss this past year was selling my Google stock 9 months ago. Diversified it into AI datacenter infrastructure. Companies like VRT &amp; FIX…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/publishing-a-newspaper" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2026</span></div>
+        <h3 class="c-title">Publishing a newspaper.</h3>
+        <p class="c-teaser">Physically mailed. Or rather, a periodical. Op-Ed’s from my friends. Art and humor. Small business insights. Sector movements for the analytical…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/thought-experiment" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2026</span></div>
+        <h3 class="c-title">Thought Experiment</h3>
+        <p class="c-teaser">As AI becomes better than humans at certain things, it raises the potential of replacing that person’s job. Doesn’t have a body (yet) so mechanical…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/working-wclaude-code" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2026</span></div>
+        <h3 class="c-title">Working w/Claude Code</h3>
+        <p class="c-teaser">AI orchestration. Instead of writing a script (or a class) to do something, think of all your architecture as either 1) an AI agent or 2) a tool that…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/apr-26" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Apr 2026</span></div>
+        <h3 class="c-title">APR 26</h3>
+        <p class="c-teaser">Brain dump.</p>
+        <div class="c-foot"><span>2 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/the-ai-bubble" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Nov 2025</span></div>
+        <h3 class="c-title">The AI Bubble</h3>
+        <p class="c-teaser">Follow the money.</p>
+        <div class="c-foot"><span>3 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/oct-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Oct 2025</span></div>
+        <h3 class="c-title">OCT 25</h3>
+        <p class="c-teaser">Banking, flight, and film exposure</p>
+        <div class="c-foot"><span>2 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/august-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Aug 2025</span></div>
+        <h3 class="c-title">August &#x27;25</h3>
+        <p class="c-teaser">Thinking big (and going blind)</p>
+        <div class="c-foot"><span>3 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/june-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jun 2025</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">June &#x27;25</h3>
+        <p class="c-teaser">Shot By: m_poluchowicz Early Adoption Amazon and Apple scaled Alexa and Siri well before the dawn of modern AI. And while newer models continue to…</p>
+        <div class="c-foot"><span>3 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/monopolistic-behavior-in-modern-business" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2025</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">Monopolistic Behavior in Modern Business</h3>
+        <p class="c-teaser">There have been three major anti-trust action suites taken against American businesses historically speaking: The breaking up of Standard Oil in 1911…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/april-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Apr 2025</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">April &#x27;25</h3>
+        <p class="c-teaser">Shot: Lised d&#x27;eau douce - Camera: Canon AE-1 - Film: Kodak Gold 200 Market Movers Google Losing SEO dominance with the rise of LLMs So much of G’s…</p>
+        <div class="c-foot"><span>2 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/february-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Feb 2025</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">February ‘25</h3>
+        <p class="c-teaser">Adrien Brody starring in ‘The Brutalist’ Startup Trends Y Combinator is a startup mixer that takes business pitches (Shark Tank style) and connects…</p>
+        <div class="c-foot"><span>3 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/deepseek" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jan 2025</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">DeepSeek</h3>
+        <p class="c-teaser">If anyone’s been following tech this week, they know my prediction from last week came true: But the real news is DeepSeek — a model developed by an…</p>
+        <div class="c-foot"><span>2 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/titans-and-transformers" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jan 2025</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">Titans and Transformers</h3>
+        <p class="c-teaser">An interesting research paper came out of Google DeepMind this week (and it’s making some waves in the AI space). First, Google has proposed a new AI…</p>
+        <div class="c-foot"><span>2 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/december-24" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Dec 2024</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">December &#x27;24</h3>
+        <p class="c-teaser">Ubik, 1982 by Bob Pepper Social Media’s Paradigm Shift Social media started out as following your friends and interacting with their content; whether…</p>
+        <div class="c-foot"><span>4 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/august" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Aug 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">August &#x27;23</h3>
+        <p class="c-teaser">Film poster for the film Ad Astra (2019) The News The Black Sea Grain Initiative (is no more) Oft-termed the “breadbasket” of Europe, Ukraine’s…</p>
+        <div class="c-foot"><span>7 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/july" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jul 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">July &#x27;23</h3>
+        <p class="c-teaser">Greek model Theopisti Pourliotopoulou (who got famous after posing for the Venice soccer club Venizia). Welcome to the thirst trap :D The News Meta…</p>
+        <div class="c-foot"><span>8 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/march" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Mar 2023</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">March &#x27;23</h3>
+        <p class="c-teaser">Anastasis of the Wild, 2019 by Celeste Dupuy-Spencer (b. 1979) The News Amazon: World’s Largest “Advertiser” There was a really interesting piece by…</p>
+        <div class="c-foot"><span>6 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      </div>
+    </section>
+    <section class="voice" id="journal" style="--accent:#b5563c">
+      <div class="v-head"><h2>Field Notes</h2><span class="v-count">10 essays</span></div>
+      <p class="v-blurb">The photographer's voice — travel, film stock, dream diaries, and gratitude. Physical-media journals.</p>
+      <div class="grid">
+      <a class="card" href="https://aidanjude.substack.com/p/something-greek" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2026</span></div>
+        <h3 class="c-title">Something Greek</h3>
+        <p class="c-teaser">Last night did deep stretching yoga and came back like I’d achieved new ranges of motion in my deep hips. Couldn’t fall asleep all night because of…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/appreciative" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">May 2026</span></div>
+        <h3 class="c-title">Appreciative.</h3>
+        <p class="c-teaser">Of my family. Of my friends. Of the people in my life. Take a step back and realizing what you have. Of the myriad of influences that made me who I…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/soulful" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Apr 2026</span></div>
+        <h3 class="c-title">Soulful</h3>
+        <p class="c-teaser">Being pre-occupied with prior emotion. Letting it project to those around me. Especially when I’m tired — or stressed. Long walks and blue skies the…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/physical-media-journal" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Apr 2026</span></div>
+        <h3 class="c-title">Physical Media Journal</h3>
+        <p class="c-teaser">Cicero fish ponds. The idea that the most able statesman of a society move to the suburbs and build high walls. Spend their time perfecting fish…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/nyc" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jan 2026</span></div>
+        <h3 class="c-title">NYC</h3>
+        <p class="c-teaser">Texting a buddy.</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/italia" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jan 2026</span></div>
+        <h3 class="c-title">Italia</h3>
+        <p class="c-teaser">La Spezia, Italy —…</p>
+        <div class="c-foot"><span>1 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/dec-25-pt2" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Dec 2025</span></div>
+        <h3 class="c-title">DEC 25 — PT2</h3>
+        <p class="c-teaser">Train Dreams.</p>
+        <div class="c-foot"><span>2 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/south-africa" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Mar 2025</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">South Africa</h3>
+        <p class="c-teaser">Painted Dog by Ann Gadd 02/16 Arrival. Cape Town is incredible. Never seen anything like it. Mediterranean climate and coastal architecture meets…</p>
+        <div class="c-foot"><span>6 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/january-25" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Jan 2025</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">January &#x27;25</h3>
+        <p class="c-teaser">Sentinel, 2020 by Tilo Baumgärtel Cold Approaching Everyone wants a “meet cute”. Where you’re at the grocery store or grabbing a coffee. Standing in…</p>
+        <div class="c-foot"><span>4 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      <a class="card" href="https://aidanjude.substack.com/p/august-24" target="_blank" rel="noopener">
+        <div class="c-top"><span class="c-date">Aug 2024</span><span class="pill">older issue</span></div>
+        <h3 class="c-title">August &#x27;24</h3>
+        <p class="c-teaser">18.1.89 by Gerhard Richter Pretty Privilege Driving into work this morning, having just taken the 7th Street exit into downtown Minneapolis, I…</p>
+        <div class="c-foot"><span>7 min</span><span class="c-go">read on Substack&nbsp;↗</span></div>
+      </a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">aidanjude.substack.com · a monthly dispatch since 2023 · <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">subscribe ↗</a></footer>
+</div>
+<script>
+  const chips=[...document.querySelectorAll('.chip')];
+  chips.forEach(c=>c.addEventListener('click',()=>{
+    const v=c.dataset.v;
+    if(v==='all'){document.body.classList.remove('filtered');chips.forEach(x=>x.classList.remove('off'));return;}
+    document.body.classList.add('filtered');
+    document.querySelectorAll('.voice').forEach(s=>s.classList.toggle('show',s.id===v));
+    chips.forEach(x=>x.classList.toggle('off',x.dataset.v!==v&&x.dataset.v!=='all'));
+  }));
+</script>
+</body>
+</html>
