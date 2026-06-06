@@ -1,0 +1,413 @@
+{
+  "years": [
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "threads": [
+    {
+      "name": "Fantasy & Adventure",
+      "color": "#9c8f5a",
+      "movement": "Story",
+      "marquee": "John Flanagan",
+      "marquee_n": 10,
+      "total": 18,
+      "counts": [
+        10,
+        0,
+        0,
+        0,
+        0,
+        4,
+        2,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      "examples": [
+        "Eragon — Christopher Paolini",
+        "Murtagh — Christopher Paolini",
+        "The Wise Man's Fear — Patrick Rothfuss",
+        "The Name of the Wind — Patrick Rothfuss",
+        "The Shadow of the Wind — Carlos Ruiz Zafón",
+        "The Kite Runner — Khaled Hosseini"
+      ]
+    },
+    {
+      "name": "Dystopia & Speculative",
+      "color": "#3c6b5a",
+      "movement": "Story",
+      "marquee": "Aldous Huxley",
+      "marquee_n": 3,
+      "total": 17,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        6,
+        3,
+        4,
+        1,
+        1,
+        0,
+        2,
+        0,
+        0
+      ],
+      "examples": [
+        "Hyperion — Dan Simmons",
+        "A Clockwork Orange — Anthony Burgess",
+        "Down and Out in Paris and London — George Orwell",
+        "Point Counter Point — Aldous Huxley",
+        "Dandelion Wine — Ray Bradbury",
+        "The Remains of the Day — Kazuo Ishiguro"
+      ]
+    },
+    {
+      "name": "Science & Cosmos",
+      "color": "#6b8f9c",
+      "movement": "Story",
+      "marquee": "Stephen W. Hawking",
+      "marquee_n": 2,
+      "total": 7,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        1,
+        2,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "examples": [
+        "Gödel, Escher, Bach: An Eternal Golden Braid — Douglas R. Hofstadter",
+        "The Science of Interstellar — Kip S. Thorne",
+        "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future — Ashlee Vance",
+        "The Body — Robin Waterfield",
+        "The Grand Design — Stephen W. Hawking",
+        "Chaos: Making a New Science — James Gleick"
+      ]
+    },
+    {
+      "name": "The American Canon",
+      "color": "#b89a6a",
+      "movement": "Style",
+      "marquee": "John Steinbeck",
+      "marquee_n": 14,
+      "total": 93,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        5,
+        45,
+        11,
+        6,
+        10,
+        9,
+        3,
+        3,
+        1
+      ],
+      "examples": [
+        "The Confidence-Man — Herman Melville",
+        "The Odyssey — Homer",
+        "Rebecca: Daphne Du Maurier — Daphne du Maurier",
+        "The Creative Act: A Way of Being — Rick Rubin",
+        "Mythology — Edith Hamilton",
+        "Pierre; or, The Ambiguities — Herman Melville"
+      ]
+    },
+    {
+      "name": "Poetry",
+      "color": "#c98a6b",
+      "movement": "Style",
+      "marquee": "Rupert Brooke",
+      "marquee_n": 3,
+      "total": 25,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        7,
+        4,
+        1,
+        1,
+        6,
+        2,
+        3,
+        1
+      ],
+      "examples": [
+        "Still Possible — David Whyte",
+        "William Shakespeare - Sonnets — William Shakespeare",
+        "Selected Poems and Fragments — Friedrich Hölderlin",
+        "Horatius — Thomas Babington Macaulay",
+        "The Wild Iris — Louise Glück",
+        "Meditations in an Emergency — Frank O'Hara"
+      ]
+    },
+    {
+      "name": "Modernism & Experiment",
+      "color": "#4a6b7c",
+      "movement": "Style",
+      "marquee": "William Faulkner",
+      "marquee_n": 9,
+      "total": 24,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        6,
+        3,
+        4,
+        1,
+        4,
+        0,
+        0
+      ],
+      "examples": [
+        "The Invention of Morel — Adolfo Bioy Casares",
+        "A Supposedly Fun Thing I'll Never Do Again:  Essays and Arguments — David Foster Wallace",
+        "To the Lighthouse — Virginia Woolf",
+        "Sanctuary — William Faulkner",
+        "Omensetter's Luck — William H. Gass",
+        "Journey to the End of the Night — Louis-Ferdinand Céline"
+      ]
+    },
+    {
+      "name": "Southern Gothic & American Grit",
+      "color": "#7c4a3a",
+      "movement": "Ideas",
+      "marquee": "Cormac McCarthy",
+      "marquee_n": 16,
+      "total": 35,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        1,
+        8,
+        12,
+        7,
+        1,
+        2,
+        1
+      ],
+      "examples": [
+        "Blood Meridian, or, the Evening Redness in the West — Cormac McCarthy",
+        "Fat City — Leonard Gardner",
+        "Sometimes a Great Notion — Ken Kesey",
+        "Outer Dark — Cormac McCarthy",
+        "Hard Rain Falling — Don Carpenter",
+        "Trout Fishing in America — Richard Brautigan"
+      ]
+    },
+    {
+      "name": "Philosophy & the Examined Life",
+      "color": "#8c6b9c",
+      "movement": "Ideas",
+      "marquee": "Friedrich Nietzsche",
+      "marquee_n": 7,
+      "total": 27,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        5,
+        3,
+        7,
+        1,
+        1,
+        4,
+        4
+      ],
+      "examples": [
+        "The Trial and Death of Socrates — Plato",
+        "Waking Up: A Guide to Spirituality Without Religion — Sam Harris",
+        "The Uncanny — Sigmund Freud",
+        "the plague — Albert Camus",
+        "Introductory Lectures on Aesthetics — Georg Wilhelm Friedrich Hegel",
+        "Thus Spoke Zarathustra — Friedrich Nietzsche"
+      ]
+    },
+    {
+      "name": "Money, Power & Polemic",
+      "color": "#9c7a3c",
+      "movement": "Ideas",
+      "marquee": "Ayn Rand",
+      "marquee_n": 5,
+      "total": 25,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        3,
+        5,
+        5,
+        4,
+        3,
+        0,
+        2
+      ],
+      "examples": [
+        "The Age of Reason — Thomas Paine",
+        "No One Left to Lie to: The Triangulations of William Jefferson Clinton — Christopher Hitchens",
+        "The Book of Gods and Devils — Charles Simic",
+        "Masscult and Midcult: Essays Against the American Grain — Dwight Macdonald",
+        "Hillbilly Elegy: A Memoir of a Family and Culture in Crisis — J.D. Vance",
+        "Hotel Insomnia: Poems — Charles Simic"
+      ]
+    },
+    {
+      "name": "Beats & Transgression",
+      "color": "#b5563c",
+      "movement": "Meaning",
+      "marquee": "Bret Easton Ellis",
+      "marquee_n": 8,
+      "total": 20,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        4,
+        1,
+        4,
+        2,
+        3,
+        5,
+        0
+      ],
+      "examples": [
+        "Kitchen Confidential: Adventures in the Culinary Underbelly — Anthony Bourdain",
+        "Big Sur — Jack Kerouac",
+        "The Brotherhood of the Grape — John Fante",
+        "The Dharma Bums: — Jack Kerouac",
+        "Ask the Dust — John Fante",
+        "Johnny Got His Gun — Dalton Trumbo"
+      ]
+    },
+    {
+      "name": "Crime & Noir",
+      "color": "#5a5550",
+      "movement": "Meaning",
+      "marquee": "Raymond Chandler",
+      "marquee_n": 4,
+      "total": 11,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        2,
+        0,
+        0,
+        0,
+        2,
+        3,
+        2,
+        0
+      ],
+      "examples": [
+        "On the Yard — Malcolm Braly",
+        "The High Window — Raymond Chandler",
+        "Farewell, My Lovely — Raymond Chandler",
+        "The Long Goodbye — Raymond Chandler",
+        "The Big Sleep — Raymond Chandler",
+        "The Devil in the White City: Murder, Magic, and Madness at the Fair That Changed America — Erik Larson"
+      ]
+    },
+    {
+      "name": "Faith & the Sacred",
+      "color": "#7a9c6b",
+      "movement": "Meaning",
+      "marquee": "C.S. Lewis",
+      "marquee_n": 4,
+      "total": 8,
+      "counts": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        1,
+        2,
+        1,
+        0,
+        1,
+        0
+      ],
+      "examples": [
+        "The Diamond Sutra and The Sutra of Hui-Neng — Gautama Buddha",
+        "Laurus — Eugene Vodolazkin",
+        "The Great Divorce — C.S. Lewis",
+        "The Abolition of Man — C.S. Lewis",
+        "Every Riven Thing: Poems — Christian Wiman",
+        "Mere Christianity — C.S. Lewis"
+      ]
+    }
+  ],
+  "milestones": [
+    {
+      "year": 2019,
+      "label": "canon explosion · 80"
+    },
+    {
+      "year": 2021,
+      "label": "McCarthy + ideology"
+    },
+    {
+      "year": 2023,
+      "label": "Substack begins · Jan ’23"
+    },
+    {
+      "year": 2025,
+      "label": "Stoicism · Zen · Rubin"
+    }
+  ],
+  "totals": {
+    "books": 310,
+    "threads": 12
+  }
+}

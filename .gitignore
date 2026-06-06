@@ -1,3 +1,15 @@
-.claude/
+# Claude Code — track skills, ignore local settings/state
+.claude/*
+!.claude/skills/
+.claude/settings.local.json
+.claude/state/
 
 .superpowers/
+
+# Secrets
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]

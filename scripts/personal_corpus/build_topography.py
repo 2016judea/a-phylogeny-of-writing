@@ -1,0 +1,295 @@
+#!/usr/bin/env python3
+"""Build the two topography pages for the phylogeny Vercel site:
+
+  reading.html  — "research & interests"  (reading themes + reading stats + to-read queue)
+  work.html     — "creative ideation"     (writing production + prose fingerprint)
+
+Each is a single-range 3D ridgeline (Three.js): time along X, each thread a ridge,
+height = volume. Interactive: focus a ridge (click/legend), preset views, info
+panel with marquee + per-year sparkline. Data embedded; fully static.
+
+    python3 scripts/personal_corpus/build_topography.py            # builds both into /tmp/phylo/
+    python3 scripts/personal_corpus/build_topography.py <outdir>
+"""
+import json
+import sys
+
+reading = json.load(open("data/personal_corpus/themes_by_year.json"))
+writing = json.load(open("data/personal_corpus/writing_by_year.json"))
+OUTDIR = sys.argv[1] if len(sys.argv) > 1 else "/tmp/phylo"
+
+# ---- reading "by the numbers" ----
+READ_STATS = """
+  <div class="stat"><div class="big">310 · 92k<span>books · pages</span></div><div class="cap">read since you joined Goodreads — ≈92,000 pages, avg 297 a book (longest: <i>Atlas Shrugged</i>, 1,168)</div></div>
+  <div class="stat"><div class="big">1 / 4.6<span>days</span></div><div class="cap">peak pace, 2019 — <b>80 books</b> in a year, incl. 11 Steinbeck + 9 Fitzgerald devoured at once</div></div>
+  <div class="stat"><div class="big">16 · 7<span>books · yrs</span></div><div class="cap"><b>McCarthy</b> is the spine — the only author present at both ends of the map (2019→2026)</div></div>
+  <div class="stat"><div class="big">1942</div><div class="cap">median pub-year of the books you read in 2019. <b>You read the dead</b> — in 2014 it was 2006; the year you got serious it fell ~65 yrs and stayed mid-century</div></div>
+  <div class="stat"><div class="big">92.6%</div><div class="cap">male authors. Of the 7.4% women, half are just Rand (5) + Didion (3)</div></div>
+  <div class="stat"><div class="big">1.46×</div><div class="cap">more books finished in winter than summer — the cold and the reading go together</div></div>
+  <div class="stat"><div class="big">165</div><div class="cap">distinct authors — but your top 10 are 31% of everything. Concentrated obsession, wide exploration</div></div>
+  <div class="stat"><div class="big">30</div><div class="cap">books queued to-read — and they swerve hard into <b>political theory</b> (Schmitt · Strauss · Girard) + the classical roots (Homer · Virgil · Rome)</div></div>
+"""
+
+# ---- creative "by the numbers" ----
+WORK_STATS = """
+  <div class="stat"><div class="big">83,015<span>words</span></div><div class="cap">of your own prose across 128 pieces — poetry, short stories, two novels, journals</div></div>
+  <div class="stat"><div class="big">11<span>words</span></div><div class="cap">median sentence length — <b>Hemingway-terse</b>, the plainspoken line you read a decade toward</div></div>
+  <div class="stat"><div class="big">337 / 283</div><div class="cap">motif hits for <b>the land</b> vs <b>the sky</b> — earth under the boots, stars above. Your two great fixations, counted</div></div>
+  <div class="stat"><div class="big">66</div><div class="cap">Substack dispatches since <b>Jan 2023</b> — a 3.5-year monthly practice, not the 10-month one the public feed implies</div></div>
+  <div class="stat"><div class="big">491→137<span>words/post</span></div><div class="cap">Substack compression, 2025→2026 — essayist collapsing into aphorist, 3.6× terser in a year</div></div>
+  <div class="stat"><div class="big">2<span>years</span></div><div class="cap">the lag — what you read becomes what you write ~24 months later (McCarthy reading peaks 2022, your novel writing peaks 2024)</div></div>
+  <div class="stat"><div class="big">2<span>novels</span></div><div class="cap">drafted across these years — <i>Something Western</i>, the McCarthy × Steinbeck one, is the draft you've put online</div></div>
+  <div class="stat"><div class="big">139</div><div class="cap">dated pieces — quiet until 2022, then blooming 2023–24 as the reading turned into output</div></div>
+"""
+
+READ_EXTRA = """
+  <section class="extra">
+    <h2>what's next — the queue</h2>
+    <p class="numnote">Your to-read shelf isn't a continuation; it's a turn. By the 2-year lag, this is what your <a href="/work.html">writing</a> bends toward next.</p>
+    <div class="qgrid">
+      <div class="qcol"><h3>Political theory / power <span>~20%</span></h3><p>Hobbes · Carl Schmitt · Leo Strauss · René Girard · Wittgenstein. The canon of sovereignty, order &amp; mimetic desire — the founder/operator's reading.</p></div>
+      <div class="qcol"><h3>Classical foundations <span>~13%</span></h3><p>The Iliad · The Aeneid · Paradise Lost · SPQR. Reaching under the American canon to the roots it rests on.</p></div>
+      <div class="qcol"><h3>The maximalist doorstops <span>~37%</span></h3><p>Gravity's Rainbow · 2666 · The Magic Mountain · Anna Karenina · Middlemarch · Les Misérables · Gass ×2. Canon-completion, the hard tier.</p></div>
+      <div class="qcol"><h3>Spiritual / nature <span>~17%</span></h3><p>Siddhartha · Bonhoeffer · The Snow Leopard · The Peregrine. The inner &amp; the wild.</p></div>
+    </div>
+    <p class="numnote tell">The tell is what's <b>absent</b>: zero poetry, zero McCarthy, zero Southern Gothic queued — the exact threads that fed your fiction. The reading is voting for the builder, not the novelist.</p>
+  </section>
+"""
+
+WORK_EXTRA = """
+  <section class="extra">
+    <h2>the voice</h2>
+    <p class="numnote">Your fiction draws straight from the authors you read most — the data hears it.</p>
+    <div class="qgrid">
+      <div class="qcol"><h3><i>Something Western</i></h3><p>McCarthy × Steinbeck × Faulkner. Ranch country, fireflies, whippoorwills, determinism — 10 chapters, each paired with a surreal &ldquo;dream.&rdquo; The lyric, mythic, rural voice. <a href="/something-western.html">Read it →</a></p></div>
+    </div>
+    <p class="numnote">See the live phylogeny of these ideas on the <a href="/topology.html">idea topology</a>, or read the dispatches on <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">Substack ↗</a>.</p>
+  </section>
+"""
+
+MODES = {
+    "reading": {
+        "file": "reading.html", "data": reading, "threads_key": "threads",
+        "title": "Reading Topography — Aidan", "active": "reading",
+        "eyebrow": "research &amp; interests", "htitle": "what I read · 2014–2026",
+        "stats_label": "310 books · 12 threads · 2014–2026",
+        "lede": ("A terrain of what flowed <b>in</b>. Time runs left to right; each ridge is a thread of "
+                 "interest, its height the books read that year. Watch the mind move — from the lone peak of "
+                 "<b>adventure</b> to the great swell of the <b>canon</b>, down through <b>philosophy</b> and "
+                 "<b>McCarthy's grit</b>. <b>Tap a ridge or a name to study one thread.</b>"),
+        "stats": READ_STATS, "extra": READ_EXTRA, "unit": "books",
+        "totals_line": "310 books read · 165 authors · 2014–2026",
+    },
+    "work": {
+        "file": "work.html", "data": writing, "threads_key": "threads",
+        "title": "Creative Topography — Aidan", "active": "work",
+        "eyebrow": "creative ideation",
+        "htitle": "what I made · 2022–2026",
+        "stats_label": "139 pieces · 5 forms · 83,015 words",
+        "lede": ("A terrain of what came <b>out</b>. Each ridge is a form — poetry, prose, novels, journals, "
+                 "the Substack — its height the pieces made that year. Quiet until 2022, then rising as a decade "
+                 "of reading turned into output. <b>Tap a ridge or a name to study one form.</b>"),
+        "stats": WORK_STATS, "extra": WORK_EXTRA, "unit": "pieces",
+        "totals_line": "83,015 words · 128 pieces + 66 Substack dispatches · 2022–2026",
+    },
+}
+
+HTML = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>__TITLE__</title>
+<meta name="description" content="__EYEBROW__ — an interactive 3D terrain, Aidan Jude." />
+<meta property="og:site_name" content="Aidan Jude" /><meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" /><meta property="og:url" content="https://aidanjude.vercel.app/__OGSLUG__.html" />
+<meta property="og:title" content="__TITLE__" /><meta property="og:description" content="__OGDESC__" />
+<meta property="og:image" content="https://aidanjude.vercel.app/og/__OGSLUG__.png" /><meta property="og:image:secure_url" content="https://aidanjude.vercel.app/og/__OGSLUG__.png" /><meta property="og:image:type" content="image/png" /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta property="og:image:alt" content="__TITLE__" />
+<meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content="__TITLE__" /><meta name="twitter:description" content="__OGDESC__" /><meta name="twitter:image" content="https://aidanjude.vercel.app/og/__OGSLUG__.png" />
+<meta name="theme-color" content="#f7f3ec" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg-primary:#f7f3ec;--bg-secondary:#f1ece2;--text-primary:#1c1814;--text-secondary:#5a544a;--text-tertiary:#8b8478;--border-tertiary:rgba(60,50,40,.12);--border-secondary:rgba(60,50,40,.22)}
+  @media (prefers-color-scheme:dark){:root{--bg-primary:#1a1714;--bg-secondary:#221e1a;--text-primary:#e8e2d4;--text-secondary:#b8b0a0;--text-tertiary:#807a6d;--border-tertiary:rgba(230,220,200,.12);--border-secondary:rgba(230,220,200,.22)}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg-primary);color:var(--text-primary);font-family:'EB Garamond',Georgia,serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}@media (max-width:720px){.page{padding:28px 16px 48px}}
+  .site-header{margin-bottom:44px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+  .nav{display:flex;gap:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--text-primary)}
+  .nav a.active{color:var(--text-primary);border-bottom:1px solid var(--border-secondary)}
+  .topology-header{padding:0 4px 10px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .header-left{display:flex;flex-direction:column;gap:2px}
+  .header-eyebrow{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.12em}
+  .header-title{font-size:24px;font-style:italic;letter-spacing:-.01em}
+  .header-stats{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);text-align:right}
+  .lede{max-width:64ch;margin:14px 4px 16px;font-size:16.5px;line-height:1.55;color:var(--text-secondary)}.lede b{color:var(--text-primary);font-weight:600}
+  .controls{display:flex;flex-wrap:wrap;gap:6px;margin:0 4px 10px;font-family:'Geist Mono',monospace;font-size:11px}
+  .controls .grp{display:flex;border:1px solid var(--border-tertiary);border-radius:5px;overflow:hidden}
+  .controls button{font-family:inherit;font-size:11px;letter-spacing:.03em;color:var(--text-secondary);background:var(--bg-secondary);border:none;padding:6px 11px;cursor:pointer;transition:all .15s;border-right:1px solid var(--border-tertiary)}
+  .controls .grp button:last-child{border-right:none}.controls button:hover{color:var(--text-primary);background:var(--bg-primary)}
+  .controls button.on{color:var(--text-primary);background:var(--bg-primary);box-shadow:inset 0 -2px 0 var(--border-secondary)}
+  .scene-wrap{position:relative;border:1px solid var(--border-tertiary);border-radius:4px;background:var(--bg-secondary);height:62vh;min-height:440px;overflow:hidden;cursor:grab;touch-action:none}
+  .scene-wrap:active{cursor:grabbing}canvas{display:block;width:100%;height:100%}
+  #ytips{position:absolute;inset:0;pointer-events:none}.ytip{position:absolute;transform:translate(-50%,0);font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-tertiary)}
+  .axis-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-tertiary);letter-spacing:.06em;pointer-events:none}
+  #info{position:absolute;top:14px;left:14px;width:248px;max-width:62%;background:var(--bg-primary);border:1px solid var(--border-secondary);border-radius:5px;padding:12px 14px;z-index:6;box-shadow:0 6px 24px rgba(0,0,0,.14)}
+  #info .row{display:flex;align-items:center;gap:8px;margin-bottom:2px}#info .sw{width:12px;height:12px;border-radius:2px;flex:0 0 auto}
+  #info .nm{font-style:italic;font-size:18px;line-height:1.2}#info .side{font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);margin-left:auto}
+  #info .meta{font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-tertiary);margin:6px 0 8px}
+  #info .spark{display:flex;align-items:flex-end;gap:2px;height:34px;margin-bottom:8px}#info .bar{flex:1;background:currentColor;border-radius:1px;min-height:1px;opacity:.85;position:relative}#info .bar.peak{opacity:1}
+  #info .bar span{position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);font-family:'Geist Mono',monospace;font-size:7.5px;color:var(--text-tertiary)}
+  #info .marq{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-secondary);margin-bottom:2px}
+  #info .ex{font-size:13px;line-height:1.45;color:var(--text-secondary);border-top:1px solid var(--border-tertiary);padding-top:7px;margin-top:8px}
+  #info .hintline{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-tertiary);line-height:1.5}
+  .legend{display:flex;flex-wrap:wrap;gap:7px 16px;margin:16px 4px 0;font-family:'Geist Mono',monospace}
+  .lg{display:flex;align-items:center;gap:7px;cursor:pointer;color:var(--text-secondary);padding:3px 5px;font-size:11.5px;border-radius:4px;transition:background .12s,color .12s}
+  .lg:hover{color:var(--text-primary);background:var(--bg-secondary)}.lg.sel{color:var(--text-primary);background:var(--bg-secondary);box-shadow:inset 2px 0 0 var(--border-secondary)}
+  .sw{width:11px;height:11px;border-radius:2px;flex:0 0 auto}.lg .n{font-family:'EB Garamond',serif;font-size:14px}.lg .c{color:var(--text-tertiary);font-size:10.5px}
+  .fallback{padding:40px;text-align:center;color:var(--text-secondary)}.fallback a{color:var(--text-primary)}
+  .bynum,.extra{margin-top:46px;border-top:1px solid var(--border-tertiary);padding-top:28px}
+  .bynum h2,.extra h2{font-size:13px;font-family:'Geist Mono',monospace;letter-spacing:.1em;color:var(--text-tertiary);margin-bottom:20px}
+  .numgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(192px,1fr));gap:26px 28px}
+  .stat .big{font-family:'EB Garamond',serif;font-size:36px;font-weight:600;line-height:1;letter-spacing:-.02em;display:flex;align-items:baseline;gap:6px}
+  .stat .big span{font-family:'Geist Mono',monospace;font-size:11px;font-weight:400;color:var(--text-tertiary)}
+  .stat .cap{margin-top:9px;font-size:14.5px;line-height:1.45;color:var(--text-secondary)}.stat .cap b{color:var(--text-primary);font-weight:600}
+  .qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px 26px}
+  .qcol h3{font-family:'EB Garamond',serif;font-size:18px;font-style:italic;margin-bottom:6px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .qcol h3 span{font-family:'Geist Mono',monospace;font-size:11px;font-style:normal;color:var(--text-tertiary)}
+  .qcol p{font-size:14.5px;line-height:1.5;color:var(--text-secondary)}
+  .numnote{margin:0 0 22px;font-size:15px;line-height:1.5;color:var(--text-secondary);max-width:72ch}.numnote b{color:var(--text-primary);font-weight:600}.numnote a{color:var(--text-primary)}
+  .numnote.tell{margin-top:24px}
+  .site-footer{margin-top:54px;padding-top:18px;border-top:1px solid var(--border-tertiary);font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);line-height:1.7}
+  .site-footer a{color:var(--text-secondary);text-decoration:none}.site-footer a:hover{color:var(--text-primary)}
+  @media (max-width:560px){#info{width:190px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <div class="brand"><a href="/">Aidan</a></div>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">writing</a>
+      <a href="/reading.html" __READ_ACTIVE__>reading</a>
+      <a href="/work.html" __WORK_ACTIVE__>creative</a>
+      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+    </nav>
+  </header>
+  <main>
+    <div class="topology-header">
+      <div class="header-left"><span class="header-eyebrow">__EYEBROW__</span><span class="header-title">__HTITLE__</span></div>
+      <div class="header-stats">__STATS_LABEL__</div>
+    </div>
+    <p class="lede">__LEDE__</p>
+    <div class="controls">
+      <div class="grp" id="viewgrp"><button data-view="both" class="on">orbit</button><button data-view="front">front</button><button data-view="side">side</button><button data-view="top">top</button></div>
+      <div class="grp"><button id="spinbtn" class="on">⟲ spin</button></div>
+    </div>
+    <div class="scene-wrap" id="scene">
+      <div id="ytips"></div>
+      <div class="axis-hint">2014 ◂──── time ────▸ 2026</div>
+      <div id="info"></div>
+    </div>
+    <div class="legend" id="legend"></div>
+    <section class="bynum"><h2>by the numbers</h2><div class="numgrid">__STATS__</div></section>
+    __EXTRA__
+  </main>
+  <footer class="site-footer">__TOTALS__ · built with three.js · no tracking · <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a></footer>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const DATA=__DATA__, UNIT="__UNIT__";
+(function(){
+  const wrap=document.getElementById('scene'), info=document.getElementById('info');
+  const years=DATA.years, NY=years.length, threads=DATA.threads;
+  if(typeof THREE==='undefined'||!THREE.WebGLRenderer){wrap.innerHTML='<div class="fallback">This view needs WebGL — try a desktop browser.</div>';return;}
+  const dark=matchMedia('(prefers-color-scheme: dark)').matches, bg=dark?0x1a1714:0xf1ece2;
+  let W=wrap.clientWidth,H=wrap.clientHeight;
+  const scene=new THREE.Scene();scene.background=new THREE.Color(bg);scene.fog=new THREE.Fog(bg,70,150);
+  const camera=new THREE.PerspectiveCamera(40,W/H,0.1,600);
+  const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.setSize(W,H);wrap.appendChild(renderer.domElement);
+  const controls=new THREE.OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.08;controls.minDistance=24;controls.maxDistance=150;controls.maxPolarAngle=Math.PI*0.49;controls.autoRotate=true;controls.autoRotateSpeed=0.5;
+  const spinbtn=document.getElementById('spinbtn');function setSpin(o){controls.autoRotate=o;spinbtn.classList.toggle('on',o);}
+  scene.add(new THREE.AmbientLight(0xffffff,dark?0.6:0.8));
+  const k=new THREE.DirectionalLight(0xfff0dd,dark?0.85:0.95);k.position.set(30,55,30);scene.add(k);
+  const rim=new THREE.DirectionalLight(0x88aacc,dark?0.4:0.25);rim.position.set(-30,20,-40);scene.add(rim);
+  const SPAN=58,x0=-SPAN/2,dx=SPAN/(NY-1),xFor=i=>x0+i*dx;
+  let maxV=0;threads.forEach(t=>t.counts.forEach(c=>{if(c>maxV)maxV=c;}));
+  const hUnit=18/Math.pow(maxV,0.82),hOf=c=>c>0?Math.pow(c,0.82)*hUnit:0;
+  const GAP=2.7,THICK=1.7,Z0=-(threads.length-1)*GAP/2;
+  const meshes=[];
+  threads.forEach((t,idx)=>{
+    const pts=[];for(let i=0;i<t.counts.length;i++)pts.push(new THREE.Vector2(xFor(i),hOf(t.counts[i])));
+    const top=new THREE.SplineCurve(pts).getPoints(140);const sh=new THREE.Shape();sh.moveTo(top[0].x,0);
+    top.forEach(p=>sh.lineTo(p.x,Math.max(0,p.y)));sh.lineTo(top[top.length-1].x,0);sh.closePath();
+    const geo=new THREE.ExtrudeGeometry(sh,{depth:THICK,bevelEnabled:false,curveSegments:1});geo.translate(0,0,-THICK/2);
+    const mat=new THREE.MeshStandardMaterial({color:new THREE.Color(t.color),roughness:.82,metalness:0,emissive:new THREE.Color(t.color),emissiveIntensity:0,transparent:true,opacity:1,side:THREE.DoubleSide});
+    const m=new THREE.Mesh(geo,mat);m.position.z=Z0+idx*GAP;m.userData={t,peak:t.counts.indexOf(Math.max(...t.counts))};scene.add(m);meshes.push(m);
+  });
+  const spineMat=new THREE.MeshStandardMaterial({color:dark?0x3a342c:0xcdc4b2,roughness:1});
+  scene.add(new THREE.Mesh(new THREE.BoxGeometry(SPAN+6,0.25,1.2),spineMat)).position.set(0,0,Z0-GAP);
+  years.forEach((y,i)=>{if(y%2)return;const m=new THREE.Mesh(new THREE.BoxGeometry(0.25,0.6,2),spineMat);m.position.set(xFor(i),0.3,Z0-GAP);scene.add(m);});
+  const ytips=document.getElementById('ytips'),labels=[];
+  [2014,2018,2022,2026].forEach(y=>{const i=years.indexOf(y);if(i<0)return;const el=document.createElement('div');el.className='ytip';el.textContent="’"+String(y).slice(2);ytips.appendChild(el);labels.push({el,v:new THREE.Vector3(xFor(i),-0.6,Z0-GAP+1.6)});});
+  function blankInfo(){info.innerHTML='<div class="hintline">Drag to orbit · scroll to zoom.<br>Tap a <b>ridge</b> or a <b>name</b> below to study one thread.</div>';}
+  function showInfo(m,hy){const u=m.userData,t=u.t,mx=Math.max(...t.counts);let bars='';
+    for(let i=0;i<NY;i++){const h=Math.round(t.counts[i]/mx*100);const lab=(years[i]%4===0)?("<span>’"+String(years[i]).slice(2)+"</span>"):"";bars+='<div class="bar'+(i===u.peak||hy===years[i]?' peak':'')+'" style="height:'+Math.max(h,2)+'%">'+lab+'</div>';}
+    const yr=hy!=null?("’"+String(hy).slice(2)+": "+t.counts[years.indexOf(hy)]):("peak ’"+String(years[u.peak]).slice(2)+" ("+t.counts[u.peak]+")");
+    const mq=t.marquee?'<div class="marq">marquee · '+t.marquee+' ×'+t.marquee_n+'</div>':'';
+    info.innerHTML='<div class="row"><span class="sw" style="background:'+t.color+'"></span><span class="nm">'+t.name+'</span>'+(t.movement?'<span class="side">'+t.movement.toLowerCase()+'</span>':'')+'</div><div class="meta">'+t.total+' '+UNIT+' · '+yr+'</div><div class="spark" style="color:'+t.color+'">'+bars+'</div>'+mq+'<div class="ex">'+t.examples.join(' · ')+'</div>';}
+  blankInfo();
+  let focused=null;
+  function applyStyle(){meshes.forEach(m=>{const on=m===focused;m.material.opacity=focused?(on?1:0.14):1;m.material.emissiveIntensity=focused&&on?(dark?.42:.28):0;});
+    document.querySelectorAll('.lg').forEach(el=>el.classList.toggle('sel',focused&&el.dataset.key===focused.userData.t.name));}
+  function setFocus(m){focused=(m&&m===focused)?null:m;focused?showInfo(focused):blankInfo();applyStyle();}
+  const ray=new THREE.Raycaster(),ndc=new THREE.Vector2();
+  function pick(e){const r=wrap.getBoundingClientRect();ndc.x=((e.clientX-r.left)/r.width)*2-1;ndc.y=-((e.clientY-r.top)/r.height)*2+1;ray.setFromCamera(ndc,camera);return ray.intersectObjects(meshes)[0];}
+  let hov=null,down=null;
+  wrap.addEventListener('pointermove',e=>{if(focused)return;const h=pick(e);if(hov&&(!h||h.object!==hov)){hov.material.emissiveIntensity=0;hov=null;}
+    if(h){hov=h.object;hov.material.emissiveIntensity=dark?.4:.26;const yr=years.reduce((a,b)=>Math.abs(xFor(years.indexOf(b))-h.point.x)<Math.abs(xFor(years.indexOf(a))-h.point.x)?b:a);showInfo(hov,yr);}else blankInfo();});
+  wrap.addEventListener('pointerdown',e=>{down=[e.clientX,e.clientY];setSpin(false);});
+  wrap.addEventListener('pointerup',e=>{if(!down)return;const mv=Math.hypot(e.clientX-down[0],e.clientY-down[1]);down=null;if(mv>6)return;const h=pick(e);setFocus(h?h.object:null);});
+  const VIEWS={both:{p:[52,35,48],t:[0,6.5,0]},front:{p:[0,26,80],t:[0,5,0]},side:{p:[86,30,2],t:[0,5,0]},top:{p:[0,92,0.01],t:[0,0,0]}};
+  let tw=null;function goView(n){const v=VIEWS[n];if(!v)return;tw={p0:camera.position.clone(),p1:new THREE.Vector3(...v.p),t0:controls.target.clone(),t1:new THREE.Vector3(...v.t),s:performance.now(),d:650};setSpin(false);}
+  goView('both');function step(now){if(!tw)return;let kk=(now-tw.s)/tw.d;if(kk>=1)kk=1;const e=kk<.5?2*kk*kk:1-Math.pow(-2*kk+2,2)/2;camera.position.lerpVectors(tw.p0,tw.p1,e);controls.target.lerpVectors(tw.t0,tw.t1,e);if(kk>=1)tw=null;}
+  document.querySelectorAll('#viewgrp button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#viewgrp button').forEach(x=>x.classList.remove('on'));b.classList.add('on');goView(b.dataset.view);}));
+  spinbtn.addEventListener('click',()=>setSpin(!controls.autoRotate));
+  const lg=document.getElementById('legend');
+  threads.forEach(t=>{const m=meshes.find(mm=>mm.userData.t===t);const d=document.createElement('div');d.className='lg';d.dataset.key=t.name;
+    d.innerHTML='<span class="sw" style="background:'+t.color+'"></span><span class="n">'+t.name+'</span><span class="c">'+t.total+'</span>';
+    d.addEventListener('mouseenter',()=>{if(!focused)showInfo(m);});d.addEventListener('mouseleave',()=>{if(!focused)blankInfo();});d.addEventListener('click',()=>setFocus(m));lg.appendChild(d);});
+  addEventListener('resize',()=>{W=wrap.clientWidth;H=wrap.clientHeight;camera.aspect=W/H;camera.updateProjectionMatrix();renderer.setSize(W,H);});
+  const pv=new THREE.Vector3();
+  (function loop(now){requestAnimationFrame(loop);step(now||performance.now());controls.update();const r=wrap.getBoundingClientRect();
+    labels.forEach(L=>{pv.copy(L.v).project(camera);const vis=pv.z<1;L.el.style.display=vis?'block':'none';L.el.style.left=((pv.x*.5+.5)*r.width)+'px';L.el.style.top=((-pv.y*.5+.5)*r.height)+'px';});
+    renderer.render(scene,camera);})();
+})();
+</script>
+</body></html>
+"""
+
+
+def render(mode):
+    m = MODES[mode]
+    html = (HTML
+            .replace("__TITLE__", m["title"]).replace("__EYEBROW__", m["eyebrow"])
+            .replace("__HTITLE__", m["htitle"]).replace("__STATS_LABEL__", m["stats_label"])
+            .replace("__LEDE__", m["lede"]).replace("__STATS__", m["stats"]).replace("__EXTRA__", m["extra"])
+            .replace("__UNIT__", m["unit"]).replace("__TOTALS__", m["totals_line"])
+            .replace("__WORK_ACTIVE__", 'class="active"' if mode == "work" else "")
+            .replace("__READ_ACTIVE__", 'class="active"' if mode == "reading" else "")
+            .replace("__OGSLUG__", "reading" if mode == "reading" else "work")
+            .replace("__OGDESC__", "The questions pulling me through the books — a decade of reading, 2014–2026." if mode == "reading" else "Poetry, prose, and the novel — and what the writing keeps reaching toward.")
+            .replace("__DATA__", json.dumps(m["data"], ensure_ascii=False)))
+    path = f"{OUTDIR}/{m['file']}"
+    open(path, "w").write(html)
+    print(f"wrote {path} ({len(html)} bytes) — {len(m['data']['threads'])} threads")
+
+
+if __name__ == "__main__":
+    render("reading")
+    render("work")

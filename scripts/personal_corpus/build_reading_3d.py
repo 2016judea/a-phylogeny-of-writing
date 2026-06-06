@@ -1,0 +1,392 @@
+#!/usr/bin/env python3
+"""Generate the interactive 3D ridgeline-terrain reading.html for the phylogeny site.
+
+Time runs along X; each thread is a smooth ridge; height = volume. Reading themes
+form a range in front of a central time-spine; the writing types form a range
+behind it. Three.js (CDN), orbitable, with: preset camera views, layer toggles,
+click-to-focus a single thread (via ridge OR legend), and a steady info panel with
+a per-year sparkline. Embeds the reading + writing matrices.
+
+    python3 scripts/personal_corpus/build_reading_3d.py /tmp/phylo/reading.html
+"""
+import json
+import sys
+
+reading = json.load(open("data/personal_corpus/themes_by_year.json"))
+writing = json.load(open("data/personal_corpus/writing_by_year.json"))
+OUT = sys.argv[1] if len(sys.argv) > 1 else "/tmp/phylo/reading.html"
+DATA = {"reading": reading, "writing": writing}
+
+HTML = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reading Topography — Aidan</title>
+<meta name="description" content="A 3D topography of mind — what I read and what I wrote, 2014–2026, as two ranges flanking a river of time." />
+<meta property="og:title" content="Reading Topography — Aidan" />
+<meta property="og:description" content="What I read and what I wrote, 2014–2026 — an interactive 3D terrain." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg-primary:#f7f3ec;--bg-secondary:#f1ece2;--text-primary:#1c1814;
+    --text-secondary:#5a544a;--text-tertiary:#8b8478;
+    --border-tertiary:rgba(60,50,40,.12);--border-secondary:rgba(60,50,40,.22)}
+  @media (prefers-color-scheme:dark){:root{--bg-primary:#1a1714;--bg-secondary:#221e1a;
+    --text-primary:#e8e2d4;--text-secondary:#b8b0a0;--text-tertiary:#807a6d;
+    --border-tertiary:rgba(230,220,200,.12);--border-secondary:rgba(230,220,200,.22)}}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg-primary);color:var(--text-primary);
+    font-family:'EB Garamond',Georgia,serif;min-height:100vh;-webkit-font-smoothing:antialiased}
+  .page{max-width:1100px;margin:0 auto;padding:56px 40px 80px}
+  @media (max-width:720px){.page{padding:28px 16px 48px}}
+  .site-header{margin-bottom:44px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+  .nav{display:flex;gap:22px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+  .nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s}
+  .nav a:hover{color:var(--text-primary)}.nav a.active{color:var(--text-primary);border-bottom:1px solid var(--border-secondary)}
+  .topology-header{padding:0 4px 10px;display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .header-left{display:flex;flex-direction:column;gap:2px}
+  .header-eyebrow{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);letter-spacing:.12em}
+  .header-title{font-size:24px;font-style:italic;letter-spacing:-.01em}
+  .header-stats{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);text-align:right}
+  .lede{max-width:64ch;margin:14px 4px 16px;font-size:16.5px;line-height:1.55;color:var(--text-secondary)}
+  .lede b{color:var(--text-primary);font-weight:600}
+
+  .controls{display:flex;flex-wrap:wrap;gap:6px;margin:0 4px 10px;font-family:'Geist Mono',monospace;font-size:11px}
+  .controls .grp{display:flex;gap:0;border:1px solid var(--border-tertiary);border-radius:5px;overflow:hidden}
+  .controls button{font-family:inherit;font-size:11px;letter-spacing:.03em;color:var(--text-secondary);
+    background:var(--bg-secondary);border:none;padding:6px 11px;cursor:pointer;transition:all .15s;border-right:1px solid var(--border-tertiary)}
+  .controls .grp button:last-child{border-right:none}
+  .controls button:hover{color:var(--text-primary);background:var(--bg-primary)}
+  .controls button.on{color:var(--text-primary);background:var(--bg-primary);box-shadow:inset 0 -2px 0 var(--border-secondary)}
+
+  .scene-wrap{position:relative;border:1px solid var(--border-tertiary);border-radius:4px;
+    background:var(--bg-secondary);height:64vh;min-height:460px;overflow:hidden;cursor:grab;touch-action:none}
+  .scene-wrap:active{cursor:grabbing}
+  canvas{display:block;width:100%;height:100%}
+  .side-tag{position:absolute;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-tertiary);pointer-events:none}
+  #front-tag{top:12px;left:14px}#back-tag{top:12px;right:14px}
+  #ytips{position:absolute;inset:0;pointer-events:none}
+  .ytip{position:absolute;transform:translate(-50%,0);font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-tertiary)}
+  .axis-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-tertiary);letter-spacing:.06em;pointer-events:none}
+
+  #info{position:absolute;top:34px;left:14px;width:248px;max-width:62%;background:var(--bg-primary);
+    border:1px solid var(--border-secondary);border-radius:5px;padding:12px 14px;z-index:6;
+    box-shadow:0 6px 24px rgba(0,0,0,.14);transition:opacity .15s}
+  #info .row{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+  #info .sw{width:12px;height:12px;border-radius:2px;flex:0 0 auto}
+  #info .nm{font-style:italic;font-size:18px;line-height:1.2}
+  #info .side{font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);margin-left:auto}
+  #info .meta{font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-tertiary);margin:6px 0 8px}
+  #info .spark{display:flex;align-items:flex-end;gap:2px;height:34px;margin-bottom:8px}
+  #info .bar{flex:1;background:currentColor;border-radius:1px;min-height:1px;opacity:.85;position:relative}
+  #info .bar.peak{opacity:1}
+  #info .bar span{position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);font-family:'Geist Mono',monospace;font-size:7.5px;color:var(--text-tertiary)}
+  #info .marq{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-secondary);letter-spacing:.02em;margin-bottom:2px}
+  #info .ex{font-size:13px;line-height:1.45;color:var(--text-secondary);border-top:1px solid var(--border-tertiary);padding-top:7px;margin-top:8px}
+  #info .hintline{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-tertiary);line-height:1.5}
+  #info.dim .nm,#info.dim .meta{opacity:.55}
+
+  .legend{display:flex;flex-wrap:wrap;gap:18px;margin:16px 4px 0;font-family:'Geist Mono',monospace}
+  .legcol{flex:1 1 280px}
+  .legcol h3{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:8px}
+  .lg{display:flex;align-items:center;gap:7px;cursor:pointer;color:var(--text-secondary);padding:3px 4px;font-size:11.5px;border-radius:4px;transition:background .12s,color .12s}
+  .lg:hover{color:var(--text-primary);background:var(--bg-secondary)}
+  .lg.sel{color:var(--text-primary);background:var(--bg-secondary);box-shadow:inset 2px 0 0 var(--border-secondary)}
+  .lg.mute{opacity:.4}
+  .sw{width:11px;height:11px;border-radius:2px;flex:0 0 auto}.lg .n{font-family:'EB Garamond',serif;font-size:14px}.lg .c{color:var(--text-tertiary);font-size:10.5px;margin-left:auto}
+  .fallback{padding:40px;text-align:center;color:var(--text-secondary);font-size:16px}.fallback a{color:var(--text-primary)}
+
+  .bynum{margin-top:46px;border-top:1px solid var(--border-tertiary);padding-top:28px}
+  .bynum h2{font-size:13px;font-family:'Geist Mono',monospace;letter-spacing:.1em;color:var(--text-tertiary);margin-bottom:20px}
+  .numgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(192px,1fr));gap:26px 28px}
+  .stat .big{font-family:'EB Garamond',serif;font-size:38px;font-weight:600;line-height:1;letter-spacing:-.02em;display:flex;align-items:baseline;gap:6px}
+  .stat .big span{font-family:'Geist Mono',monospace;font-size:11px;font-weight:400;color:var(--text-tertiary);letter-spacing:.02em}
+  .stat .cap{margin-top:9px;font-size:14.5px;line-height:1.45;color:var(--text-secondary)}
+  .stat .cap b{color:var(--text-primary);font-weight:600}
+  .numnote{margin-top:26px;font-size:15px;line-height:1.5;color:var(--text-secondary);max-width:70ch}
+  .numnote b{color:var(--text-primary);font-weight:600}
+  @media (max-width:560px){#info{width:200px}}
+  .site-footer{margin-top:54px;padding-top:18px;border-top:1px solid var(--border-tertiary);font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-tertiary);line-height:1.7}
+  .site-footer a{color:var(--text-secondary);text-decoration:none}.site-footer a:hover{color:var(--text-primary)}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <div class="brand"><a href="/">Aidan</a></div>
+    <nav class="nav">
+      <a href="/">topology</a>
+      <a href="/reading.html" class="active">reading</a>
+      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>
+    </nav>
+  </header>
+  <main>
+    <div class="topology-header">
+      <div class="header-left">
+        <span class="header-eyebrow">reading topography</span>
+        <span class="header-title">what flowed in, what came out · 2014–2026</span>
+      </div>
+      <div class="header-stats" id="stats"></div>
+    </div>
+    <p class="lede">A terrain of the mind. Time runs left to right; each ridge is a thread,
+      its height the volume that year. The range toward you is what I <b>read</b>; the range
+      behind the river of time is what I <b>wrote</b>. <b>Tap a ridge or a legend name to
+      study one thread.</b> Use the buttons to change the view.</p>
+
+    <div class="controls" id="controls">
+      <div class="grp" id="viewgrp">
+        <button data-view="both" class="on">orbit</button>
+        <button data-view="read">read ▸</button>
+        <button data-view="wrote">wrote ▸</button>
+        <button data-view="side">side</button>
+        <button data-view="top">top</button>
+      </div>
+      <div class="grp" id="layergrp">
+        <button data-layer="both" class="on">both</button>
+        <button data-layer="read">reading only</button>
+        <button data-layer="wrote">writing only</button>
+      </div>
+      <div class="grp"><button id="spinbtn" class="on">⟲ spin</button></div>
+    </div>
+
+    <div class="scene-wrap" id="scene">
+      <span class="side-tag" id="front-tag">↑ read</span>
+      <span class="side-tag" id="back-tag">wrote ↑</span>
+      <div id="ytips"></div>
+      <div class="axis-hint">2014 ◂──── time ────▸ 2026</div>
+      <div id="info"></div>
+    </div>
+    <div class="legend" id="legend"></div>
+
+    <section class="bynum">
+      <h2>by the numbers</h2>
+      <div class="numgrid">
+        <div class="stat"><div class="big">1 / 4.6<span>days</span></div><div class="cap">peak pace, 2019 — <b>80 books</b> in a year, incl. 11 Steinbeck + 9 Fitzgerald devoured at once</div></div>
+        <div class="stat"><div class="big">≈92k<span>pages</span></div><div class="cap">pages read across 306 books — avg 297 each; the longest, <i>Atlas Shrugged</i>, ran 1,168</div></div>
+        <div class="stat"><div class="big">16 · 7<span>books · yrs</span></div><div class="cap"><b>McCarthy</b> is the spine — the only author at both ends of the map (2019→2026)</div></div>
+        <div class="stat"><div class="big">1942</div><div class="cap">median pub-year of the books you read in 2019. <b>You read the dead</b> — in 2014 your median was 2006; the year you got serious it fell ~65 yrs and stayed mid-century</div></div>
+        <div class="stat"><div class="big">92.6%</div><div class="cap">male authors. Of the 7.4% women, half are just Rand (5) + Didion (3)</div></div>
+        <div class="stat"><div class="big">1.46×</div><div class="cap">more books finished in winter than summer — the cold and the reading go together</div></div>
+        <div class="stat"><div class="big">11<span>words</span></div><div class="cap">median sentence in <b>your own</b> 83,015 words of prose — Hemingway-terse</div></div>
+        <div class="stat"><div class="big">337 / 283</div><div class="cap">motif hits for <b>the land</b> vs <b>the sky</b> in your writing — earth under the boots, stars above</div></div>
+        <div class="stat"><div class="big">2<span>years</span></div><div class="cap">the lag — McCarthy reading peaks 2022, your McCarthy-flavored novel writing peaks 2024</div></div>
+        <div class="stat"><div class="big">491→137<span>words/post</span></div><div class="cap">Substack compression, 2025→2026 — essayist collapsing into aphorist, 3.6× terser in a year</div></div>
+      </div>
+      <p class="numnote">The terrain above is cut by the five movements the data reveals — <b>Story → Style → Ideas → Meaning</b> reading toward you, <b>Making</b> behind. Focus any ridge to see its marquee author and per-year shape.</p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    __TOTALS__ · built with three.js · no tracking ·
+    <a href="https://github.com/2016judea/a-phylogeny-of-writing" target="_blank" rel="noopener">view source</a> ·
+    a companion to the <a href="/">writing topology</a>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const DATA = __DATA__;
+(function(){
+  const wrap=document.getElementById('scene'), info=document.getElementById('info');
+  const years=DATA.reading.years, NY=years.length;
+  document.getElementById('stats').textContent =
+    DATA.reading.totals.books+' read · '+DATA.writing.total+" written · 2014–2026";
+  if(typeof THREE==='undefined' || !THREE.WebGLRenderer){
+    wrap.innerHTML='<div class="fallback">This view needs WebGL. Try a desktop browser — or see the <a href="/">writing topology</a>.</div>';return;
+  }
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  const bg = dark? 0x1a1714 : 0xf1ece2;
+
+  let W=wrap.clientWidth, H=wrap.clientHeight;
+  const scene=new THREE.Scene(); scene.background=new THREE.Color(bg); scene.fog=new THREE.Fog(bg,70,150);
+  const camera=new THREE.PerspectiveCamera(40, W/H, 0.1, 600);
+  const renderer=new THREE.WebGLRenderer({antialias:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2)); renderer.setSize(W,H); wrap.appendChild(renderer.domElement);
+  const controls=new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping=true; controls.dampingFactor=.08;
+  controls.minDistance=26; controls.maxDistance=150; controls.maxPolarAngle=Math.PI*0.49;
+  controls.autoRotate=true; controls.autoRotateSpeed=0.5;
+  const spinbtn=document.getElementById('spinbtn');
+  function setSpin(on){ controls.autoRotate=on; spinbtn.classList.toggle('on',on); }
+
+  scene.add(new THREE.AmbientLight(0xffffff, dark?0.6:0.8));
+  const keyL=new THREE.DirectionalLight(0xfff0dd, dark?0.85:0.95); keyL.position.set(30,55,30); scene.add(keyL);
+  const rimL=new THREE.DirectionalLight(0x88aacc, dark?0.4:0.25); rimL.position.set(-30,20,-40); scene.add(rimL);
+
+  const SPAN=58, x0=-SPAN/2, dx=SPAN/(NY-1), xFor=i=>x0+i*dx;
+  let maxV=0;
+  DATA.reading.threads.forEach(t=>t.counts.forEach(c=>{if(c>maxV)maxV=c;}));
+  DATA.writing.threads.forEach(t=>t.counts.forEach(c=>{if(c>maxV)maxV=c;}));
+  const hUnit=17/Math.pow(maxV,0.82), hOf=c=> c>0 ? Math.pow(c,0.82)*hUnit : 0;
+  const GAP=2.5, THICK=1.6;
+
+  const meshes=[];
+  function ridge(t, z, side){
+    const pts=[]; for(let i=0;i<t.counts.length;i++) pts.push(new THREE.Vector2(xFor(i), hOf(t.counts[i])));
+    const top=new THREE.SplineCurve(pts).getPoints(140);
+    const shape=new THREE.Shape(); shape.moveTo(top[0].x,0);
+    top.forEach(p=>shape.lineTo(p.x, Math.max(0,p.y)));
+    shape.lineTo(top[top.length-1].x,0); shape.closePath();
+    const geo=new THREE.ExtrudeGeometry(shape,{depth:THICK,bevelEnabled:false,curveSegments:1}); geo.translate(0,0,-THICK/2);
+    const mat=new THREE.MeshStandardMaterial({color:new THREE.Color(t.color),roughness:.82,metalness:0,
+      emissive:new THREE.Color(t.color),emissiveIntensity:0,transparent:true,opacity:1,side:THREE.DoubleSide});
+    const m=new THREE.Mesh(geo,mat); m.position.z=z;
+    const peak=t.counts.indexOf(Math.max(...t.counts));
+    m.userData={t,side,peak}; scene.add(m); meshes.push(m); return m;
+  }
+  DATA.reading.threads.forEach((t,i)=> ridge(t, GAP+i*GAP, 'read'));
+  DATA.writing.threads.forEach((t,i)=> ridge(t, -(GAP+i*GAP), 'wrote'));
+
+  const spineMat=new THREE.MeshStandardMaterial({color:dark?0x3a342c:0xcdc4b2,roughness:1});
+  scene.add(new THREE.Mesh(new THREE.BoxGeometry(SPAN+6,0.25,1.4),spineMat));
+  years.forEach((y,i)=>{ if(y%2)return; const m=new THREE.Mesh(new THREE.BoxGeometry(0.25,0.6,2.2),spineMat); m.position.set(xFor(i),0.3,0); scene.add(m); });
+
+  // year labels (projected)
+  const ytips=document.getElementById('ytips'), labels=[];
+  [2014,2018,2022,2026].forEach(y=>{const i=years.indexOf(y);if(i<0)return;
+    const el=document.createElement('div');el.className='ytip';el.textContent="’"+String(y).slice(2);
+    ytips.appendChild(el);labels.push({el,v:new THREE.Vector3(xFor(i),-0.6,2.6)});});
+
+  // ---------- info panel ----------
+  function blankInfo(){
+    info.classList.remove('dim');
+    info.innerHTML='<div class="hintline">Drag to orbit · scroll to zoom.<br>Tap a <b>ridge</b> or a <b>name</b> below to study one thread.<br>Buttons switch the view &amp; layers.</div>';
+  }
+  function showInfo(m, hoverYear){
+    const u=m.userData, t=u.t, mx=Math.max(...t.counts);
+    let bars='';
+    for(let i=0;i<NY;i++){
+      const h=Math.round(t.counts[i]/mx*100);
+      const lab=(years[i]%4===0)?("<span>’"+String(years[i]).slice(2)+"</span>"):"";
+      const cls='bar'+(i===u.peak?' peak':'')+((hoverYear===years[i])?' peak':'');
+      bars+='<div class="'+cls+'" style="height:'+Math.max(h,2)+'%">'+lab+'</div>';
+    }
+    const yr = hoverYear!=null && t.counts[years.indexOf(hoverYear)]!=null
+      ? "’"+String(hoverYear).slice(2)+": "+t.counts[years.indexOf(hoverYear)]
+      : "peak ’"+String(years[u.peak]).slice(2)+" ("+t.counts[u.peak]+")";
+    const mq = (u.side==='read' && t.marquee) ? '<div class="marq">marquee · '+t.marquee+' ×'+t.marquee_n+'</div>' : '';
+    const mv = (u.side==='read' && t.movement) ? t.movement.toLowerCase() : (u.side==='wrote'?'making':'');
+    info.classList.remove('dim');
+    info.innerHTML=
+      '<div class="row"><span class="sw" style="background:'+t.color+'"></span>'+
+      '<span class="nm">'+t.name+'</span><span class="side">'+mv+'</span></div>'+
+      '<div class="meta">'+t.total+' '+(u.side==='read'?'books':'pieces')+' · '+yr+'</div>'+
+      '<div class="spark" style="color:'+t.color+'">'+bars+'</div>'+mq+
+      '<div class="ex">'+t.examples.join(' · ')+'</div>';
+  }
+  blankInfo();
+
+  // ---------- focus / highlight ----------
+  let focused=null, layer='both';
+  function applyStyle(){
+    meshes.forEach(m=>{
+      const layerVis = layer==='both' || m.userData.side===layer;
+      m.visible=layerVis;
+      const mat=m.material;
+      if(focused){
+        const on = m===focused;
+        mat.opacity = on?1:0.14; mat.emissiveIntensity = on?(dark?.42:.28):0;
+      } else { mat.opacity=1; mat.emissiveIntensity=0; }
+    });
+    // legend selection styling
+    document.querySelectorAll('.lg').forEach(el=>{
+      el.classList.toggle('sel', focused && el.dataset.key===focused.userData.t.name);
+      el.classList.toggle('mute', !!focused && el.dataset.key!==focused.userData.t.name);
+    });
+  }
+  function setFocus(m){ focused=(m&&m===focused)?null:m; if(focused) showInfo(focused); else blankInfo(); applyStyle(); }
+
+  // ---------- raycast hover + click ----------
+  const ray=new THREE.Raycaster(), ndc=new THREE.Vector2();
+  function pick(e){ const r=wrap.getBoundingClientRect();
+    ndc.x=((e.clientX-r.left)/r.width)*2-1; ndc.y=-((e.clientY-r.top)/r.height)*2+1;
+    ray.setFromCamera(ndc,camera);
+    const hit=ray.intersectObjects(meshes.filter(m=>m.visible))[0]; return hit; }
+  let hovered=null, downPt=null;
+  wrap.addEventListener('pointermove',e=>{
+    if(focused) return;               // when focused, panel is sticky
+    const hit=pick(e);
+    if(hovered && (!hit||hit.object!==hovered)){ hovered.material.emissiveIntensity=0; hovered=null; }
+    if(hit){ hovered=hit.object; hovered.material.emissiveIntensity=dark?.4:.26;
+      const yr=years.reduce((a,b)=>Math.abs(xFor(years.indexOf(b))-hit.point.x)<Math.abs(xFor(years.indexOf(a))-hit.point.x)?b:a);
+      showInfo(hovered, yr);
+    } else { blankInfo(); }
+  });
+  wrap.addEventListener('pointerdown',e=>{ downPt=[e.clientX,e.clientY]; controls.autoRotate=false; setSpin(false); });
+  wrap.addEventListener('pointerup',e=>{
+    if(!downPt) return; const moved=Math.hypot(e.clientX-downPt[0],e.clientY-downPt[1]); downPt=null;
+    if(moved>6) return;               // it was a drag, not a tap
+    const hit=pick(e); setFocus(hit?hit.object:null);
+  });
+
+  // ---------- camera presets (tween) ----------
+  const VIEWS={
+    both:{p:[52,35,48],t:[0,6.5,0]}, read:{p:[0,26,82],t:[0,5,14]},
+    wrote:{p:[0,26,-82],t:[0,5,-14]}, side:{p:[86,30,2],t:[0,5,0]}, top:{p:[0,92,0.01],t:[0,0,0]}
+  };
+  let tween=null;
+  function goView(name){
+    const v=VIEWS[name]; if(!v) return;
+    tween={p0:camera.position.clone(),p1:new THREE.Vector3(...v.p),
+           t0:controls.target.clone(),t1:new THREE.Vector3(...v.t),s:performance.now(),d:650};
+    controls.autoRotate=false; setSpin(false);
+  }
+  goView('both');
+  function stepTween(now){ if(!tween)return; let k=(now-tween.s)/tween.d; if(k>=1){k=1;}
+    const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2; // easeInOutQuad
+    camera.position.lerpVectors(tween.p0,tween.p1,e); controls.target.lerpVectors(tween.t0,tween.t1,e);
+    if(k>=1)tween=null; }
+
+  // ---------- buttons ----------
+  document.querySelectorAll('#viewgrp button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#viewgrp button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    goView(b.dataset.view);
+  }));
+  document.querySelectorAll('#layergrp button').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('#layergrp button').forEach(x=>x.classList.remove('on')); b.classList.add('on');
+    layer=b.dataset.layer; if(focused && focused.userData.side!==layer && layer!=='both'){focused=null;blankInfo();} applyStyle();
+  }));
+  spinbtn.addEventListener('click',()=>setSpin(!controls.autoRotate));
+
+  // ---------- legend (interactive) ----------
+  const lg=document.getElementById('legend'); const legByName={};
+  function col(title, threads, side){
+    const c=document.createElement('div'); c.className='legcol'; c.innerHTML='<h3>'+title+'</h3>';
+    threads.forEach(t=>{
+      const m=meshes.find(mm=>mm.userData.t===t);
+      const d=document.createElement('div'); d.className='lg'; d.dataset.key=t.name;
+      d.innerHTML='<span class="sw" style="background:'+t.color+'"></span><span class="n">'+t.name+'</span><span class="c">'+t.total+'</span>';
+      d.addEventListener('mouseenter',()=>{ if(!focused) showInfo(m); });
+      d.addEventListener('mouseleave',()=>{ if(!focused) blankInfo(); });
+      d.addEventListener('click',()=>{ if(m.userData.side!==layer && layer!=='both'){ /*switch layer*/ } setFocus(m); });
+      c.appendChild(d); legByName[t.name]=d;
+    });
+    lg.appendChild(c);
+  }
+  col('read — '+DATA.reading.totals.books+' books', DATA.reading.threads,'read');
+  col('wrote — '+DATA.writing.total+' pieces', DATA.writing.threads,'wrote');
+
+  function resize(){ W=wrap.clientWidth;H=wrap.clientHeight; camera.aspect=W/H;camera.updateProjectionMatrix();renderer.setSize(W,H); }
+  addEventListener('resize',resize);
+
+  const pv=new THREE.Vector3();
+  (function loop(now){ requestAnimationFrame(loop); stepTween(now||performance.now()); controls.update();
+    const r=wrap.getBoundingClientRect();
+    labels.forEach(L=>{pv.copy(L.v).project(camera); const vis=pv.z<1;
+      L.el.style.display=vis?'block':'none'; L.el.style.left=((pv.x*.5+.5)*r.width)+'px'; L.el.style.top=((-pv.y*.5+.5)*r.height)+'px';});
+    renderer.render(scene,camera);
+  })();
+})();
+</script>
+</body>
+</html>
+"""
+
+html = (HTML
+        .replace("__DATA__", json.dumps(DATA, ensure_ascii=False))
+        .replace("__TOTALS__", f"{reading['totals']['books']} books read, {writing['total']} pieces written, 2014–2026"))
+open(OUT, "w").write(html)
+print(f"wrote {OUT} ({len(html)} bytes)")
