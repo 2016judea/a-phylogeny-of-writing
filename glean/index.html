@@ -53,7 +53,7 @@
 
     .top {
       display: flex; justify-content: space-between; align-items: baseline;
-      gap: 16px; padding-bottom: 80px;
+      gap: 14px 24px; padding-bottom: 80px; flex-wrap: wrap;
     }
     @media (max-width: 540px) { .top { padding-bottom: 48px; } }
 
@@ -62,6 +62,19 @@
       text-decoration: none; transition: color 0.2s;
     }
     .back:hover { color: var(--ink); }
+
+    .brandlink {
+      font-family: 'Bodoni Moda', Georgia, serif; font-style: italic;
+      font-weight: 600; font-size: 18px; color: var(--ink); text-decoration: none;
+    }
+    .gnav {
+      display: flex; flex-wrap: wrap; gap: 8px 18px; justify-content: flex-end;
+      font-size: 12px; letter-spacing: 0.04em;
+    }
+    .gnav a { color: var(--ink-dim); text-decoration: none; transition: color 0.2s; }
+    .gnav a:hover { color: var(--ink); }
+    .gnav a.active { color: var(--accent); }
+    @media (max-width: 540px) { .gnav { justify-content: flex-start; } }
 
     .hero { text-align: center; padding-bottom: 72px; }
     .hero-mast {
@@ -140,8 +153,17 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <span></span>
-      <a class="back" href="https://aidanjude.vercel.app/">← aidan</a>
+      <a class="brandlink" href="/">Aidan&nbsp;Jude</a>
+      <nav class="gnav">
+        <a href="/projects.html">dev projects</a>
+        <a href="/research.html">research</a>
+        <a href="/something-western.html">novel</a>
+        <a href="/reading.html">reading</a>
+        <a href="/study.html">study</a>
+        <a href="/essays.html">essays</a>
+        <a href="/photography.html">35mm photography</a>
+        <a href="/glean/" class="active">glean</a>
+      </nav>
     </div>
 
     <header class="hero">
