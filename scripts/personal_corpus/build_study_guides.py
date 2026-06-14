@@ -838,7 +838,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com" />'
 
 def nav(active):
     items = [("/projects.html", "dev projects"), ("/research.html", "research"),
-             ("/topology.html", "topology"), ("/something-western.html", "novel"),
+             ("/something-western.html", "novel"),
              ("/reading.html", "reading"), ("/study.html", "study"),
              ("/essays.html", "essays")]
     out = ['    <nav class="nav">']
@@ -846,6 +846,7 @@ def nav(active):
         cls = ' class="active"' if label == active else ''
         out.append(f'      <a href="{href}"{cls}>{label}</a>')
     out.append('      <a href="/photography.html">35mm photography</a>')
+    out.append('      <a href="/glean/">glean</a>')
     out.append('    </nav>')
     return "\n".join(out)
 

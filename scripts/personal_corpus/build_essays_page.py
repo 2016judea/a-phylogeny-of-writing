@@ -40,6 +40,7 @@ THEME = {
     "sept-25-pt2": "ideas", "dec-25": "ideas", "primitive-anthropology": "ideas",
     "feb-26": "ideas", "mar-25": "ideas", "apr-25": "ideas",
     "the-stoddard-temple-is-a-threat-to": "ideas",
+    "study-guide-quantum-gravity": "ideas",
     # The Founder
     "march": "founder", "july": "founder", "august": "founder", "december-24": "founder",
     "titans-and-transformers": "founder", "deepseek": "founder", "february-25": "founder",
@@ -48,11 +49,14 @@ THEME = {
     "the-ai-bubble": "founder", "apr-26": "founder", "working-wclaude-code": "founder",
     "thought-experiment": "founder", "publishing-a-newspaper": "founder",
     "opinions-on-the-stock-market": "founder",
+    "rodent-inspections-archive": "founder",
     # Field Notes
     "august-24": "journal", "january-25": "journal", "south-africa": "journal",
     "dec-25-pt2": "journal", "italia": "journal", "nyc": "journal",
     "physical-media-journal": "journal", "soulful": "journal", "appreciative": "journal",
     "something-greek": "journal",
+    "jun-26": "journal", "feb-26-archive": "journal", "astroid-trails": "journal",
+    "last-night-there-was-a-huge-storm": "journal",
 }
 KW = {
     "founder": ["ai", "claude", "chatgpt", "llm", "agent", "model", "startup", "stock",
@@ -214,6 +218,270 @@ TEMPLATE = r"""<!DOCTYPE html>
     .site-footer a{color:inherit;border-bottom:1px solid var(--border-secondary);text-decoration:none}
     body.filtered .voice{display:none}
     body.filtered .voice.show{display:block}
+
+    /* ---- idea topology — migrated from the old /topology page ---- */
+    .topo-embed{margin-bottom:54px}
+    @media (max-width:720px){.topo-embed{margin-bottom:36px}}
+.topology-header {
+      padding: 0 4px 12px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .topology-header { gap: 8px; }
+      .topology-header .header-stats { text-align: left; font-size: 11px; }
+    }
+
+    .header-left { display: flex; flex-direction: column; gap: 2px; }
+
+    .header-eyebrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .header-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 34px;
+      font-style: italic;
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+
+    @media (max-width: 720px) {
+      .header-title { font-size: 24px; line-height: 1.2; }
+    }
+
+    .header-stats {
+      font-family: 'Geist Mono', monospace;
+      font-size: 12px;
+      color: var(--text-secondary);
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .stat-num { color: var(--text-primary); font-weight: 500; }
+
+    .legend {
+      display: flex;
+      gap: 18px;
+      padding: 0 4px 18px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 720px) {
+      .legend { gap: 10px 14px; padding-bottom: 14px; }
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .legend-item.dim { opacity: 0.35; }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      width: 100%;
+      height: min(82vh, 880px);
+      min-height: 600px;
+    }
+
+    @media (max-width: 720px) {
+      /* Square-ish canvas on phones — the topology is round, vertical aspect wastes space */
+      .canvas-wrap {
+        height: min(110vw, 90vh);
+        min-height: 380px;
+        max-height: 640px;
+      }
+    }
+
+    .recenter-btn {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--bg-primary);
+      border: 0.5px solid var(--border-secondary);
+      border-radius: 999px;
+      padding: 7px 16px 7px 13px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 0.3s, transform 0.3s, color 0.2s, border-color 0.2s;
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .recenter-btn.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .recenter-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--text-secondary);
+    }
+
+    .recenter-arrow {
+      font-family: 'Geist Mono', monospace;
+      font-size: 13px;
+      font-style: normal;
+    }
+
+    canvas { display: block; width: 100%; height: 100%; }
+
+    .tooltip {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.18s;
+      background: var(--bg-primary);
+      border: 0.5px solid var(--border-secondary);
+      border-radius: 8px;
+      padding: 12px 16px;
+      max-width: 260px;
+      font-family: 'EB Garamond', Georgia, serif;
+      z-index: 10;
+    }
+
+    @media (max-width: 720px) {
+      .tooltip { max-width: 200px; padding: 10px 12px; }
+      .tooltip-title { font-size: 15px; }
+    }
+
+    .tooltip.visible { opacity: 1; }
+
+    .tooltip-title {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.25;
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+
+    .tooltip-meta {
+      font-size: 12px;
+      font-family: 'Geist Mono', monospace;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+
+    .tooltip-source {
+      display: inline-block;
+      padding: 2px 7px;
+      margin-right: 6px;
+      border-radius: 3px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-bar {
+      padding: 14px 4px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+      border-top: 0.5px solid var(--border-tertiary);
+      margin-top: 10px;
+    }
+
+    @media (max-width: 720px) {
+      .footer-bar { flex-direction: column; gap: 6px; align-items: flex-start; font-size: 10px; }
+      .footer-tip { font-size: 13px; }
+    }
+
+    .footer-tip {
+      font-style: italic;
+      font-family: 'EB Garamond', serif;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .colophon {
+      margin-top: 96px;
+      padding-top: 36px;
+      border-top: 0.5px solid var(--border-tertiary);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 680px;
+    }
+
+    @media (max-width: 720px) {
+      .colophon { margin-top: 56px; padding-top: 28px; font-size: 15px; line-height: 1.65; }
+    }
+
+    .colophon p { margin-bottom: 16px; }
+
+    .colophon a {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-decoration-thickness: 0.5px;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--border-secondary);
+      transition: text-decoration-color 0.2s;
+    }
+
+    .colophon a:hover { text-decoration-color: var(--text-primary); }
+
+    .colophon-meta {
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.04em;
+      margin-top: 28px;
+    }
+
+    .colophon-meta a {
+      color: var(--text-secondary);
+      text-decoration: underline;
+      text-decoration-thickness: 0.5px;
+      text-underline-offset: 2px;
+      text-decoration-color: var(--border-secondary);
+      transition: color 0.2s, text-decoration-color 0.2s;
+    }
+
+    .colophon-meta a:hover {
+      color: var(--text-primary);
+      text-decoration-color: var(--text-primary);
+    }
   </style>
 </head>
 <body>
@@ -223,15 +491,42 @@ TEMPLATE = r"""<!DOCTYPE html>
     <nav class="nav">
       <a href="/projects.html">dev projects</a>
       <a href="/research.html">research</a>
-      <a href="/topology.html">topology</a>
       <a href="/something-western.html">novel</a>
       <a href="/reading.html">reading</a>
       <a href="/study.html">study</a>
       <a href="/essays.html" class="active">essays</a>
       <a href="/photography.html">35mm photography</a>
+      <a href="/glean/">glean</a>
     </nav>
   </header>
   <main>
+    <section class="topo-embed">
+<div class="topology-header">
+        <div class="header-left">
+          <span class="header-eyebrow">idea topology</span>
+          <span class="header-title">a phylogeny of writing, 2023–2026</span>
+        </div>
+        <div class="header-stats" id="stats"></div>
+      </div>
+
+      <div class="legend" id="legend"></div>
+
+      <div class="canvas-wrap">
+        <canvas id="c"></canvas>
+        <button class="recenter-btn" id="recenter-btn" aria-label="Return to overview">
+          <span class="recenter-arrow">←</span> back to aidan
+        </button>
+        <div class="tooltip" id="tip">
+          <div class="tooltip-title" id="tip-title"></div>
+          <div class="tooltip-meta" id="tip-meta"></div>
+        </div>
+      </div>
+
+      <div class="footer-bar">
+        <span>hover · drift · let the canopy breathe</span>
+        <span class="footer-tip">click a theme to focus</span>
+      </div>
+    </section>
     <div class="hero">
       <span class="eyebrow">the substack archive</span>
       <h1>Essays</h1>
@@ -256,6 +551,7 @@ TEMPLATE = r"""<!DOCTYPE html>
     chips.forEach(x=>x.classList.toggle('off',x.dataset.v!==v&&x.dataset.v!=='all'));
   }));
 </script>
+<script src="/topology-viz.js"></script>
 </body>
 </html>
 """
