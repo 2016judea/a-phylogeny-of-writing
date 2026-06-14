@@ -1,27 +1,30 @@
 #!/usr/bin/env python3
-"""Rough pencil/textbook sketches for the Quantum Gravity study guide.
-Black on white, hand-drawn wiggle, almost no words."""
+"""Penrose-notebook diagrams for the Quantum Gravity study guide.
+Thin confident ink, near-zero wiggle, black on near-white, sparse serif italic."""
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib import font_manager as fm
-from matplotlib.patches import FancyArrowPatch, Polygon, Arc, Circle
+from matplotlib.patches import FancyArrowPatch, Polygon, Circle
 from matplotlib.lines import Line2D
 import os
 
-fm.fontManager.addfont("/tmp/qg_fonts/BradleyHand.ttf")
-HAND = "Bradley Hand"
-mpl.rcParams["font.family"] = HAND
+fm.fontManager.addfont("/tmp/qg_fonts/EBGaramond-Italic.ttf")
+fm.fontManager.addfont("/tmp/qg_fonts/EBGaramond-Regular.ttf")
+SERIF = "EB Garamond"
+mpl.rcParams["font.family"] = SERIF
+mpl.rcParams["mathtext.fontset"] = "cm"
 mpl.rcParams["axes.unicode_minus"] = False
 
-INK = "#1f1d1b"
-PAPER = "#ffffff"
-OUT = "/Users/aidan/Desktop/writing-topology/img/quantum-gravity/pencil"
+INK   = "#1a1815"
+INK2  = "#615b52"
+PAPER = "#fdfcf9"
+# a whisper of hand-quality, not cartoon wiggle
+SK = dict(scale=0.6, length=140, randomness=1.3)
+OUT = "/Users/aidan/Desktop/writing-topology/img/quantum-gravity/penrose"
 os.makedirs(OUT, exist_ok=True)
 
-SK = dict(scale=1.7, length=55, randomness=2)
-
-def newfig(w=6, h=6):
+def newfig(w, h):
     fig = plt.figure(figsize=(w, h), dpi=200)
     fig.patch.set_facecolor(PAPER)
     ax = fig.add_axes([0.02, 0.02, 0.96, 0.96])
@@ -31,168 +34,170 @@ def newfig(w=6, h=6):
     ax.axis("off")
     return fig, ax
 
-def line(ax, xs, ys, lw=1.7, ls="-", color=INK, alpha=1.0):
+def line(ax, xs, ys, lw=1.3, ls="-", color=INK, alpha=1.0, sketch=True, z=2):
     ln = Line2D(xs, ys, lw=lw, ls=ls, color=color, alpha=alpha,
-                solid_capstyle="round")
-    ln.set_sketch_params(**SK)
-    ax.add_line(ln)
-    return ln
+                solid_capstyle="round", zorder=z)
+    if sketch: ln.set_sketch_params(**SK)
+    ax.add_line(ln); return ln
 
-def arrow(ax, p0, p1, lw=1.7, color=INK, ms=12):
-    a = FancyArrowPatch(p0, p1, arrowstyle="-|>", mutation_scale=ms,
-                        color=color, lw=lw, shrinkA=0, shrinkB=0)
-    a.set_sketch_params(**SK)
-    ax.add_patch(a)
-    return a
+def axis_arrow(ax, p0, p1, lw=1.3, color=INK):
+    a = FancyArrowPatch(p0, p1, arrowstyle="-|>", mutation_scale=11,
+                        color=color, lw=lw, shrinkA=0, shrinkB=0, zorder=2)
+    ax.add_patch(a); return a
 
-def circle(ax, cx, cy, r, lw=1.7, fill=None, alpha=1.0):
-    c = Circle((cx, cy), r, fill=fill is not None, fc=fill if fill else "none",
-               ec=INK, lw=lw, alpha=alpha)
-    c.set_sketch_params(**SK)
-    ax.add_patch(c)
-    return c
+def lab(ax, x, y, s, size=15.5, it=True, color=INK, ha="center", va="center", rot=0, z=5):
+    ax.text(x, y, s, family=SERIF, fontsize=size,
+            fontstyle="italic" if it else "normal",
+            color=color, ha=ha, va=va, rotation=rot, zorder=z)
 
-def label(ax, x, y, s, size=20, color=INK, ha="center", va="center", rot=0):
-    ax.text(x, y, s, family=HAND, fontsize=size, color=color, ha=ha, va=va,
-            rotation=rot)
+def cone(ax, x, y, phi_deg, half=23, size=9, lw=1.2, fill=True):
+    """future light cone; phi tips from +y (up) toward -x (inward/left)."""
+    phi = np.radians(phi_deg)
+    e1 = phi - np.radians(half); e2 = phi + np.radians(half)
+    p1 = (x - np.sin(e1)*size, y + np.cos(e1)*size)
+    p2 = (x - np.sin(e2)*size, y + np.cos(e2)*size)
+    if fill:
+        poly = Polygon([(x, y), p1, p2], closed=True, fc=INK, ec="none",
+                       alpha=0.06, zorder=1)
+        ax.add_patch(poly)
+    line(ax, [x, p1[0]], [y, p1[1]], lw=lw, sketch=False)
+    line(ax, [x, p2[0]], [y, p2[1]], lw=lw, sketch=False)
+    # faint future direction tick
+    line(ax, [x, x-np.sin(phi)*size*0.62], [y, y+np.cos(phi)*size*0.62],
+         lw=0.8, color=INK2, sketch=False)
 
 def save(fig, name):
-    p = os.path.join(OUT, name)
-    fig.savefig(p, dpi=200, facecolor=PAPER)
-    plt.close(fig)
-    print("wrote", p)
+    p = os.path.join(OUT, name); fig.savefig(p, dpi=200, facecolor=PAPER)
+    plt.close(fig); print("wrote", p)
 
 # =====================================================================
-# A — light cones tip into the horizon
-# =====================================================================
-def fig_cones():
-    fig, ax = newfig(7, 6)
-    # baseline (the r axis), singularity at left, horizon dashed
-    y0 = 22
-    x_sing, x_hor, x_right = 14, 50, 92
-    line(ax, [x_sing, x_right], [y0, y0], lw=1.5)            # r axis
-    arrow(ax, (x_right-2, y0), (x_right+3, y0))              # axis arrowhead is decreasing r to left though
-    # singularity: jagged vertical line
-    ys = np.linspace(y0, 82, 22)
-    xs = x_sing + 1.4*np.sin(ys*1.3)
-    line(ax, xs, ys, lw=2.0)
-    # horizon: dashed vertical
-    line(ax, [x_hor, x_hor], [y0, 84], lw=1.6, ls=(0,(4,3)))
-
-    def cone(x, y, phi_deg, half=24, size=15):
-        phi = np.radians(phi_deg)
-        for sgn in (-1, 1):
-            a = phi + sgn*np.radians(half)
-            line(ax, [x, x-np.sin(a)*size], [y, y+np.cos(a)*size], lw=1.6)
-        # central future tick
-        arrow(ax, (x, y), (x-np.sin(phi)*size*0.7, y+np.cos(phi)*size*0.7), ms=9)
-
-    yc = 48
-    cone(x_right-8, yc, 0)      # upright, far outside
-    cone(67, yc, 25)           # tilting
-    cone(x_hor, yc, 45)        # at horizon
-    cone(36, yc, 68)           # inside
-    cone(x_sing+13, yc, 86)    # near singularity, points inward
-
-    # sparse labels
-    label(ax, x_hor, 88, "horizon", size=19)
-    label(ax, x_sing+2, 86, "singularity", size=19, ha="left")
-    label(ax, x_right+1, y0-5, "r", size=20, ha="right")
-    label(ax, 50, 11, "inside, the future points inward", size=17, color="#555")
-    save(fig, "a-lightcones.png")
-
-# =====================================================================
-# B — collapse halted twice, then not (gravity vs pressure)
+# 1 — gravitational collapse: spacetime diagram with tipping cones
 # =====================================================================
 def fig_collapse():
-    fig, ax = newfig(9.6, 4.8)
-    cxs = [18, 50, 82]
-    cy = 54
-    radii = [10, 7, 3.8]
-    names = ["white dwarf", "neutron star", "black hole"]
-    for i, (cx, r, nm) in enumerate(zip(cxs, radii, names)):
-        circle(ax, cx, cy, r)
-        # inward gravity arrows (always) — black, from outside pointing in
-        for ang in range(30, 360, 60):
-            a = np.radians(ang)
-            x1, y1 = cx + (r+6)*np.cos(a), cy + (r+6)*np.sin(a)
-            x2, y2 = cx + (r+1.5)*np.cos(a), cy + (r+1.5)*np.sin(a)
-            arrow(ax, (x1, y1), (x2, y2), lw=1.4, ms=8)
-        if i < 2:
-            # outward degeneracy pressure arrows (grey, push back)
-            for ang in range(0, 360, 60):
-                a = np.radians(ang)
-                x1, y1 = cx + (r-2.5)*np.cos(a), cy + (r-2.5)*np.sin(a)
-                x2, y2 = cx + (r+3.5)*np.cos(a), cy + (r+3.5)*np.sin(a)
-                arrow(ax, (x1, y1), (x2, y2), lw=1.4, ms=8, color="#888")
-        else:
-            # black hole: horizon ring, no outward arrows, solid core dot
-            circle(ax, cx, cy, r, lw=1.4)
-            circle(ax, cx, cy, 1.3, fill=INK)
-        label(ax, cx, cy - r - 11, nm, size=18)
-    # tiny legend so B/W reads: black = gravity in, grey = pressure out
-    label(ax, 50, 90, "gravity in", size=16)
-    label(ax, 50, 84, "pressure out", size=16, color="#888")
-    save(fig, "b-collapse.png")
+    fig, ax = newfig(6.8, 6.6)
+    Ox, Oy = 15, 13
+    Rmax_x, Tmax_y = 93, 92
+    x_h = 45                              # horizon radius (vertical)
+    # axes
+    axis_arrow(ax, (Ox, Oy), (Rmax_x+3, Oy))
+    axis_arrow(ax, (Ox, Oy), (Ox, Tmax_y+3))
+    lab(ax, Rmax_x+4, Oy-3, "r", size=17)
+    lab(ax, Ox-3, Tmax_y+3, "t", size=17)
+
+    # horizon (vertical dashed)
+    line(ax, [x_h, x_h], [Oy, 84], lw=1.1, ls=(0,(4,3)))
+    lab(ax, x_h+2.5, 82, "horizon", size=14.5, ha="left", color=INK2)
+
+    # singularity: jagged line on r = 0 for high t
+    ys = np.linspace(58, 90, 26)
+    xs = Ox + 1.5*np.sin(ys*1.25)
+    line(ax, xs, ys, lw=2.0, sketch=False)
+    lab(ax, Ox+2.5, 92, "singularity", size=15, ha="left")
+
+    # star surface worldline: r(t) from R0 down to 0 at the singularity
+    t = np.linspace(0, 1, 120)
+    R0 = 72
+    rr = R0 * (1 - t)**1.7
+    xx = Ox + rr
+    yy = Oy + t*(60 - Oy) + t**1.4*8          # rises to ~y 60 then into sing
+    yy = Oy + 47*t + 12*t**2
+    line(ax, xx, yy, lw=1.5)
+    # faint interior fill (collapsing matter, left of surface)
+    ax.fill_betweenx(yy, Ox, xx, color=INK, alpha=0.04, zorder=0)
+    lab(ax, 58, 30, "star surface", size=14, rot=-34, color=INK2)
+
+    # tipping light cones, outside -> horizon -> inside
+    cone(ax, 82, 30, 0)        # far outside, upright
+    cone(ax, 55, 50, 40)       # approaching horizon
+    cone(ax, x_h, 60, 47)      # at horizon
+    cone(ax, 30, 70, 72)       # inside, future opens toward r=0
+    save(fig, "1-collapse.png")
 
 # =====================================================================
-# C — what's north of the North Pole?
+# 2 — fusion: binding energy per nucleon, staircase to the iron peak
 # =====================================================================
-def fig_northpole():
-    fig, ax = newfig(6, 6.4)
-    cx, cy, r = 50, 44, 30
-    circle(ax, cx, cy, r)
-    # a few longitude arcs
-    for w in (0.45, 0.0):
-        th = np.linspace(-90, 90, 60)
-        xs = cx + r*w*np.cos(np.radians(th))*np.sign(np.cos(np.radians(th*0+1)))
-        # simple ellipse meridian
-        ex = cx + r*np.sin(np.radians(th))* (w if w>0 else 0.0)
-    # meridians as ellipses
-    for ww in (0.5,):
-        t = np.linspace(0, 2*np.pi, 120)
-        line(ax, cx + r*ww*np.cos(t), cy + r*np.sin(t), lw=1.3, color="#888")
-    # equator
-    t = np.linspace(0, 2*np.pi, 120)
-    line(ax, cx + r*np.cos(t), cy + 0.32*r*np.sin(t), lw=1.3, color="#888")
-    # north pole dot
-    npx, npy = cx, cy + r
-    ax.add_patch(Circle((npx, npy), 1.8, fc=INK, ec=INK))
-    # arrow off the pole into nothing
-    arrow(ax, (npx, npy+3), (npx, npy+18))
-    label(ax, npx+3, npy+6, "N", size=20, ha="left")
-    label(ax, cx, npy+24, "?", size=34)
-    label(ax, 50, 7, '"what\'s north of here?"', size=18, color="#555")
-    save(fig, "c-north-pole.png")
+def fig_fusion():
+    fig, ax = newfig(7.4, 5.2)
+    Ox, Oy = 13, 16
+    Wx, Hy = 94, 86
+    axis_arrow(ax, (Ox, Oy), (Wx+2, Oy))
+    axis_arrow(ax, (Ox, Oy), (Ox, Hy+3))
+    lab(ax, Wx-1, Oy-4.5, "heavier nuclei →", size=13.5, ha="right", color=INK2)
+    lab(ax, Ox-2, Hy+3, "binding energy", size=13.5, ha="left", color=INK2, rot=90)
+
+    # binding-energy-per-nucleon curve: steep climb -> iron peak -> slow fall
+    xc = np.linspace(0, 1, 400)
+    # climb (1-exp) to peak at xpk, then gentle linear decline
+    xpk = 0.46
+    peak_y = 74
+    climb = peak_y * (1 - np.exp(-xc/0.14))
+    decline = peak_y - (xc - xpk)*26
+    yc = np.where(xc <= xpk, climb, np.maximum(decline, 30))
+    X = Ox + xc*(Wx-Ox-3)
+    Y = Oy + yc*0.0 + yc  # yc already in plot units-ish
+    Y = Oy + yc
+    line(ax, X, Y, lw=1.5)
+
+    # staircase rungs hugging the climb at fusion stages
+    stages = [("H", 0.02), ("He", 0.10), ("C", 0.20), ("O", 0.28),
+              ("Si", 0.37), ("Fe", xpk)]
+    def yof(xv):
+        return Oy + (peak_y*(1-np.exp(-xv/0.14)) if xv <= xpk else peak_y-(xv-xpk)*26)
+    for nm, xv in stages:
+        px = Ox + xv*(Wx-Ox-3); py = yof(xv)
+        line(ax, [px, px], [Oy, py], lw=0.7, color=INK2, ls=(0,(1,3)), sketch=False)
+        ax.add_patch(Circle((px, py), 0.9, fc=INK, ec="none", zorder=4))
+        lab(ax, px, Oy-4, nm, size=12.5, color=INK2)
+        # little step tread
+        line(ax, [px-3.2, px], [py, py], lw=0.9, color=INK2, sketch=False)
+
+    # energy-released arrow along the climb
+    axis_arrow(ax, (Ox+8, yof(0.05)+5), (Ox+xpk*(Wx-Ox-3)-7, peak_y+Oy-3),
+               lw=1.0, color=INK2)
+    lab(ax, 30, 64, "energy released", size=13, color=INK2, rot=30)
+
+    # iron peak: stop / wall
+    fx = Ox + xpk*(Wx-Ox-3); fy = yof(xpk)
+    line(ax, [fx, fx], [fy, fy+12], lw=1.6, sketch=False)         # wall
+    line(ax, [fx, fx+7], [fy+12, fy+12], lw=1.6, sketch=False)
+    lab(ax, fx+8.5, fy+12, "iron —", size=15, ha="left")
+    lab(ax, fx+8.5, fy+7.5, "the ladder ends", size=13, ha="left", color=INK2)
+    # past iron costs energy
+    lab(ax, 80, 38, "past iron,\nfusion costs energy", size=12.5, color=INK2,
+        ha="center")
+    save(fig, "2-fusion-ladder.png")
 
 # =====================================================================
-# D — bead -> ripple (the particle is a field excitation)
+# 3 — entanglement: blank parts, a definite relation
 # =====================================================================
-def fig_ripple():
-    fig, ax = newfig(8.4, 4.2)
-    # left: a bead, crossed out
-    bx, by = 22, 52
-    circle(ax, bx, by, 6, fill=INK)
-    # big X (black, struck out)
-    line(ax, [bx-14, bx+14], [by-14, by+14], lw=2.0)
-    line(ax, [bx-14, bx+14], [by+14, by-14], lw=2.0)
-    label(ax, bx, by-22, "particle", size=18)
+def fig_entangle():
+    fig, ax = newfig(7.6, 4.0)
+    cyA = 56
+    ax_x, bx_x, r = 26, 74, 11
+    # blank, dashed nodes
+    for cx in (ax_x, bx_x):
+        c = Circle((cx, cyA), r, fc="none", ec=INK, lw=1.3, ls=(0,(3,3)), zorder=3)
+        ax.add_patch(c)
+        lab(ax, cx, cyA, "?", size=30, it=False)
+    # the definite relation: one firm bowed link
+    t = np.linspace(0, 1, 80)
+    lx = ax_x + r + (bx_x - ax_x - 2*r)*t
+    ly = cyA - 7*np.sin(np.pi*t)
+    line(ax, lx, ly, lw=1.8)
+    # correlation marker on the link: up/down arrows
+    mx = (ax_x+bx_x)/2; my = cyA - 7 - 0
+    axis_arrow(ax, (mx-5, my-3.5), (mx-5, my+5.5), lw=1.2)   # up
+    axis_arrow(ax, (mx+5, my+5.5), (mx+5, my-3.5), lw=1.2)   # down
 
-    # arrow
-    arrow(ax, (40, 52), (54, 52), ms=14)
-
-    # right: a field line with a localized ripple (wave packet)
-    x = np.linspace(60, 95, 300)
-    env = np.exp(-((x-77.5)/5.0)**2)
-    y = 52 + 11*env*np.sin((x-77.5)*1.6)
-    line(ax, x, y, lw=1.8)
-    line(ax, [60, 95], [52, 52], lw=1.0, ls=(0,(2,3)), color="#999")
-    label(ax, 77.5, 30, "a ripple in a field", size=18)
-    save(fig, "d-bead-to-ripple.png")
+    lab(ax, ax_x, cyA - r - 6, "each part alone:", size=14, color=INK2)
+    lab(ax, ax_x, cyA - r - 11, "undefined", size=14)
+    lab(ax, mx, cyA + 18, "the pair: definite", size=15.5)
+    lab(ax, bx_x, cyA - r - 6, "each part alone:", size=14, color=INK2)
+    lab(ax, bx_x, cyA - r - 11, "undefined", size=14)
+    save(fig, "3-entanglement.png")
 
 if __name__ == "__main__":
-    fig_cones()
     fig_collapse()
-    fig_northpole()
-    fig_ripple()
+    fig_fusion()
+    fig_entangle()
     print("done")
