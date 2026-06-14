@@ -59,6 +59,10 @@ CARDS = {
    title="What I Made",
    sub="Poetry, prose, and the novel — and what the writing keeps reaching toward.",
    fl="topology", fr="2022–2026"),
+ "photography": dict(accent="#e8542b", tsize=104, kicker="Aidan Jude · 35mm",
+   title="A Year on Film",
+   sub="657 frames shot on 35mm, scanned, and gathered by the month they were taken. June 2025 onward.",
+   fl="35mm", fr="657 frames · 10 months"),
 }
 
 out = pathlib.Path("/tmp/og_cards"); out.mkdir(exist_ok=True)

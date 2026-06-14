@@ -837,14 +837,15 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com" />'
 
 
 def nav(active):
-    items = [("/projects.html", "dev projects"), ("/topology.html", "topology"),
-             ("/something-western.html", "writing"), ("/reading.html", "reading"),
-             ("/study.html", "study")]
+    items = [("/projects.html", "dev projects"), ("/research.html", "research"),
+             ("/topology.html", "topology"), ("/something-western.html", "novel"),
+             ("/reading.html", "reading"), ("/study.html", "study"),
+             ("/essays.html", "essays")]
     out = ['    <nav class="nav">']
     for href, label in items:
         cls = ' class="active"' if label == active else ''
         out.append(f'      <a href="{href}"{cls}>{label}</a>')
-    out.append('      <a href="https://aidanjude.substack.com/" target="_blank" rel="noopener">substack ↗</a>')
+    out.append('      <a href="/photography.html">35mm photography</a>')
     out.append('    </nav>')
     return "\n".join(out)
 

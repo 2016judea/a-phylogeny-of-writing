@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Aidan Jude — 35mm</title>
+<meta name="description" content="A year on film. 35mm photographs by Aidan Jude, gathered by the month they were shot."/>
+<meta property="og:site_name" content="Aidan Jude"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://aidanjude.vercel.app/photography.html"/>
+<meta property="og:title" content="Aidan Jude — 35mm"/>
+<meta property="og:description" content="A year on film — photographs gathered by the month they were shot."/>
+<meta property="og:image" content="https://aidanjude.vercel.app/og/photography.png"/>
+<meta property="og:image:secure_url" content="https://aidanjude.vercel.app/og/photography.png"/>
+<meta property="og:image:type" content="image/png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Aidan Jude — 35mm photography"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Aidan Jude — 35mm"/>
+<meta name="twitter:description" content="A year on film — photographs gathered by month."/>
+<meta name="twitter:image" content="https://aidanjude.vercel.app/og/photography.png"/>
+<meta name="theme-color" content="#0b0b0c"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,ital,wght@6..96,0,500;6..96,0,600;6..96,0,700;6..96,1,500;6..96,1,600&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0b0b0c; --bg-soft:#141416; --ink:#ece7dd; --ink-dim:#8b867d;
+  --accent:#e8542b; --line:rgba(236,231,221,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+html,body{background:var(--bg);color:var(--ink);overflow-x:clip}
+body{font-family:'Geist Mono',monospace;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;min-height:100vh}
+a{color:inherit}
+
+.wrap{max-width:1240px;margin:0 auto;padding:26px 26px 12vh}
+@media(max-width:560px){.wrap{padding:18px 14px 12vh}}
+
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.brand{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:600;font-size:20px;text-decoration:none}
+.nav{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;letter-spacing:.04em}
+.nav a{color:var(--ink-dim);text-decoration:none;transition:color .2s}
+.nav a:hover{color:var(--ink)}
+.nav a.active{color:var(--accent)}
+
+/* hero / masthead */
+.hero{text-align:center;padding:14vh 0 9vh}
+@media(max-width:560px){.hero{padding:11vh 0 7vh}}
+.eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:26px}
+.mast{font-family:'Bodoni Moda',Georgia,serif;font-weight:700;font-size:clamp(58px,18vw,230px);line-height:.86;letter-spacing:.005em}
+.mast .dot{color:var(--accent)}
+.hero-sub{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:500;font-size:clamp(19px,4.4vw,30px);color:var(--ink-dim);margin-top:22px}
+.hero-line{max-width:540px;margin:24px auto 0;font-size:13px;line-height:1.8;color:var(--ink-dim);letter-spacing:.01em}
+.hero-stat{margin-top:30px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim)}
+.hero-stat b{color:var(--ink);font-weight:500}
+
+/* month jump rail */
+.rail{position:sticky;top:0;z-index:30;background:rgba(11,11,12,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-top:.5px solid var(--line);border-bottom:.5px solid var(--line);margin:0 -26px 8vh;padding:13px 26px}
+@media(max-width:560px){.rail{margin:0 -14px 6vh;padding:11px 14px}}
+.rail-inner{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
+.rail-inner::-webkit-scrollbar{display:none}
+@media(min-width:900px){.rail-inner{justify-content:center}}
+.rail a{flex:0 0 auto;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-dim);text-decoration:none;transition:color .2s;white-space:nowrap}
+.rail a:hover{color:var(--ink)}
+.rail a b{color:var(--accent);font-weight:500;margin-left:5px}
+
+/* month section */
+.month{margin-bottom:10vh;scroll-margin-top:62px}
+.month-head{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  border-top:.5px solid var(--line);padding-top:18px;margin-bottom:30px}
+.month-title{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(30px,6vw,52px);line-height:1;letter-spacing:.01em}
+.month-count{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);white-space:nowrap}
+.month-count b{color:var(--accent);font-weight:500}
+
+/* masonry grid */
+.grid{column-count:4;column-gap:14px}
+@media(max-width:1100px){.grid{column-count:3}}
+@media(max-width:740px){.grid{column-count:2;column-gap:10px}}
+@media(max-width:430px){.grid{column-count:2;column-gap:8px}}
+.cell{break-inside:avoid;margin-bottom:14px;position:relative;display:block;cursor:zoom-in;
+  background:var(--bg-soft);border-radius:3px;overflow:hidden;line-height:0}
+@media(max-width:740px){.cell{margin-bottom:10px}}
+.cell img{width:100%;height:auto;display:block;transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .4s,opacity .6s}
+.cell::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 .5px rgba(236,231,221,.10);border-radius:3px;pointer-events:none;
+  opacity:0;transition:opacity .3s}
+.cell:hover img{transform:scale(1.045)}
+.cell:hover::after{opacity:1}
+.cell .idx{position:absolute;left:9px;bottom:8px;font-size:9px;letter-spacing:.12em;color:rgba(236,231,221,.0);
+  text-shadow:0 1px 6px rgba(0,0,0,.9);transition:color .3s;z-index:2}
+.cell:hover .idx{color:rgba(236,231,221,.82)}
+.cell img.lazy{opacity:0}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(7,7,8,.97);display:none;
+  align-items:center;justify-content:center;flex-direction:column;padding:4vh 2vw}
+.lb.on{display:flex}
+.lb-stage{position:relative;max-width:100%;max-height:84vh;display:flex;align-items:center;justify-content:center}
+.lb-stage img{max-width:100%;max-height:84vh;width:auto;height:auto;display:block;
+  box-shadow:0 30px 90px rgba(0,0,0,.7);border-radius:2px}
+.lb-cap{margin-top:18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);text-align:center}
+.lb-cap b{color:var(--ink);font-weight:500}
+.lb-cap .em{color:var(--accent)}
+.lb-x{position:absolute;top:18px;right:22px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-dim);background:none;border:none;cursor:pointer;transition:color .2s;font-family:inherit}
+.lb-x:hover{color:var(--ink)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;
+  color:var(--ink-dim);font-size:34px;line-height:1;padding:18px 14px;transition:color .2s;font-family:'Bodoni Moda',serif;z-index:2}
+.lb-nav:hover{color:var(--ink)}
+.lb-prev{left:max(6px,1vw)}.lb-next{right:max(6px,1vw)}
+@media(max-width:560px){.lb-nav{font-size:26px;padding:12px 8px}}
+
+.foot{margin-top:8vh;padding-top:24px;border-top:.5px solid var(--line);
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dim);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.foot a{color:var(--ink-dim);text-decoration:none;border-bottom:1px solid var(--line);transition:color .2s,border-color .2s}
+.foot a:hover{color:var(--ink);border-color:var(--ink-dim)}
+
+.loading{text-align:center;color:var(--ink-dim);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:14vh 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="/">Aidan&nbsp;Jude</a>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/research.html">research</a>
+      <a href="/topology.html">topology</a>
+      <a href="/something-western.html">novel</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html">study</a>
+      <a href="/essays.html">essays</a>
+      <a href="/photography.html" class="active">35mm</a>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">Aidan Jude · Photography</div>
+    <div class="mast">35MM<span class="dot">.</span></div>
+    <div class="hero-sub">a year on film</div>
+    <p class="hero-line">Shot on 35mm, scanned, and gathered by the month it was taken — June&nbsp;2025 through&nbsp;today. No edits worth speaking of. Just the light as it fell.</p>
+    <div class="hero-stat" id="heroStat"></div>
+  </header>
+
+  <nav class="rail" id="rail"><div class="rail-inner" id="railInner"></div></nav>
+
+  <main id="gallery"><div class="loading">developing…</div></main>
+
+  <div class="foot">
+    <span>Aidan Jude · 35mm</span>
+    <span>also on <a href="https://www.instagram.com/_aidan_jude/" target="_blank" rel="noopener">instagram&nbsp;↗</a></span>
+  </div>
+</div>
+
+<div class="lb" id="lb" aria-hidden="true">
+  <button class="lb-x" id="lbX">close ✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <div class="lb-stage"><img id="lbImg" alt=""/></div>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+(function(){
+  const gallery=document.getElementById('gallery');
+  const railInner=document.getElementById('railInner');
+  const heroStat=document.getElementById('heroStat');
+  let flat=[];           // flat list of every photo for lightbox nav
+  let cur=-1;
+
+  fetch('/img/35mm/manifest.json').then(r=>r.json()).then(data=>{
+    heroStat.innerHTML=`<b>${data.total}</b> frames · <b>${data.months.length}</b> months`;
+    gallery.innerHTML='';
+    data.months.forEach(m=>{
+      // rail link
+      const ra=document.createElement('a');
+      ra.href='#'+m.key;
+      const short=m.label.split(' ')[0].slice(0,3);
+      ra.innerHTML=`${short} <b>${m.count}</b>`;
+      railInner.appendChild(ra);
+
+      // section
+      const sec=document.createElement('section');
+      sec.className='month';sec.id=m.key;
+      const head=document.createElement('div');
+      head.className='month-head';
+      head.innerHTML=`<h2 class="month-title">${m.label}</h2><span class="month-count"><b>${m.count}</b> frames</span>`;
+      sec.appendChild(head);
+      const grid=document.createElement('div');
+      grid.className='grid';
+      m.photos.forEach((p,i)=>{
+        const gi=flat.length;
+        flat.push({src:p.src,label:m.label,i:i+1,count:m.count});
+        const cell=document.createElement('a');
+        cell.className='cell';cell.href=p.src;
+        cell.style.aspectRatio=(p.w&&p.h)?(p.w+'/'+p.h):'3/2';
+        cell.dataset.gi=gi;
+        const img=document.createElement('img');
+        img.src=p.thumb;img.loading='lazy';img.decoding='async';
+        img.width=p.w||3;img.height=p.h||2;
+        img.alt=`${m.label} — frame ${i+1}`;
+        cell.appendChild(img);
+        const idx=document.createElement('span');
+        idx.className='idx';idx.textContent=String(i+1).padStart(3,'0');
+        cell.appendChild(idx);
+        cell.addEventListener('click',e=>{e.preventDefault();open(gi);});
+        grid.appendChild(cell);
+      });
+      sec.appendChild(grid);
+      gallery.appendChild(sec);
+    });
+  }).catch(()=>{gallery.innerHTML='<div class="loading">could not load the gallery.</div>';});
+
+  // lightbox
+  const lb=document.getElementById('lb'),lbImg=document.getElementById('lbImg'),lbCap=document.getElementById('lbCap');
+  function open(i){cur=i;render();lb.classList.add('on');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+  function close(){lb.classList.remove('on');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  function go(d){if(!flat.length)return;cur=(cur+d+flat.length)%flat.length;render();}
+  function render(){
+    const p=flat[cur];lbImg.src=p.src;lbImg.alt=`${p.label} — frame ${p.i}`;
+    lbCap.innerHTML=`<b>${p.label}</b> &nbsp;·&nbsp; <span class="em">${String(p.i).padStart(3,'0')}</span> / ${p.count}`;
+    // preload neighbours
+    [1,-1].forEach(d=>{const n=flat[(cur+d+flat.length)%flat.length];if(n){const im=new Image();im.src=n.src;}});
+  }
+  document.getElementById('lbX').addEventListener('click',close);
+  document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();go(-1);});
+  document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();go(1);});
+  lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('lb-stage'))close();});
+  document.addEventListener('keydown',e=>{
+    if(!lb.classList.contains('on'))return;
+    if(e.key==='Escape')close();
+    else if(e.key==='ArrowRight')go(1);
+    else if(e.key==='ArrowLeft')go(-1);
+  });
+})();
+</script>
+</body>
+</html>
