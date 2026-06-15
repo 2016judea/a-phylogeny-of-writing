@@ -504,7 +504,7 @@ TEMPLATE = r"""<!DOCTYPE html>
 <div class="topology-header">
         <div class="header-left">
           <span class="header-eyebrow">idea topology</span>
-          <span class="header-title">a phylogeny of writing, 2023–2026</span>
+          <span class="header-title">What I write about</span>
         </div>
         <div class="header-stats" id="stats"></div>
       </div>
