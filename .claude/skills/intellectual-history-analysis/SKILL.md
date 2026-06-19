@@ -66,3 +66,8 @@ A chat-formatted synthesis (year ladder + movements + writing convergence), in
 his own register where it helps. Be honest about data gaps (e.g. undated backlog,
 the 2024-12 Dropbox bulk-import that flattened pre-2024 file dates). Related:
 [[goodreads-fetch]], [[substack-export]], [[corpus-refresh]].
+
+## References
+
+**Uses:** [[goodreads-fetch]], [[substack-export]], [[primary-source-library]]
+**See also:** [[corpus-refresh]]

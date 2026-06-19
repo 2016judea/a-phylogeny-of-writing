@@ -65,3 +65,7 @@ over time — long essays → terse aphorisms.
 - To load posts into the Notion `writing_library` DB (source = `substack`), see
   [[corpus-refresh]].
 - Related: [[goodreads-fetch]], [[intellectual-history-analysis]].
+
+## References
+
+**Used by:** [[corpus-refresh]], [[intellectual-history-analysis]]

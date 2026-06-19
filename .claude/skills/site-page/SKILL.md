@@ -130,3 +130,8 @@ live page and its `og:image` after deploy.
 - The projects page is **generator-driven** (`build_projects_page.py`, data in
   `PROJECTS`) and reproduces `projects.html` byte-for-byte — edit the data + regen,
   don't hand-edit that one page.
+
+## References
+
+**See also:** [[glean-issue]]
+**Used by:** [[study-guide]], [[study-review]]

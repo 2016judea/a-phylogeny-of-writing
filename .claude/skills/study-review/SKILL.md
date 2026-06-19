@@ -92,3 +92,8 @@ push automatically; no preview needed.
 - The retired fields render under `/study/archive/`, are listed in the archive
   section, and their old URLs redirect there.
 - The new batch is live, argument-driven, fact-checked, and aimed by his notes.
+
+## References
+
+**Uses:** [[site-page]]
+**See also:** [[study-guide]]

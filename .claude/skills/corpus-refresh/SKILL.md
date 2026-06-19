@@ -129,3 +129,8 @@ narrate the 2014→2018 gap as a reading hiatus.
 `reading_library` ≈ Goodreads dated-read count, `writing_library` contains the
 latest Substack post and any new Dropbox writing. Spot-check the newest entries
 in Notion. For the analysis pass over this data, see [[intellectual-history-analysis]].
+
+## References
+
+**Uses:** [[goodreads-fetch]], [[substack-export]]
+**See also:** [[intellectual-history-analysis]]

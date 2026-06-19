@@ -116,3 +116,8 @@ git -C ~/Desktop/writing-topology push
   page's nav region right before editing it; if an Edit fails with "file modified
   since read," re-read and retry.
 - Reuse the discipline color palette so the index stays visually coherent as it grows.
+
+## References
+
+**Uses:** [[site-page]], [[primary-source-library]]
+**See also:** [[study-review]], [[intellectual-history-analysis]]

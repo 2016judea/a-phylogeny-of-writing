@@ -81,3 +81,9 @@ Booklist + dates: [[project-personal-corpus]], [[goodreads-fetch]]. Analysis tha
 would consume this: [[intellectual-history-analysis]] (today it reasons from
 titles/authors; with this library it reasons from the text). Prior art in Aidan's
 GitHub: `Prose-Similarities`, `literature-mutations`, `Novel_NLP_Analyzer`.
+
+## References
+
+**Uses:** [[goodreads-fetch]]
+**See also:** [[study-guide]]
+**Used by:** [[intellectual-history-analysis]]

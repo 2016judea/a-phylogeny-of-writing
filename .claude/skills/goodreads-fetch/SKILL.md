@@ -42,3 +42,7 @@ dates as real. The script reports both counts.
   median pub-year ~1964 — he reads the dead).
 - To push the result into the Notion `reading_library` DB, see [[corpus-refresh]].
 - For the trend/synthesis read of this data, see [[intellectual-history-analysis]].
+
+## References
+
+**Used by:** [[corpus-refresh]], [[intellectual-history-analysis]], [[primary-source-library]]
