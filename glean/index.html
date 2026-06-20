@@ -148,6 +148,32 @@
       font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-dim);
       text-align: center;
     }
+
+    .join { margin-top: 64px; }
+    .join-label {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ink-dim); padding-bottom: 22px;
+      border-bottom: 0.5px solid var(--line); margin-bottom: 28px;
+    }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+    .card {
+      display: block; text-decoration: none; color: inherit;
+      padding: 22px; border: 0.5px solid var(--line); border-radius: 8px;
+      background: var(--bg-soft); transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color: rgba(236,231,221,0.28); transform: translateY(-2px); }
+    .card-kicker { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+    .card-title {
+      font-family: 'Bodoni Moda', Georgia, serif; font-weight: 700;
+      font-size: 22px; margin: 8px 0 8px; line-height: 1.1;
+    }
+    .card-desc { font-size: 12px; line-height: 1.65; color: var(--ink-dim); }
+    .card-go {
+      display: inline-block; margin-top: 14px; font-size: 12px;
+      letter-spacing: 0.08em; color: var(--ink);
+      border-bottom: 1px solid var(--accent); padding-bottom: 2px;
+    }
   </style>
 </head>
 <body>
@@ -187,6 +213,30 @@
         </div>
       </a>
     </main>
+
+    <section class="join">
+      <div class="join-label">Join in</div>
+      <div class="cards">
+        <a class="card" href="/glean/contribute.html">
+          <div class="card-kicker">Contributors</div>
+          <div class="card-title">Send a piece</div>
+          <div class="card-desc">An essay, a poem, a photograph, a field note. GLEAN is made by friends — add yours.</div>
+          <span class="card-go">contribute →</span>
+        </a>
+        <a class="card" href="/glean/subscribe.html">
+          <div class="card-kicker">Free to friends</div>
+          <div class="card-title">Get it in the mail</div>
+          <div class="card-desc">Leave your address and the next issue lands in your mailbox. No charge.</div>
+          <span class="card-go">subscribe →</span>
+        </a>
+        <a class="card" href="https://buy.stripe.com/eVq28qdxsbSp84egIp0Jq3u">
+          <div class="card-kicker">Patrons</div>
+          <div class="card-title">Keep it coming</div>
+          <div class="card-desc">$100/yr to cover writers, postage &amp; printing — so GLEAN stays free for everyone.</div>
+          <span class="card-go">become a patron →</span>
+        </a>
+      </div>
+    </section>
 
     <div class="foot">GLEAN · free to friends</div>
   </div>

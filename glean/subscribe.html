@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscribe — GLEAN</title>
+  <meta name="description" content="Get GLEAN in the mail — free to friends." />
+  <meta property="og:site_name" content="Aidan Jude" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aidanjude.vercel.app/glean/subscribe" />
+  <meta property="og:title" content="Subscribe — GLEAN" />
+  <meta property="og:description" content="Get GLEAN in the mail — free to friends." />
+  <meta property="og:image" content="https://aidanjude.vercel.app/og/glean.png" />
+  <meta name="theme-color" content="#0b0b0c" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,ital,wght@6..96,0,500;6..96,0,700;6..96,1,500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0b0b0c; --bg-soft: #141416; --ink: #ece7dd;
+      --ink-dim: #8b867d; --accent: #e8542b; --line: rgba(236, 231, 221, 0.12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--bg); color: var(--ink);
+      font-family: 'Geist Mono', monospace; min-height: 100vh;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    .wrap { max-width: 620px; margin: 0 auto; padding: 28px 28px 64px; }
+    @media (max-width: 540px) { .wrap { padding: 20px 16px 48px; } }
+
+    .top { display: flex; justify-content: space-between; align-items: baseline;
+      gap: 14px 24px; padding-bottom: 48px; flex-wrap: wrap; }
+    .brandlink { font-family: 'Bodoni Moda', Georgia, serif; font-style: italic;
+      font-weight: 600; font-size: 18px; color: var(--ink); text-decoration: none; }
+    .back { font-size: 12px; letter-spacing: 0.08em; color: var(--ink-dim); text-decoration: none; }
+    .back:hover { color: var(--ink); }
+
+    .lede { padding-bottom: 28px; }
+    .lede h1 { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 700;
+      font-size: clamp(34px, 7vw, 52px); line-height: 1.0; }
+    .lede h1 .dot { color: var(--accent); }
+    .lede p { margin-top: 14px; font-size: 13px; line-height: 1.7; color: var(--ink-dim); }
+
+    form { display: flex; flex-direction: column; gap: 14px; }
+    label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--ink-dim); margin-bottom: -6px; }
+    input, textarea {
+      background: var(--bg-soft); color: var(--ink); border: 0.5px solid var(--line);
+      border-radius: 8px; font-family: 'Geist Mono', monospace; font-size: 14px;
+      padding: 13px 15px; transition: border-color 0.2s; resize: vertical; width: 100%;
+    }
+    input::placeholder, textarea::placeholder { color: var(--ink-dim); }
+    input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+    textarea { min-height: 110px; line-height: 1.6; }
+
+    .row { display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+    .hint { font-size: 11px; color: var(--ink-dim); letter-spacing: 0.04em; }
+    button {
+      background: var(--accent); color: #0b0b0c; border: none; border-radius: 8px;
+      font-family: 'Geist Mono', monospace; font-size: 13px; font-weight: 500;
+      letter-spacing: 0.06em; padding: 13px 26px; cursor: pointer; transition: opacity 0.2s;
+    }
+    button:hover { opacity: 0.88; }
+    button:disabled { opacity: 0.45; cursor: default; }
+    .status { font-size: 12px; letter-spacing: 0.03em; min-height: 16px; }
+    .status.err { color: var(--accent); }
+
+    .patron { margin-top: 40px; padding-top: 24px; border-top: 0.5px solid var(--line);
+      font-size: 12px; line-height: 1.7; color: var(--ink-dim); }
+    .patron a { color: var(--accent); text-decoration: none; }
+    .patron a:hover { text-decoration: underline; }
+
+    .sent { text-align: center; padding: 50px 0; }
+    .sent h2 { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 700; font-size: 38px; margin-bottom: 12px; }
+    .sent p { color: var(--ink-dim); font-size: 13px; line-height: 1.7; }
+    .sent a { color: var(--accent); }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <a class="brandlink" href="/">Aidan&nbsp;Jude</a>
+      <a class="back" href="/glean/">← glean</a>
+    </div>
+
+    <div class="lede">
+      <h1>Get it in the mail<span class="dot">.</span></h1>
+      <p>GLEAN is free to friends. Leave your address and the next issue lands in your mailbox — no charge, no catch. (Want to help with postage &amp; printing? See below.)</p>
+    </div>
+
+    <form id="form">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" required />
+      <label for="email">Email <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
+      <input type="email" id="email" name="email" placeholder="So I can tell you it's on the way" autocomplete="email" />
+      <label for="address">Mailing address</label>
+      <textarea id="address" name="address" placeholder="Street, city, state, ZIP, country" autocomplete="street-address" required></textarea>
+      <div class="row">
+        <span class="status" id="status"></span>
+        <button type="submit" id="submit">Send me GLEAN</button>
+      </div>
+    </form>
+
+    <div class="patron">
+      GLEAN runs on goodwill and stamps. If you'd like to keep it coming for everyone, you can
+      <a href="https://buy.stripe.com/eVq28qdxsbSp84egIp0Jq3u">become a patron ($100/yr)</a>
+      or <a href="https://buy.stripe.com/aFa4gyeBw09H4S28bT0Jq3w">gift an issue ($10)</a>.
+      Every dollar goes to contributing writers, postage, and printing.
+    </div>
+
+    <div class="sent hidden" id="sent">
+      <h2>You're on the list<span style="color:var(--accent)">.</span></h2>
+      <p>The next issue of GLEAN will find your mailbox.<br /><a href="/glean/">← back to GLEAN</a></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('form');
+    const statusEl = document.getElementById('status');
+    const submitBtn = document.getElementById('submit');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const address = document.getElementById('address').value.trim();
+      if (!name || !address) { statusEl.textContent = 'Name and address, please.'; statusEl.className = 'status err'; return; }
+
+      submitBtn.disabled = true;
+      statusEl.textContent = 'Saving…'; statusEl.className = 'status';
+
+      try {
+        const res = await fetch('/api/glean', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'subscribe',
+            name,
+            email: document.getElementById('email').value,
+            address,
+          }),
+        });
+        if (!res.ok) throw new Error((await res.json()).error || 'Something went wrong.');
+        form.classList.add('hidden');
+        document.getElementById('sent').classList.remove('hidden');
+      } catch (err) {
+        statusEl.textContent = err.message || 'Could not save. Try again.';
+        statusEl.className = 'status err';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
