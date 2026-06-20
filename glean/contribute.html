@@ -72,6 +72,23 @@
     .status.ok { color: var(--accent); }
     .status.err { color: #e8542b; }
 
+    .drop {
+      margin-top: 14px; border: 0.5px dashed var(--line); border-radius: 8px;
+      background: var(--bg-soft); padding: 18px 16px; cursor: pointer;
+      transition: border-color 0.2s; text-align: center;
+    }
+    .drop:hover, .drop.over { border-color: var(--accent); }
+    .drop-label { font-size: 12px; color: var(--ink-dim); letter-spacing: 0.04em; }
+    .drop-label b { color: var(--ink); font-weight: 500; }
+    .files { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .file { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--ink-dim); }
+    .file-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); }
+    .bar { width: 96px; height: 4px; border-radius: 3px; background: rgba(236,231,221,0.14); overflow: hidden; flex: none; }
+    .bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
+    .file.done .bar i { width: 100% !important; }
+    .file-x { color: var(--ink-dim); cursor: pointer; flex: none; }
+    .file-x:hover { color: var(--accent); }
+
     .sent { text-align: center; padding: 60px 0; }
     .sent h2 { font-family: 'Bodoni Moda', Georgia, serif; font-weight: 700;
       font-size: 38px; margin-bottom: 12px; }
@@ -89,7 +106,7 @@
 
     <div class="lede">
       <h1>Send a piece<span class="dot">.</span></h1>
-      <p>GLEAN is made by friends. Paste an essay, a poem, a field note, a photograph caption — anything you'd want in print. Nothing is automatic; I read every submission.</p>
+      <p>GLEAN is made by friends. Paste an essay, a poem, a field note — or send photographs, or both. Nothing is automatic; I read every submission.</p>
     </div>
 
     <form id="form">
@@ -97,7 +114,14 @@
         <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" />
         <input type="email" id="email" name="email" placeholder="Email (so I can reach you)" autocomplete="email" />
       </div>
-      <textarea id="piece" name="piece" placeholder="Write or paste your piece here…" required></textarea>
+      <textarea id="piece" name="piece" placeholder="Write or paste your piece here… (or just send photos below)"></textarea>
+
+      <div class="drop" id="drop">
+        <div class="drop-label"><b>Add photographs</b> — drag &amp; drop, or click to choose. Full-resolution is welcome.</div>
+        <input type="file" id="filein" accept="image/*" multiple hidden />
+      </div>
+      <ul class="files" id="files"></ul>
+
       <div class="row">
         <span class="status" id="status"></span>
         <button type="submit" id="submit">Send to GLEAN</button>
@@ -114,24 +138,100 @@
     const form = document.getElementById('form');
     const statusEl = document.getElementById('status');
     const submitBtn = document.getElementById('submit');
+    const drop = document.getElementById('drop');
+    const filein = document.getElementById('filein');
+    const filesEl = document.getElementById('files');
+
+    let queued = []; // { file, row, bar }
+
+    function addFiles(list) {
+      for (const file of list) {
+        if (!file.type.startsWith('image/')) continue;
+        const row = document.createElement('li');
+        row.className = 'file';
+        row.innerHTML =
+          '<span class="file-name"></span>' +
+          '<span class="bar"><i></i></span>' +
+          '<span class="file-x" title="remove">✕</span>';
+        row.querySelector('.file-name').textContent =
+          file.name + '  (' + (file.size / 1048576).toFixed(1) + ' MB)';
+        const entry = { file, row, bar: row.querySelector('.bar i') };
+        row.querySelector('.file-x').addEventListener('click', () => {
+          if (submitBtn.disabled) return; // don't remove mid-upload
+          queued = queued.filter((q) => q !== entry);
+          row.remove();
+        });
+        queued.push(entry);
+        filesEl.appendChild(row);
+      }
+    }
+
+    drop.addEventListener('click', () => filein.click());
+    filein.addEventListener('change', () => { addFiles(filein.files); filein.value = ''; });
+    ['dragenter', 'dragover'].forEach((ev) =>
+      drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+    ['dragleave', 'drop'].forEach((ev) =>
+      drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+    drop.addEventListener('drop', (e) => { if (e.dataTransfer) addFiles(e.dataTransfer.files); });
+
+    function slug(s) {
+      return (s || 'anon').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'anon';
+    }
+
+    // Upload one file straight to Dropbox via a brokered temporary link (XHR for progress).
+    function uploadOne(entry, folder) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const r = await fetch('/api/glean', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'upload-link', folder, filename: entry.file.name }),
+          });
+          if (!r.ok) throw new Error('upload link');
+          const { link } = await r.json();
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', link);
+          xhr.setRequestHeader('Content-Type', 'application/octet-stream');
+          xhr.upload.onprogress = (ev) => {
+            if (ev.lengthComputable) entry.bar.style.width = (ev.loaded / ev.total * 100) + '%';
+          };
+          xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) { entry.row.classList.add('done'); resolve(); }
+            else reject(new Error('upload failed'));
+          };
+          xhr.onerror = () => reject(new Error('upload failed'));
+          xhr.send(entry.file);
+        } catch (err) { reject(err); }
+      });
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const piece = document.getElementById('piece').value.trim();
-      if (!piece) { statusEl.textContent = 'Nothing to send yet.'; statusEl.className = 'status err'; return; }
+      const name = document.getElementById('name').value;
+      if (!piece && queued.length === 0) {
+        statusEl.textContent = 'Add a piece or some photos first.'; statusEl.className = 'status err'; return;
+      }
 
       submitBtn.disabled = true;
-      statusEl.textContent = 'Sending…'; statusEl.className = 'status';
+      statusEl.className = 'status';
 
       try {
+        let folder = null;
+        if (queued.length) {
+          folder = new Date().toISOString().slice(0, 10) + '-' + slug(name) + '-' + Math.random().toString(36).slice(2, 7);
+          for (let i = 0; i < queued.length; i++) {
+            statusEl.textContent = 'Uploading photo ' + (i + 1) + ' of ' + queued.length + '…';
+            await uploadOne(queued[i], folder);
+          }
+        }
+
+        statusEl.textContent = 'Sending…';
         const res = await fetch('/api/glean', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             type: 'contribute',
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            piece,
+            name, email: document.getElementById('email').value,
+            piece, folder, photoCount: queued.length,
           }),
         });
         if (!res.ok) throw new Error((await res.json()).error || 'Something went wrong.');
