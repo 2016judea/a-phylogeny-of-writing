@@ -33,15 +33,6 @@ async function createPage(databaseId, properties) {
 }
 
 export default async function handler(req, res) {
-  // Safe diagnostic: never returns the secret, only whether it's present.
-  if (req.method === "GET") {
-    return res.status(200).json({
-      hasToken: !!NOTION_TOKEN,
-      tokenLen: NOTION_TOKEN ? NOTION_TOKEN.length : 0,
-      notionKeys: Object.keys(process.env).filter((k) => /notion/i.test(k)),
-      vercelEnv: process.env.VERCEL_ENV || null,
-    });
-  }
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
