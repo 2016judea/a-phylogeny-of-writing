@@ -149,30 +149,30 @@
       text-align: center;
     }
 
-    .join { margin-top: 64px; }
+    .join { margin-bottom: 72px; }
+    @media (max-width: 540px) { .join { margin-bottom: 48px; } }
     .join-label {
       font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--ink-dim); padding-bottom: 22px;
       border-bottom: 0.5px solid var(--line); margin-bottom: 28px;
     }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     @media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
     .card {
-      display: block; text-decoration: none; color: inherit;
-      padding: 22px; border: 0.5px solid var(--line); border-radius: 8px;
+      display: flex; flex-direction: column; text-decoration: none; color: inherit;
+      padding: 34px 30px; min-height: 240px; border: 0.5px solid var(--line); border-radius: 10px;
       background: var(--bg-soft); transition: border-color 0.2s, transform 0.2s;
     }
     .card:hover { border-color: rgba(236,231,221,0.28); transform: translateY(-2px); }
-    .card-kicker { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+    .card-kicker { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
     .card-title {
       font-family: 'Bodoni Moda', Georgia, serif; font-weight: 700;
-      font-size: 22px; margin: 8px 0 8px; line-height: 1.1;
+      font-size: 30px; margin: 12px 0 12px; line-height: 1.08;
     }
-    .card-desc { font-size: 12px; line-height: 1.65; color: var(--ink-dim); }
+    .card-desc { font-size: 13.5px; line-height: 1.7; color: var(--ink-dim); }
     .card-go {
-      display: inline-block; margin-top: 14px; font-size: 12px;
-      letter-spacing: 0.08em; color: var(--ink);
-      border-bottom: 1px solid var(--accent); padding-bottom: 2px;
+      margin-top: auto; font-size: 13px; letter-spacing: 0.08em; color: var(--ink);
+      align-self: flex-start; border-bottom: 1px solid var(--accent); padding-bottom: 2px;
     }
   </style>
 </head>
@@ -200,20 +200,6 @@
       </p>
     </header>
 
-    <main>
-      <div class="issues-label">Issues</div>
-
-      <a class="issue" href="/glean/issue-01/">
-        <img class="issue-cover" src="/glean/issue-01/cover.webp" alt="GLEAN Issue №1 cover" />
-        <div class="issue-body">
-          <div class="issue-no">Issue №1</div>
-          <div class="issue-title">Spring 2026</div>
-          <div class="issue-meta">20 pages · a field journal</div>
-          <span class="issue-read">read online →</span>
-        </div>
-      </a>
-    </main>
-
     <section class="join">
       <div class="join-label">Join in</div>
       <div class="cards">
@@ -237,6 +223,20 @@
         </a>
       </div>
     </section>
+
+    <main>
+      <div class="issues-label">Issues</div>
+
+      <a class="issue" href="/glean/issue-01/">
+        <img class="issue-cover" src="/glean/issue-01/cover.webp" alt="GLEAN Issue №1 cover" />
+        <div class="issue-body">
+          <div class="issue-no">Issue №1</div>
+          <div class="issue-title">Spring 2026</div>
+          <div class="issue-meta">20 pages · a field journal</div>
+          <span class="issue-read">read online →</span>
+        </div>
+      </a>
+    </main>
 
     <div class="foot">GLEAN · free to friends</div>
   </div>
