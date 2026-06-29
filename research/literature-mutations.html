@@ -58,6 +58,21 @@ html,body{overflow-x:clip}
 .paper-foot{margin-top:44px;border-top:1px solid var(--rule);padding-top:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
 .paper-foot a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule)}.paper-foot a:hover{color:var(--ink)}
 .backlink{display:inline-block;margin-bottom:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--faint);text-decoration:none}.backlink:hover{color:var(--ink)}
+/* figures */
+.fig{margin:26px 0 6px}
+.fig svg{width:100%;height:auto;display:block;background:var(--bg2);border:1px solid var(--rule);border-radius:7px}
+.fig .ed{stroke:var(--faint);stroke-width:1.2;fill:none;opacity:.5}
+.fig .ax{stroke:var(--faint);stroke-width:1.3;fill:none}
+.fig .nd{fill:var(--ink2)}
+.fig .ln{stroke:var(--ink2);stroke-width:2.2;fill:none}
+.fig .ac{fill:var(--accent)}
+.fig .acs{stroke:var(--accent);stroke-width:2;fill:none}
+.fig .acd{stroke:var(--accent);stroke-width:1.6;stroke-dasharray:5 5;fill:none}
+.fig .band{fill:var(--accent);opacity:.10}
+.fig text{font-family:'Geist Mono',monospace;fill:var(--faint)}
+.fig .lbl{fill:var(--ink2)}
+.figcap{margin:11px 0 4px;font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--faint);text-align:center;letter-spacing:.02em;line-height:1.55}
+.figcap b{color:var(--ink2);font-weight:500}.figcap .n{color:var(--accent)}
 </style></head>
 <body>
 <div class="page">
@@ -125,11 +140,49 @@ html,body{overflow-x:clip}
     <p>The graph is iteratively populated on a year-by-year basis: a single new node is added to <em>V</em> for each novel published in a given year, and edges are added to <em>E</em> for each valid relationship between the new node <em>v ∈ V</em> and some other node <em>u ∈ V</em>, where the validity of the relationship — the similarity measure — is determined by a threshold function <em>t(u, v)</em> → {0, 1}.</p>
     <p class="eq">G = (V, E),&nbsp;&nbsp;&nbsp; t(u, v) → {0, 1}</p>
     <p>The natural question becomes how this threshold function is defined. Ultimately, it needs to discern novels that are similar — specifically in terms of the genre(s) each is classified as. Using the Goodreads dataset, we have each novel's shelves available. Goodreads shelves are the way users classify novels when saving them to their library; examples range from fiction's widely accepted genres such as mystery, romance, and fantasy to more exclusive subgenres like urban fantasy, gothic romance, and thrillers. From these shelves we build a factor. For example, if 1,000 users have a novel on their "Mystery" shelf and 3,000 users have the same novel on their "Thriller" shelf, the genre factor for this novel would be <em>{Mystery: .25, Thriller: .75}</em>. From this factor we can determine a level of similarity that serves as the basis for the threshold function deciding whether an edge <em>e ∈ E</em> is present between <em>u, v ∈ V</em>.</p>
+    <figure class="fig">
+      <svg viewBox="0 0 680 264" role="img" aria-label="Two novels, each with a genre factor built from its shelves; an edge is added when their factors are similar enough to clear the threshold.">
+        <circle class="ac" cx="150" cy="78" r="9"/><circle class="ac" cx="530" cy="78" r="9"/>
+        <path class="acs" d="M161 78 L519 78"/>
+        <text class="lbl" x="340" y="60" text-anchor="middle" font-size="15">t(u, v) → 1&#160;&#160;⟹&#160;&#160;edge added</text>
+        <text x="150" y="118" text-anchor="middle" font-size="15" class="lbl" font-style="italic">u</text>
+        <text x="530" y="118" text-anchor="middle" font-size="15" class="lbl" font-style="italic">v</text>
+        <rect class="ac" x="92" y="150" width="29" height="18"/><rect class="nd" x="121" y="150" width="87" height="18"/>
+        <rect class="ac" x="472" y="150" width="35" height="18"/><rect class="nd" x="507" y="150" width="81" height="18"/>
+        <text x="150" y="196" text-anchor="middle" font-size="12.5">Mystery .25 · Thriller .75</text>
+        <text x="530" y="196" text-anchor="middle" font-size="12.5">Mystery .29 · Thriller .71</text>
+        <text x="340" y="232" text-anchor="middle" font-size="12.5">similar genre factors → an edge</text>
+      </svg>
+      <figcaption class="figcap"><b>Fig. 1 — The threshold function.</b> Each novel's genre factor is the weighted distribution of its Goodreads shelves; an edge <span class="n">e ∈ E</span> is drawn when two factors are similar enough to clear <span class="n">t(u, v)</span>.</figcaption>
+    </figure>
   </section>
 
   <section class="sec-n">
     <h2><span class="num">4</span>Genre Clustering Techniques</h2>
     <p>As the data is iterated on a year-by-year publication basis, the network continues to grow and clusters begin to develop — the largest clusters being fiction's genres, and sub-clusters being the subgenres of a given genre. From this arises perhaps the most pivotal consideration of the proposal: what properties define a cluster and sub-cluster in this network such that it accurately represents genres and subgenres within fiction?</p>
+    <figure class="fig">
+      <svg viewBox="0 0 680 372" role="img" aria-label="A schematic network of novels in which dense clusters correspond to genres, with a smaller accent-colored cluster splitting off as a subgenre.">
+        <g class="ed">
+          <path d="M120 112 L175 86 M175 86 L206 152 M206 152 L137 182 M137 182 L120 112 M120 112 L206 152"/>
+          <path d="M496 96 L560 116 M560 116 L588 84 M496 96 L520 168 M560 116 L520 168"/>
+          <path d="M206 152 L300 276 M520 168 L368 300 M206 152 L496 96"/>
+        </g>
+        <g class="acs">
+          <path d="M300 276 L368 300 M368 300 L378 258 M378 258 L300 276 M300 276 L298 330 M298 330 L368 300"/>
+        </g>
+        <g class="nd">
+          <circle cx="120" cy="112" r="6"/><circle cx="175" cy="86" r="6"/><circle cx="206" cy="152" r="6"/><circle cx="137" cy="182" r="6"/>
+          <circle cx="496" cy="96" r="6"/><circle cx="560" cy="116" r="6"/><circle cx="588" cy="84" r="6"/><circle cx="520" cy="168" r="6"/>
+        </g>
+        <g class="ac">
+          <circle cx="300" cy="276" r="6"/><circle cx="368" cy="300" r="6"/><circle cx="378" cy="258" r="6"/><circle cx="298" cy="330" r="6"/>
+        </g>
+        <text class="lbl" x="120" y="64" font-size="13">genre</text>
+        <text class="lbl" x="520" y="58" font-size="13">genre</text>
+        <text x="300" y="360" font-size="13" style="fill:var(--accent)">a subgenre, splitting off</text>
+      </svg>
+      <figcaption class="figcap"><b>Fig. 2 — Genres as emergent clusters.</b> Grown year by year, dense clusters form where novels share genre profiles; a tightly knit group splitting from a parent cluster (<span class="n">accent</span>) is a subgenre being born.</figcaption>
+    </figure>
     <p>One consideration is tuning the threshold function <em>t(u, v)</em> to generate a graph whose number of clusters corresponds to the number of widely accepted genres of fiction, using partitional clustering methods [1]. However, classifying definitive fiction genres is an area of intense debate and minimal consensus in English Literature. Additionally, a partitional method organizes data into non-overlapping groups, which seems like an over-generalization for a body of data that is excessively diverse and inherently spans multiple genres and subgenres. That said, it does provide a clear method of forming a desired number of genre clusters and tuning the threshold function to meet that criterion.</p>
     <p>Alternatively, a hierarchical clustering method [1] seems more natural, since genres and subgenres are intrinsically related. This raises the further question of whether a top-down (divisive) or bottom-up (agglomerative) approach should be used — which leads to the consideration of whether genres are inherently formed by their subsequent subgenres, or whether subgenres form as an effectuation of overarching genres [6]. Perhaps this could be answered by watching the graph form as a whole on a year-by-year publication basis.</p>
   </section>
@@ -138,6 +191,25 @@ html,body{overflow-x:clip}
     <h2><span class="num">5</span>Determining Expected Value</h2>
     <p>From the formation of a network of fictional novels based on genre similarity, we can ultimately discern the rate at which clusters fabricate and subgenres mutate. This rate, compared on a year-by-year publication basis, provides insight into the expected number of genre mutations within fiction's genus in the years to come.</p>
     <p>The obvious questions concern how this expected valuation is determined. Is it simply a linear regression that forms this expected value? Or, due to the increasing variability of subgenres, should it be an application of the power law? Determination of an appropriate expected-value function would ultimately depend heavily on the properties of the resulting data itself.</p>
+    <figure class="fig">
+      <svg viewBox="0 0 680 320" role="img" aria-label="The cumulative count of genres and subgenres rising super-linearly with publication year, extended past the present as a forecast with an uncertainty band.">
+        <line class="ax" x1="80" y1="40" x2="80" y2="262"/>
+        <line class="ax" x1="80" y1="262" x2="624" y2="262"/>
+        <!-- forecast uncertainty band -->
+        <path class="band" d="M430 116 C 510 84, 570 64, 620 36 L620 96 C 570 120, 510 140, 430 116 Z"/>
+        <!-- observed -->
+        <path class="ln" d="M80 256 C 180 246, 260 222, 320 184 C 372 152, 408 132, 430 116"/>
+        <!-- forecast -->
+        <path class="acd" d="M430 116 C 500 96, 560 78, 620 60"/>
+        <!-- 'now' divider -->
+        <line x1="430" y1="40" x2="430" y2="262" style="stroke:var(--faint);stroke-width:1.2;stroke-dasharray:3 5;opacity:.7"/>
+        <text x="436" y="54" font-size="12.5">now</text>
+        <text x="548" y="44" font-size="12.5" style="fill:var(--accent)">forecast</text>
+        <text x="92" y="56" font-size="12.5" class="lbl">genres + subgenres</text>
+        <text x="560" y="282" font-size="12.5">publication year →</text>
+      </svg>
+      <figcaption class="figcap"><b>Fig. 3 — The quantity of interest.</b> Watching clusters fabricate year by year yields a curve for the count of genres and subgenres; its slope is the <span class="n">mutation rate</span>, and its forward extension the expected value this research aims to estimate.</figcaption>
+    </figure>
   </section>
 
   <section class="sec-n">

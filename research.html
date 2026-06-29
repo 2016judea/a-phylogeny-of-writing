@@ -1,13 +1,13 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Aidan Jude — Research</title>
-<meta name="description" content="A decade of turning literature into data — NLP and network analysis applied to prose, genre, and the shape of fiction. Including primary research at Columbia."/>
+<meta name="description" content="Two questions taken seriously enough to write down as papers — measuring the rate at which fiction's genres mutate, and what becomes of matter and self at the limit of gravity."/>
 <meta property="og:site_name" content="Aidan Jude"/><meta property="og:locale" content="en_US"/>
 <meta property="og:type" content="website"/><meta property="og:url" content="https://aidanjude.vercel.app/research.html"/>
 <meta property="og:title" content="Aidan Jude — Research"/>
-<meta property="og:description" content="Turning literature into data — NLP and network analysis applied to prose, genre, and the shape of fiction. Including primary research at Columbia."/>
+<meta property="og:description" content="Two questions taken seriously enough to write down as papers — literature as a network, and gravity at its limit."/>
 <meta property="og:image" content="https://aidanjude.vercel.app/og/research.png"/><meta property="og:image:secure_url" content="https://aidanjude.vercel.app/og/research.png"/><meta property="og:image:type" content="image/png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="Aidan Jude — Research"/>
-<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Aidan Jude — Research"/><meta name="twitter:description" content="Turning literature into data — NLP and network analysis applied to prose and genre."/><meta name="twitter:image" content="https://aidanjude.vercel.app/og/research.png"/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Aidan Jude — Research"/><meta name="twitter:description" content="Two questions taken seriously enough to write down as papers."/><meta name="twitter:image" content="https://aidanjude.vercel.app/og/research.png"/>
 <meta name="theme-color" content="#f7f3ec"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -16,63 +16,26 @@
 @media(prefers-color-scheme:dark){:root{--bg:#15120f;--bg2:#1d1916;--ink:#e9e3d5;--ink2:#b3aa9a;--faint:#7d766a;--rule:rgba(230,220,200,.16);--accent:#7ea6c9}}
 *{margin:0;padding:0;box-sizing:border-box}html{-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}
-.page{max-width:60rem;margin:0 auto;padding:32px 28px 14vh}@media(max-width:560px){.page{padding:22px 20px 12vh}}
-.site-header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:64px}
+html,body{overflow-x:clip}
+.page{max-width:44rem;margin:0 auto;padding:32px 28px 16vh}@media(max-width:560px){.page{padding:22px 20px 12vh}}
+.site-header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:72px}
 .brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
 .nav{display:flex;gap:20px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
 .nav a{color:var(--faint);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--ink)}
 .nav a.active{color:var(--ink);border-bottom:1px solid var(--rule)}
-html,body{overflow-x:clip}
-/* hero — full-bleed band washed in the network graph's cool tones, with a framed plate */
-.hero-band{position:relative;width:100vw;margin-left:calc(50% - 50vw);margin-bottom:52px;
-  background:
-    radial-gradient(70% 130% at 84% 18%, rgba(58,90,124,.24), rgba(58,90,124,0) 58%),
-    radial-gradient(66% 120% at 8% 98%, rgba(45,104,101,.18), rgba(45,104,101,0) 60%),
-    var(--bg2);
-  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-.hero-inner{max-width:60rem;margin:0 auto;padding:46px 28px;display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
-.hero-inner .eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
-.hero-inner h1{font-size:clamp(38px,8vw,60px);font-weight:600;font-style:italic;letter-spacing:-.02em;line-height:1.03}
-.hero-inner p.lede{margin-top:20px;font-size:21px;color:var(--ink2);line-height:1.5;max-width:34rem}
-.hero-fig{margin:0;justify-self:center;width:100%;max-width:420px}
-.plate{margin:0;background:#fbf8f1;padding:13px;border:1px solid var(--rule);border-radius:4px;box-shadow:0 22px 54px rgba(20,12,4,.24),0 2px 6px rgba(20,12,4,.12)}
-.plate img{width:100%;height:auto;display:block;border-radius:2px}
-.plate-cap{margin-top:12px;text-align:center;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--faint);line-height:1.5}
-.plate-cap em{font-family:'EB Garamond',Georgia,serif;font-style:italic;letter-spacing:0}
-@media(prefers-color-scheme:dark){.plate{background:#211d18}}
-@media(max-width:680px){.hero-inner{grid-template-columns:1fr;gap:26px;padding:34px 24px}.hero-fig{max-width:380px;margin:4px auto 0;order:2}}
-/* intro */
-.intro{max-width:42rem;margin:0 auto 60px;font-size:19px;color:var(--ink2);line-height:1.62}
-.intro p+p{margin-top:16px}
-.intro strong{color:var(--ink);font-weight:600}
-/* section headers */
-.sec-head{margin:0 0 22px;border-top:1px solid var(--rule);padding-top:22px}
-.sec-head .kicker{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px}
-.sec-head h2{font-size:clamp(26px,5vw,33px);font-weight:600;font-style:italic;letter-spacing:-.015em;line-height:1.08}
-.sec-head p{margin-top:10px;font-size:18px;color:var(--ink2);line-height:1.5;max-width:42rem}
-.sec{margin-bottom:54px}
-/* featured (Columbia primary research) */
-.feature{display:grid;grid-template-columns:1fr;gap:0;background:var(--bg2);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
-.feature-body{padding:26px 26px 22px}
-.feature .badge{display:inline-block;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid var(--rule);border-radius:999px;padding:3px 10px;margin-bottom:14px}
-.feature h3{font-size:27px;font-weight:600;font-style:italic;letter-spacing:-.01em;line-height:1.1}
-.feature h3 a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}.feature h3 a:hover{border-color:var(--accent)}
-.feature .desc{margin-top:13px;font-size:18px;color:var(--ink2);line-height:1.58}
-.feature .desc+.desc{margin-top:13px}
-.feature .meta{margin-top:18px;display:flex;align-items:center;gap:15px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.02em;color:var(--faint)}
-.feature .meta .lang{display:inline-flex;align-items:center;gap:6px}.feature .meta .lang i{width:10px;height:10px;border-radius:50%;display:inline-block;box-shadow:0 0 0 1px rgba(120,120,120,.35)}
-.feature .meta .repo{margin-left:auto;color:var(--accent);text-decoration:none}.feature .meta .repo:hover{text-decoration:underline}
-/* card grid (early work) */
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}@media(max-width:760px){.grid{grid-template-columns:1fr}}
-.card{display:flex;flex-direction:column;background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:22px 22px 18px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s,box-shadow .2s}
-.card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08)}
-.card-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.card h3{font-size:21px;font-weight:600;font-style:italic;letter-spacing:-.01em;line-height:1.12}
-.card .arr{font-family:'Geist Mono',monospace;font-size:15px;color:var(--faint);transition:color .2s}.card:hover .arr{color:var(--accent)}
-.card .desc{margin-top:11px;font-size:16px;color:var(--ink2);line-height:1.5;flex:1}
-.card-meta{margin-top:16px;display:flex;align-items:center;gap:13px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.02em;color:var(--faint)}
-.card-meta .lang{display:inline-flex;align-items:center;gap:6px}.card-meta .lang i{width:10px;height:10px;border-radius:50%;display:inline-block;box-shadow:0 0 0 1px rgba(120,120,120,.35)}
-.foot{margin-top:46px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.intro{margin-bottom:18px}
+.intro .eyebrow{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);margin-bottom:18px}
+.intro h1{font-size:clamp(34px,7vw,52px);font-weight:600;font-style:italic;letter-spacing:-.02em;line-height:1.05}
+.intro p{margin-top:18px;font-size:19px;color:var(--ink2);line-height:1.55;max-width:34rem}
+.papers{margin-top:30px}
+.entry{display:block;text-decoration:none;color:inherit;border-top:1px solid var(--rule);padding:30px 0}
+.entry:last-of-type{border-bottom:1px solid var(--rule)}
+.entry .kicker{font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:11px}
+.entry h2{font-size:clamp(26px,5vw,34px);font-weight:600;font-style:italic;letter-spacing:-.015em;line-height:1.08;transition:color .2s}
+.entry:hover h2{color:var(--accent)}
+.entry p{margin-top:12px;font-size:18px;color:var(--ink2);line-height:1.58}
+.entry .go{margin-top:15px;font-family:'Geist Mono',monospace;font-size:12.5px;letter-spacing:.04em;color:var(--accent)}
+.foot{margin-top:46px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);line-height:1.7}
 .foot a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule)}.foot a:hover{color:var(--ink)}
 </style></head>
 <body>
@@ -91,86 +54,23 @@ html,body{overflow-x:clip}
     </nav>
   </header>
 
-  <section class="hero-band">
-    <div class="hero-inner">
-      <div>
-        <div class="eyebrow">Aidan Jude · Research</div>
-        <h1>Literature, read by machine.</h1>
-        <p class="lede">A decade of turning books into data — using NLP and network science to study prose, voice, and the shape of genre itself.</p>
-      </div>
-      <figure class="hero-fig">
-        <div class="plate"><img src="/img/literature-network.png" width="1448" height="774" alt="A force-directed network of novels, each a node, edges drawn between books with similar genre profiles — dense genre clusters at the center, outliers trailing to the edges." loading="eager"/></div>
-        <figcaption class="plate-cap">A network of fiction — nodes are novels, edges are genre similarity. <em>Literature Mutations</em>, Columbia.</figcaption>
-      </figure>
-    </div>
-  </section>
-
   <div class="intro">
-    <p>For most of its history, literature has been classified by hand — the canon, the genres, the lineages of influence all drawn by critics working from opinion and memory. I've spent years asking a different question: <strong>what does fiction look like when you treat it as data?</strong></p>
-    <p>The work below runs from early NLP experiments on prose and voice, done on my own before graduate school, into the primary research I carried out at <strong>Columbia University</strong> — modeling the whole landscape of fiction as a network to watch its genres form and mutate over time.</p>
+    <div class="eyebrow">Aidan Jude · Research</div>
+    <h1>Literature, read by machine.</h1>
+    <p>Years spent asking what fiction looks like when you treat it as data — using NLP and network science to study prose, voice, and the shape of genre itself.</p>
   </div>
 
-  <section class="sec">
-    <div class="sec-head">
-      <span class="kicker">Columbia · Primary research</span>
+  <div class="papers">
+    <a class="entry" href="/research/literature-mutations.html">
+      <div class="kicker">Columbia · Networks &amp; Crowds · 2021</div>
       <h2>Literature Mutations</h2>
-      <p>Conducted at Columbia University for the <em>Analysis of Networks &amp; Crowds</em> research seminar, advised by Prof.&nbsp;Augustin&nbsp;Chaintreau.</p>
-    </div>
-    <article class="feature">
-      <div class="feature-body">
-        <span class="badge">Columbia · Networks &amp; Crowds</span>
-        <h3><a href="/research/literature-mutations.html">Literature Mutations →</a></h3>
-        <p class="desc">Genres are literature's main system of classification — yet the <em>rate</em> at which they form and mutate has only ever been judged qualitatively, by experts working on opinion. This research asks whether that rate can be measured.</p>
-        <p class="desc">It models fiction as a graph <em>G = (V, E)</em>: each novel is a node, and an edge is drawn between two books whose genre profiles — built from the weighted distribution of their Goodreads shelves — are similar enough to clear a threshold function. Grown year by year along publication dates and run through graph-clustering algorithms, genres and subgenres emerge from the data itself rather than from a critic's hand — making it possible to study how fast new genres appear and forecast genre mutation forward.</p>
-        <div class="meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">Columbia · 2021</span><a class="repo" href="/research/literature-mutations.html">read the paper →</a><a class="repo" href="https://github.com/2016judea/literature-mutations" target="_blank" rel="noopener" style="margin-left:15px">github ↗</a></div>
-      </div>
-    </article>
-  </section>
-
-  <section class="sec">
-    <div class="sec-head">
-      <span class="kicker">Independent · Before grad school</span>
-      <h2>Early experiments in computational reading</h2>
-      <p>Self-directed projects from 2019 — first attempts at pointing natural-language processing at the things I actually read.</p>
-    </div>
-    <main class="grid">
-      <a class="card" href="https://github.com/2016judea/Prose-Similarities" target="_blank" rel="noopener">
-        <div class="card-top"><h3>Prose Similarities</h3><span class="arr">↗</span></div>
-        <p class="desc">Takes novels and draws comparisons with NLP to find which authors share the most similar prose — voice reduced to a measurable signal.</p>
-        <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">2019</span></div>
-      </a>
-      <a class="card" href="https://github.com/2016judea/Novel_NLP_Analyzer" target="_blank" rel="noopener">
-        <div class="card-top"><h3>Novel NLP Analyzer</h3><span class="arr">↗</span></div>
-        <p class="desc">Paragraph-by-paragraph sentiment analysis of a novel — tracing a book's emotional arc as a curve you can read at a glance.</p>
-        <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">2019</span></div>
-      </a>
-      <a class="card" href="https://github.com/2016judea/Quotable_NLP_Synset" target="_blank" rel="noopener">
-        <div class="card-top"><h3>Quotable NLP Synset</h3><span class="arr">↗</span></div>
-        <p class="desc">Pulls quotes from favorite authors and swaps their adjectives for nearby WordNet synonyms — probing how much of a writer's voice lives in word choice.</p>
-        <div class="card-meta"><span class="lang"><i style="background:#3572A5"></i>Python</span><span class="yr">2019</span></div>
-      </a>
-    </main>
-  </section>
-
-  <section class="sec">
-    <div class="sec-head">
-      <span class="kicker">Independent · Speculative theory</span>
-      <h2>Beyond literature</h2>
-      <p>Essays that take an intuition seriously enough to write it down as a paper — and to mark exactly where it touches established work.</p>
-    </div>
-    <article class="feature">
-      <div class="feature-body">
-        <span class="badge">Gravitation · Foundations</span>
-        <h3><a href="/research/gravity-at-the-limit.html">Gravity at the Limit →</a></h3>
-        <p class="desc">The classical black hole ends in a singularity where matter is destroyed — but the conservation of information forbids true destruction. This essay takes that constraint seriously and proposes that gravity at the extreme does not annihilate matter but <em>relocates</em> it, with consequences for what we observe and for the observer who falls in.</p>
-        <p class="desc">A qualitative synthesis, located precisely against the black-hole information paradox, the ER&nbsp;=&nbsp;EPR conjecture, bounce cosmology, and the many-worlds interpretation. A field-journal treatment also appears in <em>GLEAN</em> №2.</p>
-        <div class="meta"><span class="yr">2026</span><a class="repo" href="/research/gravity-at-the-limit.html">read the paper →</a></div>
-      </div>
-    </article>
-  </section>
+      <p>Genres are literature's main system of classification, yet the <em>rate</em> at which they form and mutate has only ever been judged by opinion. This models all of fiction as a growing network — each novel a node, each edge a genre similarity — to watch genres emerge from the data and measure how fast new ones appear.</p>
+      <div class="go">read the paper →</div>
+    </a>
+  </div>
 
   <div class="foot">
-    <span>More code on <a href="https://github.com/2016judea" target="_blank" rel="noopener">github.com/2016judea ↗</a> · or browse my <a href="/projects.html">dev projects</a></span>
+    <span>Earlier NLP experiments on prose, voice, and sentiment live on <a href="https://github.com/2016judea" target="_blank" rel="noopener">github.com/2016judea ↗</a> · or browse my <a href="/projects.html">dev projects</a>.</span>
   </div>
 </div>
 </body></html>
