@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gravity at the Limit — Aidan Jude</title>
+<meta name="description" content="A speculative synthesis: if matter cannot be destroyed, gravity at the extreme does not annihilate it but relocates it — with consequences for what we observe and for the observer who falls in."/>
+<meta property="og:site_name" content="Aidan Jude"/><meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/><meta property="og:url" content="https://aidanjude.vercel.app/research/gravity-at-the-limit.html"/>
+<meta property="og:title" content="Gravity at the Limit"/>
+<meta property="og:description" content="Information, entanglement, and the persistence of self beyond the black-hole horizon. A speculative synthesis."/>
+<meta property="og:image" content="https://aidanjude.vercel.app/og/research.png"/><meta property="og:image:secure_url" content="https://aidanjude.vercel.app/og/research.png"/><meta property="og:image:type" content="image/png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="Gravity at the Limit — Aidan Jude"/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Gravity at the Limit"/><meta name="twitter:description" content="Information, entanglement, and the persistence of self beyond the black-hole horizon."/><meta name="twitter:image" content="https://aidanjude.vercel.app/og/research.png"/>
+<meta name="theme-color" content="#f7f3ec"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#f7f3ec;--bg2:#efe9dd;--ink:#1c1814;--ink2:#544e44;--faint:#8b8478;--rule:rgba(60,50,40,.16);--accent:#3a5a7c}
+@media(prefers-color-scheme:dark){:root{--bg:#15120f;--bg2:#1d1916;--ink:#e9e3d5;--ink2:#b3aa9a;--faint:#7d766a;--rule:rgba(230,220,200,.16);--accent:#7ea6c9}}
+*{margin:0;padding:0;box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}
+html,body{overflow-x:clip}
+.page{max-width:46rem;margin:0 auto;padding:32px 28px 16vh}@media(max-width:560px){.page{padding:22px 20px 12vh}}
+.site-header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:56px}
+.brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+.nav{display:flex;gap:20px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+.nav a{color:var(--faint);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--ink)}
+.nav a.active{color:var(--ink);border-bottom:1px solid var(--rule)}
+.masthead{border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);padding:26px 0 24px;margin-bottom:34px}
+.venue{font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.paper-title{font-size:clamp(32px,6.4vw,46px);font-weight:600;font-style:italic;letter-spacing:-.02em;line-height:1.06}
+.paper-sub{margin-top:14px;font-size:20px;color:var(--ink2);line-height:1.45;max-width:34rem}
+.byline{margin-top:22px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);line-height:1.7}
+.byline strong{color:var(--ink2);font-weight:500}
+.abstract{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:22px 24px;margin-bottom:18px}
+.abstract h2,.metablock h2{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:500;margin-bottom:11px}
+.abstract p{font-size:17.5px;color:var(--ink2);line-height:1.62}
+.metablock{display:flex;gap:34px;flex-wrap:wrap;margin-bottom:40px;padding:0 2px}
+.metablock .col{flex:1;min-width:200px}
+.metablock p{font-size:16px;color:var(--ink2);line-height:1.5}
+.sec-n{margin-top:40px}
+.sec-n h2{font-size:25px;font-weight:600;letter-spacing:-.01em;line-height:1.12;display:flex;gap:13px;align-items:baseline}
+.sec-n h2 .num{font-family:'Geist Mono',monospace;font-size:14px;font-weight:500;color:var(--accent);letter-spacing:.04em;flex:none}
+.sec-n p{margin-top:14px;font-size:18px;color:var(--ink);line-height:1.62}
+.sec-n p+p{margin-top:14px}
+.sec-n em{font-style:italic}
+.pull{margin:22px 0;padding:4px 0 4px 20px;border-left:2px solid var(--accent);font-style:italic;font-size:19px;color:var(--ink2);line-height:1.5}
+.refs{margin-top:48px;border-top:1px solid var(--rule);padding-top:26px}
+.refs h2{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:500;margin-bottom:16px}
+.refs ol{list-style:none;counter-reset:r}
+.refs li{counter-increment:r;position:relative;padding-left:34px;margin-bottom:13px;font-size:15.5px;color:var(--ink2);line-height:1.5}
+.refs li::before{content:"["counter(r)"]";position:absolute;left:0;top:0;font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint)}
+.refs li em{font-style:italic}.refs a{color:var(--accent);text-decoration:none;word-break:break-word}.refs a:hover{text-decoration:underline}
+.paper-foot{margin-top:44px;border-top:1px solid var(--rule);padding-top:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+.paper-foot a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule)}.paper-foot a:hover{color:var(--ink)}
+.backlink{display:inline-block;margin-bottom:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--faint);text-decoration:none}.backlink:hover{color:var(--ink)}
+</style></head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <span class="brand"><a href="/">Aidan&nbsp;Jude</a></span>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/research.html" class="active">research</a>
+      <a href="/something-western.html">novel</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html">study</a>
+      <a href="/essays.html">essays</a>
+      <a href="/photography.html">35mm photography</a>
+      <a href="/glean/">glean</a>
+    </nav>
+  </header>
+
+  <a class="backlink" href="/research.html">← research</a>
+
+  <div class="masthead">
+    <div class="venue">Independent · Speculative theory</div>
+    <h1 class="paper-title">Gravity at the Limit</h1>
+    <p class="paper-sub">Information, entanglement, and the persistence of self beyond the black-hole horizon.</p>
+    <div class="byline">
+      <strong>Aidan Jude</strong><br/>
+      Independent · 2026
+    </div>
+  </div>
+
+  <section class="abstract">
+    <h2>Abstract</h2>
+    <p>The classical picture of a black hole ends in a singularity — a point of infinite gravity at which matter is destroyed. This essay argues that the second half of that picture cannot be right: the conservation laws governing matter and information forbid true destruction. Taking that constraint seriously, it proposes that gravity at the extreme does not annihilate matter but <em>relocates</em> it — pressing it, by way of the same quantum structure that underlies entanglement, into adjacent configurations of spacetime. It then develops two consequences: for what we observe (transient, unexplained particle events), and for the observer who falls in (a distribution over outcomes in which the persistence of self is not the exception but the likely case). The argument is qualitative and frankly speculative; its purpose is to state a coherent intuition plainly and to locate it precisely against established work — the black-hole information paradox, the ER&nbsp;=&nbsp;EPR conjecture, bounce cosmology, and the many-worlds interpretation.</p>
+  </section>
+
+  <div class="metablock">
+    <div class="col">
+      <h2>Subject</h2>
+      <p>Gravitation · Quantum information · Foundations</p>
+    </div>
+    <div class="col">
+      <h2>Keywords</h2>
+      <p>Black holes · Information paradox · Entanglement · Many-worlds</p>
+    </div>
+  </div>
+
+  <section class="sec-n">
+    <h2><span class="num">1</span>Gravity and the Singularity</h2>
+    <p>Gravity is the one force we never argue with. It is the law we trust enough to forget — it holds the coffee in the cup and the moon on its leash — and we spend our lives inside it without ever looking at it directly. But every law has a regime in which it is pushed until it breaks, and gravity's has a name. A black hole is what happens when enough mass collapses into a small enough region that the force runs away with itself: the curvature steepens, then steepens again, and in the equations of general relativity it does so without bound. The classical theory is honest about what that endpoint means. It is a <em>singularity</em> — a point of infinite density at which the known description of matter simply ceases. Read literally, it is the destruction of anything that falls in.</p>
+    <p>This essay takes the divergence seriously as a signal rather than a verdict. An infinity in a physical theory is almost never a fact about the world; it is the theory announcing the boundary of its own validity. The question is what replaces it.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">2</span>Matter Is Not Destroyed</h2>
+    <p>The trouble with literal destruction is that nothing else in nature is permitted to do it. Burn a book and it appears destroyed; yet the smoke, the heat, the ash, and the emitted light together still encode, in principle, every word. The fire scrambles the book past all recovery in practice, but it does not erase it. This is not a metaphor. It is among the most deeply held commitments in physics: the conservation of information, the <em>unitarity</em> of quantum evolution. The universe rearranges its contents endlessly but never simply deletes them.</p>
+    <p>A black hole appeared to break this commitment. Hawking showed that black holes radiate and slowly evaporate [1], and the radiation appeared perfectly thermal — structureless, carrying nothing of what fell in. If true, the information was gone. The contradiction between this and unitarity is the <em>black-hole information paradox</em>, and it has organized half a century of theoretical physics [2]. The contemporary resolution leans hard the other way: recent calculations of the radiation's entropy [3] indicate that information is not destroyed but returned, encoded unrecognizably in the outgoing radiation.</p>
+    <p class="pull">If what falls in is not destroyed, the question is no longer <em>whether</em> it survives, but <em>where</em> it goes.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">3</span>The Small Scale, and the Weave</h2>
+    <p>To follow the matter, one has to go small — below dust, below atoms, to the scale at which matter stops behaving like stuff. There the description changes character. A particle, pressed hard enough, does not keep fragmenting into smaller particles; it stops being a definite thing and becomes a distribution of possibilities, present and absent at once. And two such particles can be bound into a single shared state — <em>entangled</em> — so that a measurement on one fixes the other instantly, across any separation, with no signal passing between them.</p>
+    <p>There is a radical conjecture about why this is possible. The connection between two entangled particles may not run <em>through</em> the space between them at all; it may be a microscopic bridge in the geometry itself — the proposal known as ER&nbsp;=&nbsp;EPR, which identifies entanglement with a Planck-scale wormhole and, more broadly, identifies the connectivity of spacetime with entanglement [4]. If that is right, space is not the smooth sheet we imagine. It is stitched — woven from entanglement — and anything woven has a reverse side, has gaps, and has threads that run where the surface does not.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">4</span>Relocation, Not Annihilation</h2>
+    <p>Here is the central proposal. At the limit where the classical theory reports infinite gravity, matter is not crushed out of existence; it is driven <em>through</em> the weave — pressed, by the extremity of the gravitational field, into a configuration of spacetime adjacent to our own. Destruction is replaced by relocation. The conservation of information is preserved not by returning everything to us, but by allowing it a destination.</p>
+    <p>This intuition has a recognizable shape in existing theory. In brane-world models, our universe is a membrane embedded in a higher-dimensional space, and gravity — alone among the forces — is permitted to act across the gap [5]. If matter at the extreme can be moved across such a separation, then the traffic need not be one-way. A thread from a neighboring configuration could, on occasion, brush against ours, and the observable signature would be modest and strange: a particle appearing where none should be and vanishing again — a brief event with no local cause, a blip. The claim is testable in principle precisely because it predicts something rather than nothing; making the prediction quantitative is exactly the work this picture has not yet done (§6).</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">5</span>The Fall, and the Persistence of Self</h2>
+    <p>What, then, of an observer who falls in? The clean classical story says you are destroyed at the singularity. But you are not a single object to be crushed to a point; you are an enormous, highly specific arrangement of particles, and the fall does not have one outcome. It has a distribution of them.</p>
+    <p>Two established lines of thought meet here. The first is that a black hole's interior need not terminate in a singularity at all but may <em>bounce</em>, giving rise to a new region of spacetime — a new universe — on the far side; this is the basis of cosmological natural selection [6] and of torsion-driven bounce cosmology [7], in which every black hole interior seeds an expanding cosmos. The second is the many-worlds interpretation of quantum mechanics [8], in which all outcomes consistent with the dynamics are realized, and the associated observation — sometimes called quantum immortality [9] — that an observer's experience continues along those branches in which the observer continues to exist.</p>
+    <p>Combine them. Across the distribution of outcomes of the fall, most unmake you. But in some, the stream of your particles is pressed into an arrangement disordered enough, and forgiving enough, that the pattern that is <em>you</em> is preserved — re-threaded into a different weave of spacetime, intact, on the far side. The striking suggestion is that, conditioned on experience continuing at all, continuation rather than annihilation is the case one finds oneself in. It would not be experienced as dying. It would be experienced as falling, and then — impossibly — as landing.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">6</span>Discussion</h2>
+    <p>This is a synthesis of intuitions, not a theory, and it should be read as one. Its individual commitments are each defensible and, in most cases, mainstream: that information is conserved [2,3]; that spacetime connectivity and entanglement may be the same thing [4]; that black-hole interiors may open onto new universes [6,7]; that all quantum outcomes may be realized [8]. What is proposed here is the single causal spine that joins them — gravity at the extreme as the one mechanism that conserves matter, moves it across the weave, and re-threads an observer into a neighboring spacetime.</p>
+    <p>To become physics rather than picture, the spine needs what it presently lacks: a quantity. A mechanism that says how the gravitational field couples matter across the weave; a rate at which a "blip" should occur, and at what energy, so that the prediction of §4 can be looked for and, ideally, fail; a criterion for which fall-outcomes preserve a pattern and which do not. Until then the value of the account is modest and specific — to state an intuition clearly enough that it can be argued with, and to mark exactly where it touches, and where it departs from, work that already stands.</p>
+  </section>
+
+  <section class="refs">
+    <h2>References</h2>
+    <ol>
+      <li>S. W. Hawking. 1975. Particle Creation by Black Holes. <em>Communications in Mathematical Physics</em> 43, 199–220.</li>
+      <li>D. N. Page. 1993. Information in Black Hole Radiation. <em>Physical Review Letters</em> 71, 3743. <a href="https://doi.org/10.1103/PhysRevLett.71.3743" target="_blank" rel="noopener">doi:10.1103/PhysRevLett.71.3743</a></li>
+      <li>A. Almheiri, T. Hartman, J. Maldacena, E. Shaghoulian, A. Tajdini. 2021. The Entropy of Hawking Radiation. <em>Reviews of Modern Physics</em> 93, 035002. <a href="https://doi.org/10.1103/RevModPhys.93.035002" target="_blank" rel="noopener">doi:10.1103/RevModPhys.93.035002</a></li>
+      <li>J. Maldacena and L. Susskind. 2013. Cool Horizons for Entangled Black Holes. <em>Fortschritte der Physik</em> 61, 781–811. <a href="https://doi.org/10.1002/prop.201300020" target="_blank" rel="noopener">doi:10.1002/prop.201300020</a></li>
+      <li>L. Randall and R. Sundrum. 1999. A Large Mass Hierarchy from a Small Extra Dimension. <em>Physical Review Letters</em> 83, 3370. <a href="https://doi.org/10.1103/PhysRevLett.83.3370" target="_blank" rel="noopener">doi:10.1103/PhysRevLett.83.3370</a></li>
+      <li>L. Smolin. 1992. Did the Universe Evolve? <em>Classical and Quantum Gravity</em> 9, 173–191. See also <em>The Life of the Cosmos</em> (Oxford, 1997).</li>
+      <li>N. J. Popławski. 2010. Cosmology with Torsion: An Alternative to Cosmic Inflation. <em>Physics Letters B</em> 694, 181–185. <a href="https://doi.org/10.1016/j.physletb.2010.09.056" target="_blank" rel="noopener">doi:10.1016/j.physletb.2010.09.056</a></li>
+      <li>H. Everett. 1957. "Relative State" Formulation of Quantum Mechanics. <em>Reviews of Modern Physics</em> 29, 454–462.</li>
+      <li>M. Tegmark. 1998. The Interpretation of Quantum Mechanics: Many Worlds or Many Words? <em>Fortschritte der Physik</em> 46, 855–862.</li>
+    </ol>
+  </section>
+
+  <div class="paper-foot">
+    <span>A field-journal treatment of this essay appears in <a href="/glean/">GLEAN</a> №2.</span>
+    <span><a href="/research.html">← back to research</a></span>
+  </div>
+</div>
+</body></html>
