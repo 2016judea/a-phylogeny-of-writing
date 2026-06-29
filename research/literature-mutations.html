@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Literature Mutations — Aidan Jude</title>
+<meta name="description" content="Measuring the rate at which fiction's genres form and mutate, by modeling literature as a growing network. Primary research conducted at Columbia University."/>
+<meta property="og:site_name" content="Aidan Jude"/><meta property="og:locale" content="en_US"/>
+<meta property="og:type" content="article"/><meta property="og:url" content="https://aidanjude.vercel.app/research/literature-mutations.html"/>
+<meta property="og:title" content="Literature Mutations"/>
+<meta property="og:description" content="Measuring the rate at which fiction's genres form and mutate, by modeling literature as a growing network. Columbia University."/>
+<meta property="og:image" content="https://aidanjude.vercel.app/og/research.png"/><meta property="og:image:secure_url" content="https://aidanjude.vercel.app/og/research.png"/><meta property="og:image:type" content="image/png"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image:alt" content="Literature Mutations — Aidan Jude"/>
+<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="Literature Mutations"/><meta name="twitter:description" content="Measuring the rate at which fiction's genres form and mutate by modeling literature as a growing network."/><meta name="twitter:image" content="https://aidanjude.vercel.app/og/research.png"/>
+<meta name="theme-color" content="#f7f3ec"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--bg:#f7f3ec;--bg2:#efe9dd;--ink:#1c1814;--ink2:#544e44;--faint:#8b8478;--rule:rgba(60,50,40,.16);--accent:#3a5a7c}
+@media(prefers-color-scheme:dark){:root{--bg:#15120f;--bg2:#1d1916;--ink:#e9e3d5;--ink2:#b3aa9a;--faint:#7d766a;--rule:rgba(230,220,200,.16);--accent:#7ea6c9}}
+*{margin:0;padding:0;box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:'EB Garamond',Georgia,serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5}
+html,body{overflow-x:clip}
+.page{max-width:46rem;margin:0 auto;padding:32px 28px 16vh}@media(max-width:560px){.page{padding:22px 20px 12vh}}
+/* header / nav — sitewide */
+.site-header{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:56px}
+.brand{font-size:21px;font-weight:500;font-style:italic}.brand a{color:inherit;text-decoration:none}
+.nav{display:flex;gap:20px;flex-wrap:wrap;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em}
+.nav a{color:var(--faint);text-decoration:none;transition:color .2s}.nav a:hover{color:var(--ink)}
+.nav a.active{color:var(--ink);border-bottom:1px solid var(--rule)}
+/* paper masthead */
+.masthead{border-top:2px solid var(--ink);border-bottom:1px solid var(--rule);padding:26px 0 24px;margin-bottom:34px}
+.venue{font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.paper-title{font-size:clamp(32px,6.4vw,46px);font-weight:600;font-style:italic;letter-spacing:-.02em;line-height:1.06}
+.paper-sub{margin-top:14px;font-size:20px;color:var(--ink2);line-height:1.45;max-width:34rem}
+.byline{margin-top:22px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);line-height:1.7}
+.byline strong{color:var(--ink2);font-weight:500}
+/* abstract block */
+.abstract{background:var(--bg2);border:1px solid var(--rule);border-radius:8px;padding:22px 24px;margin-bottom:18px}
+.abstract h2,.metablock h2{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:500;margin-bottom:11px}
+.abstract p{font-size:17.5px;color:var(--ink2);line-height:1.62}
+.metablock{display:flex;gap:34px;flex-wrap:wrap;margin-bottom:40px;padding:0 2px}
+.metablock .col{flex:1;min-width:200px}
+.metablock p{font-size:16px;color:var(--ink2);line-height:1.5}
+/* body sections */
+.sec-n{margin-top:40px}
+.sec-n h2{font-size:25px;font-weight:600;letter-spacing:-.01em;line-height:1.12;display:flex;gap:13px;align-items:baseline}
+.sec-n h2 .num{font-family:'Geist Mono',monospace;font-size:14px;font-weight:500;color:var(--accent);letter-spacing:.04em;flex:none}
+.sec-n p{margin-top:14px;font-size:18px;color:var(--ink);line-height:1.62}
+.sec-n p+p{margin-top:14px}
+.sec-n em{font-style:italic}
+.eq{display:block;margin:18px 0;text-align:center;font-size:18px;color:var(--ink);font-style:italic}
+.fn{color:var(--accent);text-decoration:none;font-size:.78em;vertical-align:super;font-family:'Geist Mono',monospace}
+/* references */
+.refs{margin-top:48px;border-top:1px solid var(--rule);padding-top:26px}
+.refs h2{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:500;margin-bottom:16px}
+.refs ol{list-style:none;counter-reset:r}
+.refs li{counter-increment:r;position:relative;padding-left:34px;margin-bottom:13px;font-size:15.5px;color:var(--ink2);line-height:1.5}
+.refs li::before{content:"["counter(r)"]";position:absolute;left:0;top:0;font-family:'Geist Mono',monospace;font-size:12px;color:var(--faint)}
+.refs li em{font-style:italic}.refs a{color:var(--accent);text-decoration:none;word-break:break-word}.refs a:hover{text-decoration:underline}
+/* footer */
+.paper-foot{margin-top:44px;border-top:1px solid var(--rule);padding-top:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.03em;color:var(--faint);display:flex;gap:18px;flex-wrap:wrap;align-items:baseline}
+.paper-foot a{color:var(--ink2);text-decoration:none;border-bottom:1px solid var(--rule)}.paper-foot a:hover{color:var(--ink)}
+.backlink{display:inline-block;margin-bottom:20px;font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em;color:var(--faint);text-decoration:none}.backlink:hover{color:var(--ink)}
+</style></head>
+<body>
+<div class="page">
+  <header class="site-header">
+    <span class="brand"><a href="/">Aidan&nbsp;Jude</a></span>
+    <nav class="nav">
+      <a href="/projects.html">dev projects</a>
+      <a href="/research.html" class="active">research</a>
+      <a href="/something-western.html">novel</a>
+      <a href="/reading.html">reading</a>
+      <a href="/study.html">study</a>
+      <a href="/essays.html">essays</a>
+      <a href="/photography.html">35mm photography</a>
+      <a href="/glean/">glean</a>
+    </nav>
+  </header>
+
+  <a class="backlink" href="/research.html">← research</a>
+
+  <div class="masthead">
+    <div class="venue">Columbia University · Analysis of Networks &amp; Crowds</div>
+    <h1 class="paper-title">Literature Mutations</h1>
+    <p class="paper-sub">Measuring the rate at which fiction's genres form and mutate, by modeling literature as a growing network.</p>
+    <div class="byline">
+      <strong>Aidan Jude</strong><br/>
+      Columbia University · <em>Analysis of Networks &amp; Crowds</em> research seminar<br/>
+      Advised by Prof. Augustin Chaintreau · 2021
+    </div>
+  </div>
+
+  <section class="abstract">
+    <h2>Abstract</h2>
+    <p>English Literature's genres have come to serve as its key mode of classification. However, the rate at which genres and subgenres are formed throughout English Literature's history is hardly definitive and primarily determined by experts in the field in a non-analytical fashion — that is, purely on the basis of opinion. Quantitative research to date has primarily focused on the semantics of literature's text and discerning its attributes. Notably, quantitative formalism at Stanford's Literary Lab has shown that natural-language-processing techniques are capable of recognizing novelistic genres by the semantics of a text [8]. Yet this method — and any other quantitative method, as far as published research is concerned — has yet to be applied to analyzing the formation of subgenres and genres as a whole over literature's history, and more specifically to the <em>rate</em> at which new genres and mutated subgenres form. Because literature's genres are hardly static, and contain multitudes spanning poetry, drama, non-fiction, and fiction, this research is focused solely on fiction. I propose to study English Literature's genre-mutation rate, within the bounds of fiction, throughout history — to form an expected value of this rate for the future.</p>
+  </section>
+
+  <div class="metablock">
+    <div class="col">
+      <h2>CCS Concepts</h2>
+      <p>Applied computing → Arts and humanities → Fine Arts</p>
+    </div>
+    <div class="col">
+      <h2>Keywords</h2>
+      <p>Social Networks · English Literature · Genre Mutation</p>
+    </div>
+  </div>
+
+  <section class="sec-n">
+    <h2><span class="num">1</span>Introduction &amp; Background</h2>
+    <p>Up until very recently — relatively speaking — all research in the realm of English Literature was done by non-analytical means. The Western canon, the classification of novels into distinctive genres and subgenres, and even the novels taught in schools fell to the opinionated analysis of the intellectually influential throughout the ages. But for the first time in history, this has begun to change. With the increasing technical aptitude of today's researchers — even those not specifically working in technical fields — we have seen a rise in quantitative techniques applied to fields of historically non-analytical context, more commonly known as the emerging <em>Digital Humanities</em>. This has been further heightened in machine learning and specifically natural language processing, with the increased availability of open-source libraries that allow such analysis to be done with relative ease. And while the foundations of English Literature can hardly be updated to be formed purely on the basis of quantitative analysis — nor should they be — there is still room for quantitative analysis to reveal traits of the field that are veiled to purely qualitative methods.</p>
+    <p>For starters, how would one go about outlining the mutation of fiction's genres using only qualitative means? It would most likely begin by reading hundreds of books, with subsets representing a sparse variation of each genre and subgenre. From here, you would look for semantic indicators within the works themselves, note publication dates, and research the political context at the time of publication to form a timeline of how such genres formed. The obvious flaw in this method is the inherent dispositions we have as humans. These range drastically and in varying degrees, but ultimately inhibit our ability to say decisively that a novel should or shouldn't belong in a given genre. In the ideal case, quantitative formalism provides the means to forgo such dispositions and derive genres by their semantic form, content, and style — much to the utopic state of the term. And perhaps the most important aspect of this quantitative method is that it allows us to examine thousands of texts on a year-by-year basis, per a work's publication year, to build a complete picture of genre inception and mutation.</p>
+    <p>While quantitative formalism provides a means of analyzing texts with minimal disposition, it is limited in viability by the availability of necessary data. That said, quantitative methods are still available for this research problem, and ultimately provide the same ability to discern meaning in a field where little to none currently exists.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">2</span>Data</h2>
+    <p>This research is dependent upon acquiring data surrounding literature published on a year-by-year basis for a given period of time. While it would be ideal to capture every work of fiction published in digital form, spanning as far back as the written word, this is simply not feasible. Instead, there are a couple of ways to build a limited subset of data to serve as the basis of this research.</p>
+    <p><em>(1) Public-domain corpora.</em> In the United States, novels published before January 1, 1925 have lost copyright protection and are in the public domain. A number of corpora across the internet maintain tens of thousands of such texts — notably Project Gutenberg and Google Books. While neither provides every work of English Literature for a given period (say 1825–1925), together they provide a core set of literature's most prominent texts, which are generally the kind of works that come to define genres as they are currently understood.</p>
+    <p><em>(2) Goodreads shelves.</em> A second dataset uses the Goodreads API [4], or simply web-scrapes the Goodreads genre shelves [5], to build a core dataset of novels, their publication dates, and their modernly defined genres based on the shelves users file them under. The upside is that this dataset is far less sparse than the corpora in option (1) — more titles per year — and also provides data from 1925 to the present day, which helps tremendously in forming an expected value for genre mutation as it stands today. As Galton showed [3], it is perhaps more credible than one would initially think to leave the construction of genres to the everyday reader. The downside, when using a novel's <em>Popular Shelves</em> specifically rather than Goodreads' assigned genres, is that the data must be cleansed before being fed into the model — some user shelves such as "Want to Read" do not carry genre qualities the way a shelf like "1900s Westerns" does.</p>
+    <p>Due to the limited nature of the dataset in option (1), the basis of this project is founded upon the data built via option (2). That said, option (1) and its use case are discussed here, since it is the ideal dataset for this type of research and is worth contrasting with option (2) in order to more clearly define the basis upon which the network is formulated and analyzed.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">3</span>Building the Network</h2>
+    <p>Building the network from the acquired data is the next logical step. The network is modeled as a graph <em>G = (V, E)</em>, where the nodes in <em>V</em> represent novels and the edges in <em>E</em> represent a relationship between two given novels. Because the relationship between two novels represents how similar they are, the edges are undirected.</p>
+    <p>The graph is iteratively populated on a year-by-year basis: a single new node is added to <em>V</em> for each novel published in a given year, and edges are added to <em>E</em> for each valid relationship between the new node <em>v ∈ V</em> and some other node <em>u ∈ V</em>, where the validity of the relationship — the similarity measure — is determined by a threshold function <em>t(u, v)</em> → {0, 1}.</p>
+    <p class="eq">G = (V, E),&nbsp;&nbsp;&nbsp; t(u, v) → {0, 1}</p>
+    <p>The natural question becomes how this threshold function is defined. Ultimately, it needs to discern novels that are similar — specifically in terms of the genre(s) each is classified as. Using the Goodreads dataset, we have each novel's shelves available. Goodreads shelves are the way users classify novels when saving them to their library; examples range from fiction's widely accepted genres such as mystery, romance, and fantasy to more exclusive subgenres like urban fantasy, gothic romance, and thrillers. From these shelves we build a factor. For example, if 1,000 users have a novel on their "Mystery" shelf and 3,000 users have the same novel on their "Thriller" shelf, the genre factor for this novel would be <em>{Mystery: .25, Thriller: .75}</em>. From this factor we can determine a level of similarity that serves as the basis for the threshold function deciding whether an edge <em>e ∈ E</em> is present between <em>u, v ∈ V</em>.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">4</span>Genre Clustering Techniques</h2>
+    <p>As the data is iterated on a year-by-year publication basis, the network continues to grow and clusters begin to develop — the largest clusters being fiction's genres, and sub-clusters being the subgenres of a given genre. From this arises perhaps the most pivotal consideration of the proposal: what properties define a cluster and sub-cluster in this network such that it accurately represents genres and subgenres within fiction?</p>
+    <p>One consideration is tuning the threshold function <em>t(u, v)</em> to generate a graph whose number of clusters corresponds to the number of widely accepted genres of fiction, using partitional clustering methods [1]. However, classifying definitive fiction genres is an area of intense debate and minimal consensus in English Literature. Additionally, a partitional method organizes data into non-overlapping groups, which seems like an over-generalization for a body of data that is excessively diverse and inherently spans multiple genres and subgenres. That said, it does provide a clear method of forming a desired number of genre clusters and tuning the threshold function to meet that criterion.</p>
+    <p>Alternatively, a hierarchical clustering method [1] seems more natural, since genres and subgenres are intrinsically related. This raises the further question of whether a top-down (divisive) or bottom-up (agglomerative) approach should be used — which leads to the consideration of whether genres are inherently formed by their subsequent subgenres, or whether subgenres form as an effectuation of overarching genres [6]. Perhaps this could be answered by watching the graph form as a whole on a year-by-year publication basis.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">5</span>Determining Expected Value</h2>
+    <p>From the formation of a network of fictional novels based on genre similarity, we can ultimately discern the rate at which clusters fabricate and subgenres mutate. This rate, compared on a year-by-year publication basis, provides insight into the expected number of genre mutations within fiction's genus in the years to come.</p>
+    <p>The obvious questions concern how this expected valuation is determined. Is it simply a linear regression that forms this expected value? Or, due to the increasing variability of subgenres, should it be an application of the power law? Determination of an appropriate expected-value function would ultimately depend heavily on the properties of the resulting data itself.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">6</span>Alternative Methods</h2>
+    <p>As noted earlier, an alternative dataset for this research would be digital copies of novels analyzed using quantitative-formalism techniques to discern genre from the ground up — that is, with as minimal human disposition as possible. This dataset would instead utilize Language Action Types (LATs) to quantify the type, content, and style of novels. LATs, as used by Jonathan Hope and Michael Witmore [7] via the text-tagging device Docuscope [2], are a collection of functional linguistic categories that classify more than 200 million possible strings of English. Thereby, LATs would replace Goodreads shelves when classifying a novel's inherent qualities.</p>
+    <p>Whether using LATs or Goodreads shelves, once the underlying novels have their genre properties exposed quantitatively, the process of building the network, performing cluster analysis, and evaluating expected values for genre mutation would be nearly identical — with the exception of the threshold function, which would be tuned specifically to the data being used.</p>
+  </section>
+
+  <section class="sec-n">
+    <h2><span class="num">7</span>Discussion</h2>
+    <p>While there are uncertainties surrounding the acquisition and preparation of the data required for this research, there is a straightforwardness of method and an extensiveness of impact that make intriguing results a strong possibility. Moreover, for hundreds — if not thousands — of years, English Literature has perhaps been the most kaleidoscopic examination of the human condition we have come to acquaint ourselves with. Divulging its inherent genre patterns therefore seems a worthwhile and edifying venture.</p>
+  </section>
+
+  <section class="refs">
+    <h2>References</h2>
+    <ol>
+      <li>A. P. Reynolds, G. Richards, B. De La Iglesia, and V. J. Rayward-Smith. 2006. Clustering Rules: A Comparison of Partitioning and Hierarchical Clustering Algorithms. <em>Journal of Mathematical Modelling and Algorithms</em> 5, 4 (2006), 475–504. <a href="https://doi.org/10.1007/s10852-005-9022-1" target="_blank" rel="noopener">doi:10.1007/s10852-005-9022-1</a></li>
+      <li>David S. Kaufer, Suguru Ishizaki, Brian S. Butler, and Jeff Collins. 2013. <em>The Power of Words: Unveiling the Speaker and Writer's Hidden Craft.</em> New York, NY: Routledge.</li>
+      <li>Francis Galton. 1907. Vox Populi. <em>Nature</em> 75, 450–451. <a href="https://doi.org/10.1038/075450a0" target="_blank" rel="noopener">doi:10.1038/075450a0</a></li>
+      <li>Goodreads Inc. 2020. Goodreads API. <a href="https://www.goodreads.com/api" target="_blank" rel="noopener">goodreads.com/api</a></li>
+      <li>Goodreads Inc. 2020. Goodreads Genres. <a href="https://www.goodreads.com/genres/list" target="_blank" rel="noopener">goodreads.com/genres/list</a></li>
+      <li>John E. Stone, Juan R. Perilla, Keith Cassidy, and Klaus Schulten. 2017. Chapter 11 — GPU-accelerated Molecular Dynamics Clustering Analysis with OpenACC. In <em>Parallel Programming with OpenACC</em> (Rob Farber, ed.), 215–240.</li>
+      <li>Jonathan Hope and Michael Witmore. 2004. The Very Large Textual Object: A Prosthetic Reading of Shakespeare. <em>Early Modern Literary Studies</em> 9, 3 (January 2004), 6–36.</li>
+      <li>Sarah Allison, Ryan Heuser, Matthew Jockers, Franco Moretti, and Michael Witmore. 2011. Quantitative Formalism: An Experiment. (January 2011). <a href="https://litlab.stanford.edu/LiteraryLabPamphlet1.pdf" target="_blank" rel="noopener">Stanford Literary Lab, Pamphlet 1</a></li>
+    </ol>
+  </section>
+
+  <div class="paper-foot">
+    <span>Code &amp; implementation: <a href="https://github.com/2016judea/literature-mutations" target="_blank" rel="noopener">github.com/2016judea/literature-mutations ↗</a></span>
+    <span><a href="/research.html">← back to research</a></span>
+  </div>
+</div>
+</body></html>
